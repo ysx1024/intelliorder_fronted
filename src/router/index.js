@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminManagement from '../views/Admin/AdminManagement.vue'
 import CookerInformation from '../views/Cook/CookerInformation.vue'
+import CookDishlist from "../views/Cook/CookDishlist.vue";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -10,7 +12,11 @@ const routes = [
     name: 'CookerInformation',
     component: CookerInformation
   },
-
+  {
+    path: '/cook/cookDishlist',
+    name: 'CookDishlist',
+    component: CookDishlist
+  },
   {
     path: '/admin/adminmanagement',
     name: 'AdminManagement',

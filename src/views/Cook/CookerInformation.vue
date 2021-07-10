@@ -10,6 +10,7 @@
 
 <script>
 import CookerHeader from "../../components/CookerHeader";
+import api from "@/util/api";
 
 export default {
   components: {CookerHeader},
@@ -23,11 +24,17 @@ export default {
         cookType:"川菜"
       }
     }
+  },
+  mounted() {
+    console.log(api.path)
   }
 }
 </script>
 
 <style scoped>
+  .CookerInformation{
+    margin: 0 auto;
 
+  }
 
 </style>

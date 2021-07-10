@@ -1,15 +1,13 @@
 <template>
   <div>
-    <el-menu
-        :default-active="activeIndex2"
-        class="CookerHeader"
-        mode="horizontal"
-        @select="handleSelect"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-      <el-menu-item class="cookerWork" index="2" >工作</el-menu-item>
-      <el-menu-item  class="cookerPerson" index="1">个人中心</el-menu-item>
+    <el-menu :default-active="this.$route.path" router mode="horizontal"
+             background-color="#545c64"
+             text-color="#fff"
+             active-text-color="#ffd04b"
+    >
+      <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.path">
+        {{ item.name }}
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
@@ -17,9 +15,12 @@
 <script>
 export default {
   name: "CookerHeader",
-  data(){
-    return{
-      activeIndex2: '1'
+  data() {
+    return {
+      navList:[
+        {path:'/cook/cookDishlist',name:'待做菜品'},
+        {path:'/cook/cookerInformation',name:'个人中心'}
+      ]
     }
   },
   methods: {
@@ -31,16 +32,9 @@ export default {
 </script>
 
 <style scoped>
-  .CookerHeader{
+
+  .el-menu-item{
     margin: 0 auto;
-    width: 640px;
-  }
-  .cookerWork{
-    margin: 0 auto;
-    width: 320px;
-  }
-  .cookerPerson{
-    margin: 0 auto;
-    width: 320px;
+    width: 50%;
   }
 </style>
