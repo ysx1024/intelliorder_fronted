@@ -4,9 +4,15 @@
     <el-table
         :data="dishList"
         border
-        style="width: 100%">
+        style="width: 100%"
+        :default-sort = "{prop: 'orderTime', order: 'ascending'}">
       <el-table-column
-          prop="deskNum"
+          prop="orderId"
+          label="订单号"
+          width="180">
+      </el-table-column>
+      <el-table-column
+          prop="deskId"
           label="桌号"
           width="180">
       </el-table-column>
@@ -39,28 +45,48 @@ export default {
   data() {
     return {
       dishList: [{
-        deskNum: '03',
-        dishId: '烧茄子',
-        dishNum: '2',
-        orderTime:'2021-07-10'
-      },
-        {
-          deskNum: '05',
-          dishId: '烧茄子',
-          dishNum: '2',
-          orderTime:'2021-07-10'
+        orderId: "0926786151",
+        orderTime: "2021-07-12-12-30",
+        dishId: "烧茄子",
+        dishNum: "1",
+        openId: "某位顾客",
+        deskId: "07",
+        price: "36",
+        totalPrice: "79",
+        Status: "0"
         },
         {
-          deskNum: '07',
-          dishId: '烧茄子',
-          dishNum: '2',
-          orderTime:'2021-07-10'
+          orderId: "0926781751",
+          orderTime: "2021-07-12-18-30",
+          dishId: "烧茄子",
+          dishNum: "1",
+          openId: "某位顾客",
+          deskId: "07",
+          price: "36",
+          totalPrice: "79",
+          Status: "0"
         },
         {
-          deskNum: '01',
-          dishId: '烧茄子',
-          dishNum: '2',
-          orderTime:'2021-07-10'
+          orderId: "0926986751",
+          orderTime: "2021-07-12-14-30",
+          dishId: "烧茄子",
+          dishNum: "1",
+          openId: "某位顾客",
+          deskId: "07",
+          price: "36",
+          totalPrice: "79",
+          Status: "0"
+        },
+        {
+          orderId: "0926785751",
+          orderTime: "2021-07-12-11-30",
+          dishId: "烧茄子",
+          dishNum: "1",
+          openId: "某位顾客",
+          deskId: "07",
+          price: "36",
+          totalPrice: "79",
+          Status: "0"
         }]
     }
   },
