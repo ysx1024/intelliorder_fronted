@@ -9,7 +9,7 @@ npm<template>
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b">
-      <el-menu-item index="1">
+      <el-menu-item index="/admin/admindishmanage">
         <i class="el-icon-dish-1"></i>
         <span>菜单管理</span>
       </el-menu-item>
@@ -34,8 +34,6 @@ export default {
   name: 'AdminHeader',
   data() {
     return {
-      activeIndex: '1',
-      activeIndex2: '1'
     };
   },
   methods: {
