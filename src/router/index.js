@@ -39,9 +39,8 @@ const routes = [
     path: '/waiter/waiterInformation',
     name: 'WaiterInformation',
     component: WaiterInformation
-  },
+  }
 ]
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,

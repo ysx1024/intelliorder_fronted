@@ -12,28 +12,22 @@
         <template slot-scope="props">
           <el-form label-position="left" inline class="demo-table-expand">
             <el-form-item label="菜品编号">
-              <span>{{ props.row.name }}</span>
-            </el-form-item>
-            <el-form-item label="商品类别">
-              <span>{{ props.row.desc }}</span>
+              <span>{{ props.row.dishId }}</span>
             </el-form-item>
             <el-form-item label="菜品名称">
-              <span>{{ props.row.shop }}</span>
+              <span>{{ props.row.dishName }}</span>
             </el-form-item>
-            <el-form-item label="菜品上架时间">
-              <span>{{ props.row.id }}</span>
-            </el-form-item>
-            <el-form-item label="菜品价格">
-              <span>{{ props.row.shopId }}</span>
-            </el-form-item>
-            <el-form-item label="菜品描述">
-              <span>{{ props.row.category }}</span>
-            </el-form-item>
-            <el-form-item label="成本">
-              <span>{{ props.row.address }}</span>
+            <el-form-item label="菜品类别">
+              <span>{{ props.row.dishType }}</span>
             </el-form-item>
             <el-form-item label="菜品售价">
-              <span>{{ props.row.address }}</span>
+              <span>{{ props.row.dishPrice }}</span>
+            </el-form-item>
+            <el-form-item label="菜品描述">
+              <span>{{ props.row.dishDesc }}</span>
+            </el-form-item>
+            <el-form-item label="成本">
+              <span>{{ props.row.costPrice }}</span>
             </el-form-item>
           </el-form>
         </template>
@@ -44,17 +38,14 @@
       </el-table-column>
       <el-table-column label="菜品名称" prop="dishName" width="200">
       </el-table-column>
-      <el-table-column label="菜品价格" prop="dishPrice" width="200">
+      <el-table-column label="菜品售价" prop="dishPrice" width="200">
       </el-table-column>
-      <el-table-column
-          label="菜品状态" width="240">
+      <el-table-column label="下架/上架" prop="dishState" width="140">
         <template slot-scope="scope">
-          <el-switch
-              v-model="dishState"
-              active-text="上架"
-              inactive-text="下架">
+          <el-switch v-model="scope.row.dishState" active-text=" " inactive-text=" "
+                     active-value=true inactive-value=false
+          @change="changeSwitch($event,scope.row,scope.$index)">
           </el-switch>
-<!--          <el-button  @click.native.prevent="getrows(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -72,54 +63,26 @@ export default {
   },
   data() {
     return {
-      //返回的数组，因为还没有返回所以是空的
-      //BookList:[],
-      //假数据在table里显示
       dishState: true,
       tableData: [{
-        dishId: '01',
-        dishName: '吴艳',
-        phone: '186****1234',
-        account:'0',
-        password:'0',
-        staffTpye:'0'
-      }, {
-        id: '02',
-        name: '徐欣霞',
-        phone: '135****1369',
-        account:'0',
-        password:'0',
-        staffTpye:'1'
-      },{
-        id: '03',
-        name: '吴珩',
-        phone: '183****1494',
-        account:'0',
-        password:'0',
-        staffTpye:'1'
-      },{
-        id: '04',
-        name: '李明',
-        phone: '186****1234',
-        account:'0',
-        password:'0',
-        staffTpye:'0'
+        dishId: '',
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:'',
+        dishState:''
       }]
     }
   },
   mounted() {
-    //post请求，没有参数
-    //var path = api.path+"";
-    //this.axios.post(path).then((response)=>{
-      //console.log(response)
-      //返回的数据赋值
-      //this.BookList = response.data.data.rows
-    //})
+
   },
   methods:{
-    //getrows(row){
-      //console.log(row.ID)
-   // }
+    changeSwitch(data,b,index){
+
+    }
   }
 }
 </script>
