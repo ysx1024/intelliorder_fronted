@@ -2,9 +2,8 @@
   <div>
     <CookerHeader></CookerHeader>
     <el-table
-        :data="dishList"
-        border
-        style="width: 100%"
+        :data="dishList" border style="width: 100%"
+        :header-cell-style="{background:'#eef1f6',color:'#606266'}"
         :default-sort = "{prop: 'orderTime', order: 'ascending'}">
       <el-table-column
           prop="orderId"
@@ -29,6 +28,13 @@
           prop="orderTime"
           label="下单时间"
           width="180">
+      </el-table-column>
+      <el-table-column
+          label="操作"
+          width="180">
+        <template slot-scope="scope">
+          <el-button  @click.native.prevent="determine(scope.row)" type="warning" round>制作完成</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -57,7 +63,7 @@ export default {
         },
         {
           orderId: "0926781751",
-          orderTime: "2021-07-12-18-30",
+          orderTime: "2021-07-14-18-30",
           dishId: "烧茄子",
           dishNum: "1",
           openId: "某位顾客",
@@ -92,6 +98,11 @@ export default {
   },
   mounted() {
     console.log(api.path)
+  },
+  methods:{
+    determine(row){
+      console.log(row.orderId)
+    }
   }
 }
 </script>

@@ -1,0 +1,187 @@
+<template>
+  <div>
+  <ReceptionHeader></ReceptionHeader>
+    <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
+    <el-form class="el-form-1" label-width="180px" :model="receptionData">
+      <el-form-item label="编号">
+        {{receptionData.id}}&nbsp;&nbsp;
+      </el-form-item>
+      <el-form-item label="员工账号">
+        {{receptionData.account}}
+        &nbsp;&nbsp;
+        <el-button class="el-button-1"
+                   type="text" icon="el-icon-edit"
+                   @click="dialogVisibleAccout = true" >修改</el-button>
+      </el-form-item>
+      <el-form-item label="员工姓名">
+        {{receptionData.name}}&nbsp;&nbsp;
+      </el-form-item>
+      <el-form-item label="员工电话">
+        {{receptionData.phone}}
+        &nbsp;&nbsp;
+        <el-button class="el-button-1"
+                   type="text" icon="el-icon-edit"
+                   @click="dialogVisiblePhone = true" >修改</el-button>
+      </el-form-item>
+      <el-form-item label="职位">
+        {{receptionData.staffType}}&nbsp;&nbsp;
+      </el-form-item>
+      <el-form-item size="large" label="密码">
+        {{receptionData.password}}
+        &nbsp;&nbsp;
+        <el-button class="el-button-1"
+                   type="text" icon="el-icon-edit"
+                   @click="dialogVisiblePassward = true" >修改</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-dialog
+        title="修改账号"
+        :visible.sync="dialogVisibleAccout"
+        width="400px"
+        :before-close="handleClose">
+      <el-form  label-width="100px" >
+        <el-form-item label="账号">
+          <el-input type="text" v-model="receptionData.account"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit(); dialogVisibleAccout = false" >提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+    <el-dialog
+        title="修改电话"
+        :visible.sync="dialogVisiblePhone"
+        width="400px"
+        :before-close="handleClose">
+      <el-form  label-width="100px" >
+        <el-form-item label="电话">
+          <el-input type="text" v-model="receptionData.phone"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit();dialogVisiblePhone = false">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+    <el-dialog
+        title="修改密码"
+        :visible.sync="dialogVisiblePassward"
+        width="400px"
+        :before-close="handleClose">
+      <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="密码" prop="pass">
+          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="确认密码" prop="checkPass">
+          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm2');dialogVisiblePassward = false">提交</el-button>
+          <el-button @click="resetForm('ruleForm2')">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+  </div>
+</template>
+
+<script>
+
+import ReceptionHeader from "../../components/ReceptionHeader";
+
+export default {
+  components: {ReceptionHeader},
+  comments:{ReceptionHeader},
+  data() {
+    var validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入密码'));
+      } else {
+        if (this.ruleForm2.checkPass !== '') {
+          this.$refs.ruleForm2.validateField('checkPass');
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入密码'));
+      } else if (value !== this.ruleForm2.pass) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
+    return {
+      ruleForm2: {
+        pass: '',
+        checkPass: ''
+      },
+      rules2: {
+        pass: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        checkPass: [
+          { validator: validatePass2, trigger: 'blur' }
+        ]
+      },
+      dialogVisiblePassward: false,
+      dialogVisiblePhone: false,
+      dialogVisibleAccout: false,
+      receptionData: {
+        account: "16836546837",
+        password: "12345",
+        id: "043",
+        phone: "16836546837",
+        name: "李红",
+        staffType: "前台"
+      }
+    }
+  },
+  methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.receptionData.password=this.ruleForm2.checkPass;
+          console.log(this.receptionData.password);
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    onSubmit() {
+      console.log('submit!');
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .el-form-1{
+    margin-left: 200px;
+    width: 640px;
+    color: #556B2F;
+    background-color: azure;
+  }
+  .img-reception{
+    width: 150px;
+    height: 150px;
+  }
+  .el-button-1{
+    width: 100px;
+  }
+
+</style>
