@@ -4,11 +4,19 @@
              background-color="#545c64"
              text-color="#fff"
              active-text-color="#ffd04b">
-      <el-menu-item index="/cook/cookDishlist">
+      <el-menu-item index="/">
         <i class="el-icon-menu"></i>
-        <span>待做菜品</span>
+        <span>待付款订单</span>
       </el-menu-item>
-      <el-menu-item index="/cook/cookerInformation">
+      <el-menu-item index="/">
+        <i class="el-icon-user"></i>
+        <span>叫号</span>
+      </el-menu-item>
+      <el-menu-item index="/">
+        <i class="el-icon-user"></i>
+        <span>发布公告</span>
+      </el-menu-item>
+      <el-menu-item index="/reception/receptionInformation">
         <i class="el-icon-user"></i>
         <span>个人中心</span>
       </el-menu-item>
@@ -18,15 +26,14 @@
 
 <script>
 export default {
-  name: "CookerHeader",
+  name: "ReceptionHeader"
 }
 </script>
 
 <style scoped>
-
   .el-menu-item{
     margin: 0 auto;
-    width: 20%;
+    width: 15%;
     height: 140px;
   }
 </style>
