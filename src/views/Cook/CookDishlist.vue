@@ -6,8 +6,8 @@
         :header-cell-style="{background:'#eef1f6',color:'#606266'}"
         :default-sort = "{prop: 'orderTime', order: 'ascending'}">
       <el-table-column
-          prop="orderId"
-          label="订单号"
+          prop="listId"
+          label="序号"
           width="180">
       </el-table-column>
       <el-table-column
@@ -30,10 +30,17 @@
           width="180">
       </el-table-column>
       <el-table-column
-          label="操作"
+          label="接单"
           width="180">
         <template slot-scope="scope">
-          <el-button  @click.native.prevent="determine(scope.row)" type="warning" round>制作完成</el-button>
+          <el-button  @click.native.prevent="acceptOrder(scope.row)" type="warning" round>接单</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+          label="完成"
+          width="180">
+        <template slot-scope="scope">
+          <el-button  @click.native.prevent="orderCompleted(scope.row)" type="warning" round>完成</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -51,57 +58,33 @@ export default {
   data() {
     return {
       dishList: [{
-        orderId: "0926786151",
-        orderTime: "2021-07-12-12-30",
-        dishId: "烧茄子",
-        dishNum: "1",
-        openId: "某位顾客",
-        deskId: "07",
-        price: "36",
-        totalPrice: "79",
-        Status: "0"
-        },
-        {
-          orderId: "0926781751",
-          orderTime: "2021-07-14-18-30",
-          dishId: "烧茄子",
-          dishNum: "1",
-          openId: "某位顾客",
-          deskId: "07",
-          price: "36",
-          totalPrice: "79",
-          Status: "0"
-        },
-        {
-          orderId: "0926986751",
-          orderTime: "2021-07-12-14-30",
-          dishId: "烧茄子",
-          dishNum: "1",
-          openId: "某位顾客",
-          deskId: "07",
-          price: "36",
-          totalPrice: "79",
-          Status: "0"
-        },
-        {
-          orderId: "0926785751",
-          orderTime: "2021-07-12-11-30",
-          dishId: "烧茄子",
-          dishNum: "1",
-          openId: "某位顾客",
-          deskId: "07",
-          price: "36",
-          totalPrice: "79",
-          Status: "0"
-        }]
+        orderId: '',
+        orderTime: '',
+        openId: '',
+        deskId: '',
+        id: '',
+        listId:'',
+        dishId: '',
+        dishNum: '',
+        dishPrice: '',
+        listStatus: ''
+      }]
     }
   },
   mounted() {
-    console.log(api.path)
+    var path = "/Data/orderList.json"
+    this.axios.get(path).then((response)=>{
+      this.dishList=response.data.data
+    })
   },
   methods:{
-    determine(row){
-      console.log(row.orderId)
+    acceptOrder(row){
+      //向后端传参数：订单明细序号，厨师Id，状态值=1
+      console.log(row.listId)
+    },
+    orderCompleted(row){
+      //向后端传参数：订单明细序号，厨师Id，状态值=2
+      console.log(row.listId)
     }
   }
 }

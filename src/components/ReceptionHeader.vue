@@ -4,7 +4,7 @@
              background-color="#545c64"
              text-color="#fff"
              active-text-color="#ffd04b">
-      <el-menu-item index="/">
+      <el-menu-item index="/reception/orderList">
         <i class="el-icon-menu"></i>
         <span>待付款订单</span>
       </el-menu-item>
