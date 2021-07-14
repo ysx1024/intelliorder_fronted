@@ -10,7 +10,7 @@
         :default-sort = "{prop: 'dishId', order: 'ascending'}">
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
+          <el-form label-position="left" inline class="table-expand">
             <el-form-item label="菜品编号">
               <span>{{ props.row.dishId }}</span>
             </el-form-item>
@@ -87,14 +87,14 @@ export default {
 }
 </script>
 <style scoped>
-.demo-table-expand {
+.table-expand {
   font-size: 0;
 }
-.demo-table-expand label {
+.table-expand label {
   width: 90px;
   color: #99a9bf;
 }
-.demo-table-expand {
+.table-expand {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
