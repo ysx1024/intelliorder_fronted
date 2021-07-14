@@ -72,6 +72,9 @@
         width="400px"
         :before-close="handleClose">
       <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+        <el-form-item label="旧密码" prop="oldPass">
+          <el-input type="password" v-model="ruleForm2.oldPass" auto-complete="off"></el-input>
+        </el-form-item>
         <el-form-item label="密码" prop="pass">
           <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
         </el-form-item>
@@ -79,7 +82,7 @@
           <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm2');dialogVisiblePassward = false">提交</el-button>
+          <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
           <el-button @click="resetForm('ruleForm2')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -120,6 +123,7 @@ export default {
      return {
        //该数据结构保存修改密码的中间变量
       ruleForm2: {
+        oldPass:'',
         pass: '',
         checkPass: ''
       },
@@ -159,7 +163,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.cookData.password=this.ruleForm2.checkPass;
-          console.log(this.cookData.password);
+          this.dialogVisiblePassward = false;
+          this.$refs[formName].resetFields();
         } else {
           console.log('error submit!!');
           return false;

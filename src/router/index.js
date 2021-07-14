@@ -6,6 +6,7 @@ import CookerInformation from '../views/Cook/CookerInformation.vue'
 import CookDishlist from "../views/Cook/CookDishlist.vue";
 import ReceptionInformation from "../views/Reception/ReceptionInformation"
 import WaiterInformation from "../views/Waiter/WaiterInformation"
+import OrderList from "../views/Reception/OrderList";
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/reception/receptionInformation',
     name: 'ReceptionInformation',
     component: ReceptionInformation
+  },
+  {
+    path: '/reception/orderList',
+    name: 'OrderList',
+    component: OrderList
   },
   {
     path: '/waiter/waiterInformation',

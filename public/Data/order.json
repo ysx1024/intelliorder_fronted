@@ -1,0 +1,31 @@
+{
+  "status": "200",
+  "data": [{
+    "orderId": "0001",
+    "orderTime": "2021-07-12-14-35",
+    "deskId": "03",
+    "totalPrice": "120",
+    "Status": "0"
+  },
+    {
+      "orderId": "0002",
+      "orderTime": "2021-07-12-14-41",
+      "deskId": "05",
+      "totalPrice": "180",
+      "Status": "0"
+    },
+    {
+      "orderId": "0003",
+      "orderTime": "2021-07-12-15-35",
+      "deskId": "07",
+      "totalPrice": "220",
+      "Status": "0"
+    },
+    {
+      "orderId": "0004",
+      "orderTime": "2021-07-14-14-35",
+      "deskId": "01",
+      "totalPrice": "360",
+      "Status": "0"
+    }]
+}

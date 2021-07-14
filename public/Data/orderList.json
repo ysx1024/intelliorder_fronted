@@ -1,0 +1,91 @@
+{"status":"200",
+  "data":[{
+    "listId": "01",
+    "orderId": "",
+    "orderTime": "2021-07-12-14-35",
+    "openId": "",
+    "deskId": "03",
+    "id": "",
+    "dishId": "烧茄子",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-14-35",
+    "openId": "",
+    "deskId": "03",
+    "id": "",
+    "listId": "02",
+    "dishId": "干煸土豆丝",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-14-35",
+    "openId": "",
+    "deskId": "03",
+    "id": "",
+    "listId": "03",
+    "dishId": "红烧肉",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-14-41",
+    "openId": "",
+    "deskId": "05",
+    "id": "",
+    "listId": "04",
+    "dishId": "红烧鲫鱼",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-14-41",
+    "openId": "",
+    "deskId": "05",
+    "id": "",
+    "listId": "05",
+    "dishId": "凉拌牛肉",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-15-35",
+    "openId": "",
+    "deskId": "07",
+    "id": "",
+    "listId": "06",
+    "dishId": "麻辣兔串",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-12-15-35",
+    "openId": "",
+    "deskId": "07",
+    "id": "",
+    "listId": "07",
+    "dishId": "番茄鸡蛋",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  },{
+    "orderId": "",
+    "orderTime": "2021-07-14-14-35",
+    "openId": "",
+    "deskId": "01",
+    "id": "",
+    "listId": "08",
+    "dishId": "紫菜蛋花汤",
+    "dishNum": "1",
+    "dishPrice": "15",
+    "listStatus": "0"
+  }
+  ]}
