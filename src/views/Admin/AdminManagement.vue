@@ -80,10 +80,10 @@
             <el-input clearable v-model="modifyForm.account"></el-input>
           </el-form-item>
           <el-form-item label="输入新密码" prop="password">
-            <el-input show-password v-model="modifyForm.password"></el-input>
+            <el-input show-password autocomplete="off" v-model="modifyForm.password"></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="confirmpwd">
-            <el-input show-password v-model="modifyForm.confirmpwd"></el-input>
+            <el-input show-password autocomplete="off" v-model="modifyForm.confirmpwd"></el-input>
           </el-form-item>
           <el-form-item label="选择职位" prop="staffTpye">
             <el-radio-group v-model="modifyForm.staffTpye">

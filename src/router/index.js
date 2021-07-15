@@ -7,7 +7,9 @@ import CookDishlist from "../views/Cook/CookDishlist.vue";
 import ReceptionInformation from "../views/Reception/ReceptionInformation"
 import WaiterInformation from "../views/Waiter/WaiterInformation"
 import OrderList from "../views/Reception/OrderList";
-
+import BusinessData from "../views/Admin/BusinessData";
+import AdminInformation from "../views/Admin/AdminInformation";
+import Login from "../views/Login/Login";
 Vue.use(VueRouter)
 
 const routes = [
@@ -32,6 +34,15 @@ const routes = [
     component: AdminDishManage
   },
   {
+    path: '/admin/businessdata',
+    name: 'BusinessData',
+    component: BusinessData
+  },{
+    path: '/admin/admininformation',
+    name: 'AdminInformation',
+    component: AdminInformation
+  },
+  {
     path: '/reception/receptionInformation',
     name: 'ReceptionInformation',
     component: ReceptionInformation
@@ -45,6 +56,11 @@ const routes = [
     path: '/waiter/waiterInformation',
     name: 'WaiterInformation',
     component: WaiterInformation
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   }
 ]
 const router = new VueRouter({

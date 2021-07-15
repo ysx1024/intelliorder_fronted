@@ -17,11 +17,11 @@ npm<template>
         <i class="el-icon-setting"></i>
         <span>员工管理</span>
       </el-menu-item>
-      <el-menu-item index="3">
+      <el-menu-item index="/admin/businessdata">
         <i class="el-icon-bank-card"></i>
         <span>经营数据</span>
       </el-menu-item>
-      <el-menu-item index="4">
+      <el-menu-item index="/admin/admininformation">
         <i class="el-icon-user-solid"></i>
         <span>个人中心</span>
       </el-menu-item>

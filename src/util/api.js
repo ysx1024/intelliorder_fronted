@@ -1,3 +1,3 @@
 module.exports = {
-    root:"http://ip:8081/"
+    /*root:"http://ip:8081/"*/
 }
