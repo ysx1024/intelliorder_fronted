@@ -33,7 +33,14 @@
           label="接单"
           width="180">
         <template slot-scope="scope">
-          <el-button  @click.native.prevent="acceptOrder(scope.row)" type="warning" round>接单</el-button>
+          <el-button v-if="scope.row.listStatus=='0'"
+                     @click.native.prevent="acceptOrder(scope.row)"
+                     style="width:100px" type="warning" round>
+            接单</el-button>
+          <el-button v-if="scope.row.listStatus=='1'"
+                     @click.native.prevent="acceptOrder(scope.row)"
+                     style="width:100px" type="success" round>
+            已接单</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -46,6 +53,8 @@
     </el-table>
   </div>
 </template>
+
+//菜单发生变化时，界面给出提示音
 
 <script>
 import CookerHeader from "../../components/CookerHeader";
@@ -81,6 +90,7 @@ export default {
     acceptOrder(row){
       //向后端传参数：订单明细序号，厨师Id，状态值=1
       console.log(row.listId)
+      row.listStatus="1"
     },
     orderCompleted(row){
       //向后端传参数：订单明细序号，厨师Id，状态值=2
