@@ -4,7 +4,7 @@
              background-color="#545c64"
              text-color="#fff"
              active-text-color="#ffd04b">
-      <el-menu-item index="/">
+      <el-menu-item index="/waiter/service">
         <i class="el-icon-menu"></i>
         <span>服务</span>
       </el-menu-item>
