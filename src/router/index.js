@@ -9,7 +9,10 @@ import WaiterInformation from "../views/Waiter/WaiterInformation"
 import OrderList from "../views/Reception/OrderList";
 import BusinessData from "../views/Admin/BusinessData";
 import AdminInformation from "../views/Admin/AdminInformation";
+import Service from "../views/Waiter/Service";
 import Login from "../views/Login/Login";
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,6 +59,11 @@ const routes = [
     path: '/waiter/waiterInformation',
     name: 'WaiterInformation',
     component: WaiterInformation
+  },
+  {
+    path: '/waiter/service',
+    name: 'Service',
+    component: Service
   },
   {
     path: '/login',
