@@ -1,30 +1,51 @@
 {"status":"200",
   "data":[{
-    "id": "01",
+    "staffId": "01",
     "name": "吴艳",
-    "phone": "186****1234",
-    "account":"0",
-    "password":"0",
+    "phone": "18637291259",
+    "account":"18637291259",
+    "password":"123456",
     "staffTpye":"服务员"
   }, {
-    "id": "02",
+    "staffId": "02",
     "name": "徐欣霞",
-    "phone": "135****1369",
-    "account":"0",
-    "password":"0",
+    "phone": "13506231369",
+    "account":"13506231369",
+    "password":"123456",
     "staffTpye":"厨师"
   },{
-    "id": "03",
+    "staffId": "03",
     "name": "吴珩",
-    "phone": "183****1494",
-    "account":"0",
-    "password":"0",
+    "phone": "18352752696",
+    "account":"18352752696",
+    "password":"123456",
     "staffTpye":"前台"
   },{
-    "id": "04",
+    "staffId": "04",
     "name": "李明",
-    "phone": "186****1234",
-    "account":"0",
-    "password":"0",
+    "phone": "15927678570",
+    "account":"15927678570",
+    "password":"123456",
+    "staffTpye":"服务员"
+  },{
+    "staffId": "05",
+    "name": "黄家勇",
+    "phone": "17023841462",
+    "account":"17023841462",
+    "password":"123456",
+    "staffTpye":"厨师"
+  },{
+    "staffId": "06",
+    "name": "黄家勇",
+    "phone": "17023841462",
+    "account":"17023841462",
+    "password":"123456",
+    "staffTpye":"厨师"
+  },{
+    "staffId": "07",
+    "name": "苏辉",
+    "phone": "16742730266",
+    "account":"16742730266",
+    "password":"123456",
     "staffTpye":"服务员"
   }]}
