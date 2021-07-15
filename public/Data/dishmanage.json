@@ -1,0 +1,50 @@
+{
+  "status":"200",
+  "data": [{
+    "dishId": "01",
+    "dishName": "酱烧肘子肉肉",
+    "dishType": "特色菜肴",
+    "dishPrice": "48.0",
+    "dishImage": "",
+    "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+    "costPrice":"28",
+    "dishState":"true"
+  },{
+    "dishId": "02",
+    "dishName": "香辣烤鱼",
+    "dishType": "特色菜肴",
+    "dishPrice": "38.0",
+    "dishImage": "",
+    "dishDesc":"只想做专属你的鱼，没想到你却把我烤了",
+    "costPrice":"20",
+    "dishState":"true"
+  },{
+    "dishId": "03",
+    "dishName": "鱼香肉丝",
+    "dishType": "特色菜肴",
+    "dishPrice": "29.0",
+    "dishImage": "",
+    "dishDesc":"鱼香肉丝里没有鱼，东坡肉里也跑不出苏东坡",
+    "costPrice":"10",
+    "dishState":"true"
+  },{
+    "dishId": "04",
+    "dishName": "米饭",
+    "dishType": "主食",
+    "dishPrice": "2",
+    "dishImage": "",
+    "dishDesc":"干饭人不可缺少的快乐",
+    "costPrice":"0.3",
+    "dishState":"true"
+  },
+    {
+      "dishId": "05",
+      "dishName": "油泼面",
+      "dishType": "主食",
+      "dishPrice": "19.0",
+      "dishImage": "",
+      "dishDesc":"牛肉油泼biangbiang面，哎，biang字怎么写的来着？",
+      "costPrice":"6",
+      "dishState":"true"
+    }]
+}

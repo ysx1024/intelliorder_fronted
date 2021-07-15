@@ -1,7 +1,7 @@
 <template>
   <div class="AdminManagement">
-  <AdminHeader></AdminHeader>
-<!--               form表存放查询和添加操作需要的组件            -->
+    <AdminHeader></AdminHeader>
+    <!--               form表存放查询和添加操作需要的组件            -->
     <el-form :inline="true" :model="formInline" class="form-inline">
       <el-form-item>
         <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline"
@@ -11,7 +11,7 @@
         <el-input prefix-icon="el-icon-search"
                   style="width: 130px"
                   clearable
-                  v-model="formInline.id" placeholder="员工编号"></el-input>
+                  v-model="formInline.staffId" placeholder="员工编号"></el-input>
       </el-form-item>
       <el-form-item label="员工姓名:">
         <el-input prefix-icon="el-icon-search"
@@ -35,7 +35,7 @@
                    @click="search">搜索</el-button>
       </el-form-item>
     </el-form>
-<!--            添加员工界面           -->
+    <!--            添加员工界面           -->
     <el-dialog
         class="dialog-addStaff"
         title="添加员工"
@@ -106,9 +106,9 @@
         :header-cell-style="{'text-align':'center'}"
         :data="tableData"
         stripe
-        :default-sort = "{prop: 'id', order: 'ascending'}">
+        :default-sort = "{prop: 'staffId', order: 'ascending'}">
       <el-table-column
-          prop="id" label="员工编号" sortable width="100">
+          prop="staffId" label="员工编号" sortable width="100">
       </el-table-column>
       <el-table-column prop="name" label="姓名" width="120">
       </el-table-column>
@@ -120,14 +120,14 @@
       </el-table-column>
       <el-table-column prop="staffTpye" label="员工类型" width="180">
       </el-table-column>
-      <el-table-column label="  " width="140">
+      <el-table-column label="  " width="100">
         <template slot-scope="scope">
-          <el-button  @click.native.prevent="editStaff(scope.row)" type="primary" icon="el-icon-edit" circle></el-button>
+          <el-button  @click.native.prevent="editStaff(scope.row)" size="small" type="primary" icon="el-icon-edit" circle></el-button>
         </template>
       </el-table-column>
       <el-table-column label="  " width="80">
         <template slot-scope="scope">
-          <el-button type="danger"  icon="el-icon-delete" circle  @click.native.prevent="deleteStaff(scope.row)" ></el-button>
+          <el-button type="danger"  size="small" icon="el-icon-delete" circle  @click.native.prevent="deleteStaff(scope.row)" ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -149,7 +149,7 @@ export default {
       dialogaddVisible: false,
       dialogmodifyVisible:false,
       formInline: {
-        id: '',
+        staffId: '',
         name: '',
         staffType:''
       },
@@ -166,7 +166,7 @@ export default {
         staffTpye:''
       },
       tableData:[{
-        id:'',
+        staffId:'',
         name:'',
         phone:'',
         account:'',
@@ -192,7 +192,7 @@ export default {
     editStaff(row){
       this.dialogmodifyVisible= true
       //调用方法查询详细信息
-      console.log(row.id)
+      console.log(row.staffId)
       //调用后端方法显示修改之前的信息
       /*var path = "/Data/staffmanage.json"
       this.axios.get(path).then((response)=>{
@@ -201,34 +201,34 @@ export default {
             this.modifyForm= response.data.data})*/
     },
     modifyConfirm(formName){
-        this.$refs.modifyform.validate((valid) => {
-          if (valid) {
-            this.dialogmodifyVisible = false
-            //获取输入信息并调用函数操作数据库
-            /*this.modifyForm.account,this.modifyForm.phone,this.modifyForm.password,this.modifyForm.staffTpye*/
-            //调用方法数据库修改员工信息
-            /*if(response.data.status==='200'){
-              this.$message({
-                message: '更新成功!',
-                type: 'success'
-              })
-            }else if(response.data.status==='404'){
-              this.$message.error('请求失败！')
-            }else if(response.data.status==='304'){
-              this.$message({
-                message: '信息无变动！',
-                type: 'warning'
-              })
-            }else{
-              this.$message.error('发生错误！')
-            }*/
-            //每次提交之后刷新表单
-            this.$refs.modifyform.resetFields()
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        })
+      this.$refs.modifyform.validate((valid) => {
+        if (valid) {
+          this.dialogmodifyVisible = false
+          //获取输入信息并调用函数操作数据库
+          /*this.modifyForm.account,this.modifyForm.phone,this.modifyForm.password,this.modifyForm.staffTpye*/
+          //调用方法数据库修改员工信息
+          /*if(response.data.status==='200'){
+            this.$message({
+              message: '更新成功!',
+              type: 'success'
+            })
+          }else if(response.data.status==='404'){
+            this.$message.error('请求失败！')
+          }else if(response.data.status==='304'){
+            this.$message({
+              message: '信息无变动！',
+              type: 'warning'
+            })
+          }else{
+            this.$message.error('发生错误！')
+          }*/
+          //每次提交之后刷新表单
+          this.$refs.modifyform.resetFields()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      })
     },
     modifyCancel(){
       this.dialogmodifyVisible = false
@@ -248,7 +248,7 @@ export default {
         type:'warning'
       })
           .then(() => {
-            console.log(row.id)
+            console.log(row.staffId)
             //调用方法数据库删除员工
             /*if(response.data.status==='200'){
               this.$message({
@@ -274,7 +274,7 @@ export default {
     addStaff(){
       this.dialogaddVisible= true
     },
-   /* 确认添加员工调用后端方法并隐藏form表*/
+    /* 确认添加员工调用后端方法并隐藏form表*/
     addConfirm(formName){
       this.$refs.addform.validate((valid) => {
         if (valid) {
@@ -312,14 +312,14 @@ export default {
     },
     /*搜索按钮点击对应事件*/
     search(){
-      if(this.formInline.id ===''){
+      if(this.formInline.staffId ===''){
         if(this.formInline.name===''){
           //调用方法searchByStaffType
         }else{
           //调用方法searchByName
         }
       }else {
-        //调用方法searchById
+        //调用方法searchBystaffId
         var path = "/Data/staffmanage.json"
         this.axios.get(path).then((response)=>{
           console.log(response)
