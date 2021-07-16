@@ -42,7 +42,7 @@
     <el-table
         style="width: 100%"
         :cell-style="{'text-align':'center'}"
-        :header-cell-style="{'text-align':'center'}"
+        :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}"
         :data="tableData"
         stripe
         :default-sort = "{prop: 'dishId', order: 'ascending'}">
