@@ -5,7 +5,7 @@
     <el-form :inline="true" :model="formInline" class="form-inline">
       <el-form-item>
         <el-button type="primary" size="medium" icon="el-icon-circle-plus-outline"
-                   @click="addStaff">增加</el-button>
+                   @click="addDish">增加</el-button>
       </el-form-item>
       <el-form-item label="菜品编号:">
         <el-input prefix-icon="el-icon-search"
@@ -99,28 +99,45 @@
           <el-button  @click.native.prevent="editDish(scope.row)" size="small" type="primary" icon="el-icon-edit" circle></el-button>
         </template>
       </el-table-column>
+      <el-table-column label="  " width="140">
+      </el-table-column>
     </el-table>
     <!--                   添加菜品界面             -->
     <el-dialog
         class="dialog-addDish"
-        title="添加员工"
+        title="添加菜品"
         :visible.sync="dialogaddVisible"
         @close="closeAdd"
         width=420px>
       <span>
         <el-form ref="addform" :rules="addrules" :model="addForm" label-width="70px" class="form-inline-addForm">
-          <el-form-item label="姓名" prop="name">
-            <el-input clearable v-model="addForm.name"></el-input>
+          <el-form-item label="菜品名称" prop="dishName">
+            <el-input clearable v-model="addForm.dishName"></el-input>
           </el-form-item>
-            <el-form-item label="手机号" prop="phone">
-          <el-input clearable v-model="addForm.phone"></el-input>
-            </el-form-item>
-          <el-form-item label="职位" prop="staffTpye">
-            <el-radio-group v-model="addForm.staffTpye">
-              <el-radio label="前台"></el-radio>
-              <el-radio label="服务员"></el-radio>
-              <el-radio label="厨师"></el-radio>
-            </el-radio-group>
+          <el-form-item label="菜品类别" prop="dishType">
+            <el-select v-model="addForm.dishType"
+                   style="width: 300px"
+                   placeholder="菜品类别">
+              <el-option label="今日特价" value="今日特价"></el-option>
+              <el-option label="人气爆款" value="人气爆款"></el-option>
+              <el-option label="夏日果茶" value="夏日果茶"></el-option>
+              <el-option label="特色菜肴" value="特色菜肴"></el-option>
+              <el-option label="必点小吃" value="必点小吃"></el-option>
+              <el-option label="主食" value="主食"></el-option>
+           </el-select>
+          </el-form-item>
+          <el-form-item label="菜品图片" prop="dishImage">
+          <el-input clearable v-model="addForm.dishImage"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品成本" prop="costPrice">
+          <el-input clearable v-model="addForm.costPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品价格" prop="dishPrice">
+          <el-input clearable v-model="addForm.dishPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品描述" prop="dishDesc">
+          <el-input type="textarea" placeholder="请输入内容"
+                    autosize clearable v-model="addForm.dishDesc"></el-input>
           </el-form-item>
         </el-form>
       </span>
@@ -133,37 +150,49 @@
     <!--            修改菜品信息界面           -->
     <el-dialog
         class="dialog-modifyDish"
-        title="修改信息"
+        title="修改菜品"
         :visible.sync="dialogmodifyVisible"
         @close="closeModify"
-        width=450px>
+        width=420px>
       <span>
-        <el-form ref="modifyform" :model="modifyForm" :rules="modifyrules" label-width="100px" class="form-inline-modifyForm">
-            <el-form-item label="手机号" prop="phone">
-          <el-input clearable v-model="modifyForm.phone"></el-input>
-            </el-form-item>
-          <el-form-item label="账号" prop="account">
-            <el-input clearable v-model="modifyForm.account"></el-input>
+        <el-form ref="modifyform" :rules="modifyrules" :model="modifyForm" label-width="70px" class="form-inline-modifyForm">
+          <el-form-item label="编号" prop="dishId">
+            <el-input :disabled="true" v-model="modifyForm.dishId"></el-input>
           </el-form-item>
-          <el-form-item label="输入新密码" prop="password">
-            <el-input show-password autocomplete="off" v-model="modifyForm.password"></el-input>
+          <el-form-item label="菜品名称" prop="dishName">
+            <el-input clearable v-model="addForm.dishName"></el-input>
           </el-form-item>
-          <el-form-item label="确认密码" prop="confirmpwd">
-            <el-input show-password autocomplete="off" v-model="modifyForm.confirmpwd"></el-input>
+          <el-form-item label="菜品类别" prop="dishType">
+            <el-select v-model="addForm.dishType"
+                       style="width: 300px"
+                       placeholder="菜品类别">
+              <el-option label="今日特价" value="今日特价"></el-option>
+              <el-option label="人气爆款" value="人气爆款"></el-option>
+              <el-option label="夏日果茶" value="夏日果茶"></el-option>
+              <el-option label="特色菜肴" value="特色菜肴"></el-option>
+              <el-option label="必点小吃" value="必点小吃"></el-option>
+              <el-option label="主食" value="主食"></el-option>
+           </el-select>
           </el-form-item>
-          <el-form-item label="选择职位" prop="staffTpye">
-            <el-radio-group v-model="modifyForm.staffTpye">
-              <el-radio label="前台"></el-radio>
-              <el-radio label="服务员"></el-radio>
-              <el-radio label="厨师"></el-radio>
-            </el-radio-group>
+          <el-form-item label="菜品图片" prop="dishImage">
+          <el-input clearable v-model="addForm.dishImage"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品成本" prop="costPrice">
+          <el-input clearable v-model="addForm.costPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品价格" prop="dishPrice">
+          <el-input clearable v-model="addForm.dishPrice"></el-input>
+          </el-form-item>
+          <el-form-item label="菜品描述" prop="dishDesc">
+          <el-input type="textarea" placeholder="请输入内容"
+                    autosize clearable v-model="addForm.dishDesc"></el-input>
           </el-form-item>
         </el-form>
       </span>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="modifyCancel">取 消</el-button>
-    <el-button type="primary" @click="modifyConfirm('modifyform')">确 定</el-button>
-  </span>
+        <el-button @click="modifyCancel">取 消</el-button>
+        <el-button type="primary" @click="modifyConfirm('modifyform')">确 定</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>
@@ -180,6 +209,7 @@ export default {
   data() {
     return {
       dialogmodifyVisible:false,
+      dialogaddVisible:false,
       formInline: {
         id: '',
         name: '',
@@ -194,6 +224,23 @@ export default {
         dishDesc:'',
         costPrice:'',
         dishState:''
+      }],
+      addForm:[{
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:''
+      }],
+      modifyForm:[{
+        dishId:'',
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:''
       }]
     }
   },
@@ -231,12 +278,31 @@ export default {
       //调用方法查询详细信息
       console.log(row.staffId)
       //调用后端方法显示修改之前的信息
-      /*var path = "/Data/staffmanage.json"
+      /*var path = "/Data/dishmanage.json"
       this.axios.get(path).then((response)=>{
             console.log(response)
             //返回的数据赋值
             this.modifyForm= response.data.data})*/
+    }, modifyConfirm(formName) {
+
+    },modifyCancel(){
+      this.dialogmodifyVisible = false
+      this.$refs.modifyform.resetFields()
+    }, closeModify(){
+      this.$message('取消修改！')
+      this.$refs.modifyform.resetFields()
+    },addDish(){
+      this.dialogaddVisible= true
+    },addConfirm(formName){
+
+    },addCancel(){
+      this.dialogaddVisible = false
+      this.$refs.addform.resetFields()
     },
+    closeAdd(){
+      this.$message('取消添加！')
+      this.$refs.addform.resetFields()
+    }
   }
 }
 </script>

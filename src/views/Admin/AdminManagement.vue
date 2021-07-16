@@ -73,9 +73,15 @@
         width=450px>
       <span>
         <el-form ref="modifyform" :model="modifyForm" :rules="modifyrules" label-width="100px" class="form-inline-modifyForm">
-            <el-form-item label="手机号" prop="phone">
-          <el-input clearable v-model="modifyForm.phone"></el-input>
-            </el-form-item>
+          <el-form-item label="编号" prop="staffId">
+            <el-input :disabled="true" v-model="modifyForm.staffId"></el-input>
+          </el-form-item>
+          <el-form-item label="姓名" prop="name">
+            <el-input :disabled="true" v-model="modifyForm.name"></el-input>
+          </el-form-item>
+          <el-form-item label="手机号" prop="phone">
+            <el-input clearable v-model="modifyForm.phone"></el-input>
+          </el-form-item>
           <el-form-item label="账号" prop="account">
             <el-input clearable v-model="modifyForm.account"></el-input>
           </el-form-item>
@@ -130,6 +136,8 @@
           <el-button type="danger"  size="small" icon="el-icon-delete" circle  @click.native.prevent="deleteStaff(scope.row)" ></el-button>
         </template>
       </el-table-column>
+      <el-table-column label="  " width="120">
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -159,6 +167,8 @@ export default {
         staffTpye:''
       },
       modifyForm:{
+        staffId:'',
+        name:'',
         phone:'',
         account:'',
         password:'',
@@ -232,7 +242,6 @@ export default {
     },
     modifyCancel(){
       this.dialogmodifyVisible = false
-      this.$message('取消修改！')
       this.$refs.modifyform.resetFields()
     },
     closeModify(){
@@ -303,7 +312,6 @@ export default {
     /* 取消添加员工弹出消息提示隐藏form表*/
     addCancel(){
       this.dialogaddVisible = false
-      this.$message('取消添加！')
       this.$refs.addform.resetFields()
     },
     closeAdd(){
