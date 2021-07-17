@@ -8,13 +8,13 @@
         <i class="el-icon-menu"></i>
         <span>待付款订单</span>
       </el-menu-item>
-      <el-menu-item index="/">
+      <el-menu-item index="/reception/callService">
         <i class="el-icon-user"></i>
-        <span>叫号</span>
+        <span>服务</span>
       </el-menu-item>
-      <el-menu-item index="/">
+      <el-menu-item index="/reception/evaluation">
         <i class="el-icon-user"></i>
-        <span>发布公告</span>
+        <span>回复评价</span>
       </el-menu-item>
       <el-menu-item index="/reception/receptionInformation">
         <i class="el-icon-user"></i>

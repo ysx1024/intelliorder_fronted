@@ -10,6 +10,10 @@ import OrderList from "../views/Reception/OrderList";
 import BusinessData from "../views/Admin/BusinessData";
 import AdminInformation from "../views/Admin/AdminInformation";
 import Service from "../views/Waiter/Service";
+import CallService from "../views/Reception/CallService";
+import Evaluation from "../views/Reception/Evaluation";
+
+
 import Login from "../views/Login/Login";
 
 
@@ -54,6 +58,16 @@ const routes = [
     path: '/reception/orderList',
     name: 'OrderList',
     component: OrderList
+  },
+  {
+    path: '/reception/callService',
+    name: 'CallService',
+    component: CallService
+  },
+  {
+    path: '/reception/evaluation',
+    name: 'Evaluation',
+    component: Evaluation
   },
   {
     path: '/waiter/waiterInformation',
