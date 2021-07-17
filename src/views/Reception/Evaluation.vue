@@ -10,12 +10,12 @@
         <div class="text item">
           <el-card class="el-card-feedText">{{feed.feedText}}</el-card>
           <el-card v-if="feed.reply !==''" class="el-card-reply">{{feed.reply}}</el-card>
-          <div v-if="replying">
+          <div v-if="feed.replying == '1'">
             <el-input class="el-input-1" v-model="replyTemporary" placeholder="请输入回复！"></el-input>
-            <el-button class="el-button-2" type="success" @click="replyIf=true;replying=false;
-          replytemporary(feed,replyTemporary)">提交</el-button>
+            <el-button class="el-button-2" type="success" @click="feed.replyIf=true;feed.replying=false;
+             replytemporary(feed,replyTemporary)">提交</el-button>
           </div>
-          <el-button v-if="replyIf" class="el-button-1" type="text" @click="replyIf=false;replying=true">回复</el-button>
+          <el-button v-if="feed.replyIf == '1'" class="el-button-1" type="text" @click="feed.replyIf=false;feed.replying=true">回复</el-button>
         </div>
       </el-card>
     </div>
@@ -29,27 +29,27 @@ export default {
   components: {ReceptionHeader},
   data() {
     return {
-      replyIf:true,
-      replying:false,
       replyTemporary :'',
       feedList:[{
         openId:'',
         feedTime:'',
         feedText:'',
         feedLevel:'',
-        reply:''
+        reply:'',
+        replyIf:'',
+        replying:''
       }]
     }
   },
   mounted() {
     var path="/Data/evaluation.json"
     this.axios.get(path).then((response)=>{
+      console.log(response)
       this.feedList=response.data.data
     })
   },
   methods:{
     replytemporary(feed,replyTemporary) {
-      console.log(replyTemporary);
       feed.reply=replyTemporary;
     }
   }
