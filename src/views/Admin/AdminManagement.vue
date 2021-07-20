@@ -48,7 +48,7 @@
             <el-input clearable v-model="addForm.name"></el-input>
           </el-form-item>
             <el-form-item label="手机号" prop="phone">
-          <el-input clearable v-model="addForm.phone"></el-input>
+          <el-input clearable v-model.number="addForm.phone"></el-input>
             </el-form-item>
           <el-form-item label="职位" prop="staffTpye">
             <el-radio-group v-model="addForm.staffTpye">
@@ -80,7 +80,7 @@
             <el-input :disabled="true" v-model="modifyForm.name"></el-input>
           </el-form-item>
           <el-form-item label="手机号" prop="phone">
-            <el-input clearable v-model="modifyForm.phone"></el-input>
+            <el-input clearable v-model.number="modifyForm.phone"></el-input>
           </el-form-item>
           <el-form-item label="账号" prop="account">
             <el-input clearable v-model="modifyForm.account"></el-input>
@@ -107,36 +107,36 @@
     </el-dialog>
     <!--    表格显示员工信息-->
     <el-table
-        style="width: 100%"
+        style="width: 88%"
         :cell-style="{'text-align':'center'}"
         :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}"
         :data="tableData"
         stripe
         :default-sort = "{prop: 'staffId', order: 'ascending'}">
       <el-table-column
-          prop="staffId" label="员工编号" sortable width="100">
+          prop="staffId" label="员工编号" sortable>
       </el-table-column>
-      <el-table-column prop="name" label="姓名" width="120">
+      <el-table-column prop="name" label="姓名">
       </el-table-column>
-      <el-table-column prop="phone" label="手机号" width="160">
+      <el-table-column prop="phone" label="手机号">
       </el-table-column>
-      <el-table-column prop="account" label="账号" width="140">
+      <el-table-column prop="account" label="账号">
       </el-table-column>
-      <el-table-column prop="password" label="密码" width="160">
+      <el-table-column prop="password" label="密码">
       </el-table-column>
-      <el-table-column prop="staffTpye" label="员工类型" width="180">
+      <el-table-column prop="staffTpye" label="员工类型">
       </el-table-column>
-      <el-table-column label="  " width="100">
+      <el-table-column label="  ">
         <template slot-scope="scope">
           <el-button  @click.native.prevent="editStaff(scope.row)" size="small" type="primary" icon="el-icon-edit" circle></el-button>
         </template>
       </el-table-column>
-      <el-table-column label="  " width="80">
+      <el-table-column label="  ">
         <template slot-scope="scope">
           <el-button type="danger"  size="small" icon="el-icon-delete" circle  @click.native.prevent="deleteStaff(scope.row)" ></el-button>
         </template>
       </el-table-column>
-      <el-table-column label="  " width="120">
+      <el-table-column label="  ">
       </el-table-column>
     </el-table>
   </div>
@@ -153,6 +153,13 @@ export default {
     AdminHeader
   },
   data() {
+    var confirmpwdrule = (rule, value, callback) => {
+      if (value !== this.modifyForm.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
       dialogaddVisible: false,
       dialogmodifyVisible:false,
@@ -185,14 +192,21 @@ export default {
       }],
       addrules:{
         name:[{required:true,message:'请输入员工姓名', trigger: 'blur'}],
-        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'}],
+        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'},
+          {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
+          {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
+            message: '请输入正确的手机号码', trigger: 'blur'}],
         staffTpye:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
       },
       modifyrules:{
-        account:[{required:true,message:'请输入员工姓名', trigger: 'blur'}],
-        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'}],
+        account:[{required:true,message:'请输入员工账号', trigger: 'blur'}],
+        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'},
+          {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
+          {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
+            message: '请输入正确的手机号码', trigger: 'blur'}],
         password:[{ required: true, message: '请输入新密码', trigger: 'blur' }],
-        confirmpwd:[{ required: true, message: '请确认密码', trigger: 'blur' }],
+        confirmpwd:[{ required: true, message: '请再次输入密码确认', trigger: 'blur' },
+          { validator: confirmpwdrule, trigger: 'blur' }],
         staffTpye:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
       }
     }
@@ -350,7 +364,7 @@ export default {
 </script>
 <style scoped>
 .el-table{
-  margin-left: 20px;
+  margin-left: 70px;
   margin-top: 10px;
 }
 .form-inline{

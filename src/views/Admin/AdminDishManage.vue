@@ -40,7 +40,7 @@
     </el-form>
     <!--               table表显示菜品                -->
     <el-table
-        style="width: 100%"
+        style="width: 88%"
         :cell-style="{'text-align':'center'}"
         :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}"
         :data="tableData"
@@ -78,15 +78,15 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column sortable label="菜品编号" prop="dishId" width="120">
+      <el-table-column sortable label="菜品编号" prop="dishId">
       </el-table-column>
-      <el-table-column label="菜品图片" prop="dishImage" width="200">
+      <el-table-column label="菜品图片" prop="dishImage">
       </el-table-column>
-      <el-table-column label="菜品名称" prop="dishName" width="200">
+      <el-table-column label="菜品名称" prop="dishName">
       </el-table-column>
-      <el-table-column label="菜品售价" prop="dishPrice" width="200">
+      <el-table-column label="菜品售价" prop="dishPrice">
       </el-table-column>
-      <el-table-column label="下架/上架" prop="dishState" width="120">
+      <el-table-column label="下架/上架" prop="dishState">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.dishState" active-text=" " inactive-text=" "
                      active-value=true inactive-value=false
@@ -94,12 +94,12 @@
           </el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="  " width="120">
+      <el-table-column label="  ">
         <template slot-scope="scope">
           <el-button  @click.native.prevent="editDish(scope.row)" size="small" type="primary" icon="el-icon-edit" circle></el-button>
         </template>
       </el-table-column>
-      <el-table-column label="  " width="140">
+      <el-table-column label="  ">
       </el-table-column>
     </el-table>
     <!--                   添加菜品界面             -->
@@ -110,13 +110,13 @@
         @close="closeAdd"
         width=420px>
       <span>
-        <el-form ref="addform" :rules="addrules" :model="addForm" label-width="70px" class="form-inline-addForm">
+        <el-form ref="addform" :rules="addrules" :model="addForm" label-width="100px" class="form-inline-addForm">
           <el-form-item label="菜品名称" prop="dishName">
             <el-input clearable v-model="addForm.dishName"></el-input>
           </el-form-item>
           <el-form-item label="菜品类别" prop="dishType">
             <el-select v-model="addForm.dishType"
-                   style="width: 300px"
+                       style="width: 280px"
                    placeholder="菜品类别">
               <el-option label="今日特价" value="今日特价"></el-option>
               <el-option label="人气爆款" value="人气爆款"></el-option>
@@ -155,7 +155,7 @@
         @close="closeModify"
         width=420px>
       <span>
-        <el-form ref="modifyform" :rules="modifyrules" :model="modifyForm" label-width="70px" class="form-inline-modifyForm">
+        <el-form ref="modifyform" :rules="modifyrules" :model="modifyForm" label-width="100px" class="form-inline-modifyForm">
           <el-form-item label="编号" prop="dishId">
             <el-input :disabled="true" v-model="modifyForm.dishId"></el-input>
           </el-form-item>
@@ -164,7 +164,7 @@
           </el-form-item>
           <el-form-item label="菜品类别" prop="dishType">
             <el-select v-model="addForm.dishType"
-                       style="width: 300px"
+                       style="width: 280px"
                        placeholder="菜品类别">
               <el-option label="今日特价" value="今日特价"></el-option>
               <el-option label="人气爆款" value="人气爆款"></el-option>
@@ -225,15 +225,15 @@ export default {
         costPrice:'',
         dishState:''
       }],
-      addForm:[{
+      addForm:{
         dishName: '',
         dishType:'',
         dishPrice:'',
         dishImage: '',
         dishDesc:'',
         costPrice:''
-      }],
-      modifyForm:[{
+      },
+      modifyForm:{
         dishId:'',
         dishName: '',
         dishType:'',
@@ -241,7 +241,23 @@ export default {
         dishImage: '',
         dishDesc:'',
         costPrice:''
-      }]
+      },
+      addrules:{
+        dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
+        dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
+        dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
+        costPrice:[{required:true,message:'请输入菜品成本', trigger: 'blur'}],
+        dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
+        dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
+      },
+      modifyrules:{
+        dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
+        dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
+        dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
+        costPrice:[{required:true,message:'请输入菜品成本', trigger: 'blur'}],
+        dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
+        dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
+      }
     }
   },
   mounted() {
@@ -315,7 +331,7 @@ export default {
   font-size: 0;
 }
 .el-table{
-  margin-left: 20px;
+  margin-left: 70px;
   margin-top: 10px;
 }
 .form-inline{

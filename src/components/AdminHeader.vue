@@ -19,7 +19,7 @@ npm<template>
       </el-menu-item>
       <el-menu-item index="/admin/businessdata">
         <i class="el-icon-bank-card"></i>
-        <span>经营数据</span>
+        <template slot="title">经营数据</template>
       </el-menu-item>
       <el-menu-item index="/admin/admininformation">
         <i class="el-icon-user-solid"></i>

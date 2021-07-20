@@ -1,13 +1,60 @@
 <template>
-
+<div class="login_context">
+<div class="login">
+  <el-form ref="logform" label-position="right" :rules="logrules" :model="logForm" label-width="23%" class="form-inline-logForm">
+    <el-form-item label="账号" prop="account">
+      <el-input clearable style="width: 100%" v-model="logForm.account"></el-input>
+    </el-form-item>
+    <el-form-item label="密码" prop="password">
+      <el-input clearable style="width: 100%" v-model.number="logForm.password"></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" size="medium"
+                 @click="search">登录</el-button>
+    </el-form-item>
+  </el-form>
+</div>
+</div>
 </template>
 
 <script>
 export default {
-  name: "Login"
+  name: "Login",
+  data(){
+    return{
+      logForm:{
+        account:'',
+        password:''
+      },
+      logrules:{
+        account:[{required:true,message:'请输入账号', trigger: 'blur'}],
+        password:[{required:true,message:'请输入密码', trigger: 'blur'}]
+      }
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+.login_context{
+  /*background: rgb(172,208,255);*/
+  height: 100%;
+  width: 100%;
+  background-image: url("../../assets/logimage.png");
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+}
+.login{
+  background: black;
+  height: 50%;
+  width: 25%;
+  margin-left: 60%;
+  margin-top: 15%;
+  display: flex;
+  justify-content:space-evenly;
+  /*justify-content:center;*/
+  align-items:center;
+  opacity: 0.7;
+}
 </style>

@@ -91,7 +91,9 @@
   </div>
 </template>
 
-//cookData是结构体数据，而res.data.data是只包含一个元素的结构体数组，所以赋值的时候应该是cookData=res.data.data[0];
+<!--
+cookData是结构体数据，而res.data.data是只包含一个元素的结构体数组，所以赋值的时候应该是cookData=res.data.data[0];
+-->
 
 <script>
 import CookerHeader from "../../components/CookerHeader";
