@@ -8,7 +8,7 @@
         <i class="el-icon-menu"></i>
         <span>服务</span>
       </el-menu-item>
-      <el-menu-item index="/">
+      <el-menu-item index="/waiter/waiterOrder">
         <i class="el-icon-user"></i>
         <span>点餐/加菜</span>
       </el-menu-item>
