@@ -1,0 +1,157 @@
+{
+  "data": [{
+    "dishId": "01",
+    "dishName": "蒸熊掌",
+    "dishType": "地方名吃",
+    "dishPrice": "48.0",
+    "saleTime": "",
+    "dishImage": "../../src/assets/logo.png",
+    "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+    "costPrice":"28",
+    "dishState":"true"
+  },
+    {
+      "dishId": "02",
+      "dishName": "酱烧肘子肉肉",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "03",
+      "dishName": "酱烧肘子",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "04",
+      "dishName": "麻辣龙虾",
+      "dishType": "特色海鲜",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "05",
+      "dishName": "烤鸭",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "06",
+      "dishName": "红烧肉",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "07",
+      "dishName": "涮羊肉",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "08",
+      "dishName": "红烧鲫鱼",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "09",
+      "dishName": "鱼香肉丝",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "10",
+      "dishName": "凉拌牛肉",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "11",
+      "dishName": "麻婆豆腐",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "12",
+      "dishName": "碳烤牛蛙",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "13",
+      "dishName": "酸菜鱼",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    },
+    {
+      "dishId": "14",
+      "dishName": "大盘鸡",
+      "dishType": "地方名吃",
+      "dishPrice": "48.0",
+      "saleTime": "",
+      "dishImage": "",
+      "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
+      "costPrice":"28",
+      "dishState":"true"
+    }
+  ]
+}

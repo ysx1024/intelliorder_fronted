@@ -12,6 +12,7 @@ import AdminInformation from "../views/Admin/AdminInformation";
 import Service from "../views/Waiter/Service";
 import CallService from "../views/Reception/CallService";
 import Evaluation from "../views/Reception/Evaluation";
+import WaiterOrder from "../views/Waiter/WaiterOrder";
 
 
 import Login from "../views/Login/Login";
@@ -78,6 +79,11 @@ const routes = [
     path: '/waiter/service',
     name: 'Service',
     component: Service
+  },
+  {
+    path: '/waiter/waiterOrder',
+    name: 'WaiterOrder',
+    component: WaiterOrder
   },
   {
     path: '/login',
