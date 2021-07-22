@@ -13,6 +13,7 @@ import Service from "../views/Waiter/Service";
 import CallService from "../views/Reception/CallService";
 import Evaluation from "../views/Reception/Evaluation";
 import WaiterOrder from "../views/Waiter/WaiterOrder";
+import TotalBusiness from "../views/Admin/TotalBusiness"
 
 
 import Login from "../views/Login/Login";
@@ -49,6 +50,11 @@ const routes = [
     path: '/admin/admininformation',
     name: 'AdminInformation',
     component: AdminInformation
+  },
+  {
+    path: '/admin/totalbusiness',
+    name: 'TotalBusiness',
+    component: TotalBusiness
   },
   {
     path: '/reception/receptionInformation',
