@@ -1,12 +1,10 @@
 <template>
    <div>
      <WaiterHeader></WaiterHeader>
-     <el-container>
-       <el-header></el-header>
-       <el-main>
-         <el-tabs 
+     <el-tabs
              :tab-position="'left'"
               style="height: 420px"
+              class="menu-tabs"
               type="border-card">
            <el-tab-pane label="特色海鲜">
              <el-row>
@@ -16,7 +14,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -36,8 +34,9 @@
                      </div>
                      <div>{{dish.dishName}}</div>
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       class="number-2"
+                                      size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
                    </div>
@@ -53,7 +52,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -70,7 +69,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -87,7 +86,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -104,7 +103,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -121,7 +120,7 @@
                      <img src="dish.dishImage">
                      {{dish.dishName}}
                      <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish.dishId)"
+                                      @change="handleChange(dish.num,dish)"
                                       size="mini"
                                       :min="0" :max="10" label="描述文字">
                      </el-input-number>
@@ -131,9 +130,21 @@
              </el-row>
            </el-tab-pane>
          </el-tabs>
-       </el-main>
-       <el-footer></el-footer>
-     </el-container>
+     <div>
+       <el-badge :value="deskOrder.dishOrders.length" class="item-button">
+         <el-button class="el-button-badge" @click="dialogOrderList='true'"></el-button>
+       </el-badge>
+     </div>
+
+     <el-dialog
+         title="订单详情"
+         :visible.sync="dialogOrderList"
+         width="500px">
+       <el-card v-for="dishOrder in deskOrder.dishOrders" v-if="dishOrder.dishNum!==0">
+         {{dishOrder.dishName}}
+         {{dishOrder.dishNum}}
+       </el-card>
+     </el-dialog>
    </div>
 </template>
 
@@ -144,6 +155,7 @@ export default {
   components: {WaiterHeader},
   data() {
     return {
+      dialogOrderList:false,
       checkedDishes:[],
       deskOrder:{
         deskId:'',
@@ -169,19 +181,19 @@ export default {
     })
   },
   methods: {
-    handleChange(num,Id) {
+    handleChange(num,dish) {
       var isOk = '0'
       if(this.deskOrder.dishOrders.length===0){
-        this.deskOrder.dishOrders = this.deskOrder.dishOrders.concat({dishId:Id,dishNum:num})
+        this.deskOrder.dishOrders = this.deskOrder.dishOrders.concat({dishId:dish.dishId,dishName:dish.dishName,dishNum:num})
       }else{
         for (let i=0;i<this.deskOrder.dishOrders.length;i++){
-          if (this.deskOrder.dishOrders[i].dishId === Id){
+          if (this.deskOrder.dishOrders[i].dishId === dish.dishId){
             this.deskOrder.dishOrders[i].dishNum = num
             isOk = '1'
           }
         }
         if(isOk === '0'){
-          this.deskOrder.dishOrders = this.deskOrder.dishOrders.concat({dishId:Id,dishNum:num})
+          this.deskOrder.dishOrders = this.deskOrder.dishOrders.concat({dishId:dish.dishId,dishName:dish.dishName,dishNum:num})
         }
       }
       console.log(this.deskOrder.dishOrders)
@@ -191,13 +203,30 @@ export default {
 </script>
 
 <style scoped>
-  .img-2{
-    width: 40px;
-    height: 40px;
-  }
-  .number-2{
-    margin-top: 80%;
-    width: 50px;
-    height: 30px;
-  }
+.img-2{
+  width: 40px;
+  height: 40px;
+}
+.menu-tabs{
+  position: absolute;
+  bottom: 0;
+  top:200px;
+  left: 30px;
+  right: 30px;
+  height: 420px;
+  overflow-y: auto;
+}
+.item-button{
+  width: 100px;
+  height: 40px;
+  margin-top: 540px;
+}
+.el-button-badge{
+  width: 100px;
+  height: 40px;
+  background-image: url("../../assets/cart-Empty.png");
+  background-size: 40px;
+  background-position: left;
+  background-repeat: no-repeat;
+}
 </style>
