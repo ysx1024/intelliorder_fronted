@@ -27,6 +27,7 @@
           <el-date-picker
               v-model="datevalue"
               type="daterange"
+              value-format="yyyy-mm-dd"
               unlink-panels
               range-separator="至"
               start-placeholder="开始日期"
@@ -35,14 +36,17 @@
           </el-date-picker>
         </div>
       </el-header>
-      <el-container>
-        <el-aside style="width: 51% ">
-          <div id="Histogram" style="width:400px;height:500px;font-size: 20px"></div>
+<!--      <el-container>
+        <el-aside style="width: 47% ">
+          <div id="Histogram" style="width:495px;height:500px;font-size: 12px"></div>
         </el-aside>
         <el-main>
-          <div id="Piechart" style="width:400px;height:500px;font-size: 20px"></div>
+          <div id="Piechart" style="width:538px;height:500px;font-size: 20px"></div>
         </el-main>
-      </el-container>
+      </el-container>-->
+      <div id="Histogram" class="Histogram" style="width:1000px;height:500px;font-size: 20px"></div>
+      <div id="Piechart" class="Piechart" style="width:820px;height:500px;font-size: 20px"></div>
+
     </el-container>
   </div>
 </template>
@@ -94,30 +98,47 @@ export default {
     drawHistogram(){
       this.$echarts.init(document.getElementById('Histogram')).setOption({
         title: {
-
+          text: '菜品销量图',
+          textStyle:{
+            fontsize:20
+          },
+          subtext: '',
+          left: 'center'
         },
-        tooltip: {},
-        legend: {
+        tooltip: {
+          trigger: 'axis',//触发类型；轴触发，axis则鼠标hover到一条柱状图显示全部数据
+          axisPointer: {//坐标轴指示器，坐标轴触发有效，shadow阴影
+            type: 'shadow'
+          }
+        },
+        /*legend: {
           data:['销量']
-        },
+        },*/
         xAxis: {
-          data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-        },
+          type: 'category',
+          data: ["米饭","油泼面","酱烧肘子","油焖大虾","红烧鲫鱼","蒜蓉茄子","花香金鱼","夏日冰饮","毛毛菇炒蛋","宫保鸡丁"],
+          axisLabel:{interval:0}//当数量多时也全部显现
+          },
         yAxis: {},
         series: [{
           name: '销量',
           type: 'bar',
-          data: [5, 20, 36, 10, 10, 20]
+          barWidth:35,
+          data: [30, 46, 36, 53, 42, 39,50,83,66,40]
         }]
       })
     },
     drawPiechart(){
       this.$echarts.init(document.getElementById('Piechart')).setOption({
         title: {
-          text: '某站点用户访问来源',
-          subtext: '纯属虚构',
+          text: '菜品销售利润',
+          textStyle:{
+            fontsize:30
+          },
+          subtext: '',
           left: 'center'
         },
+        color:['#5470c6','#91cc75','#fac858','#ee6666','#73c0de','#3ba272','#fc8452','#b4a7d6','#a2c4c9','#eea2ad'],
         tooltip: {
           trigger: 'item'
         },
@@ -129,13 +150,18 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius: '50%',
+            radius: '80%',
             data: [
-              {value: 1048, name: '搜索引擎'},
-              {value: 735, name: '直接访问'},
-              {value: 580, name: '邮件营销'},
-              {value: 484, name: '联盟广告'},
-              {value: 300, name: '视频广告'}
+              {value: 1048, name: '米饭'},
+              {value: 735, name: '油泼面'},
+              {value: 580, name: '酱烧肘子'},
+              {value: 484, name: '红烧鲫鱼'},
+              {value: 500, name: '蒜蓉茄子'},
+              {value: 340, name: '花香金鱼'},
+              {value: 230, name: '夏日冰饮'},
+              {value: 672, name: '毛毛菇炒蛋'},
+              {value: 620, name: '宫保鸡丁'},
+              {value: 535, name: '油焖大虾'}
             ],
             emphasis: {
               itemStyle: {
@@ -163,10 +189,20 @@ export default {
   justify-content:space-evenly;
   margin: 50px auto auto auto;
 }
-.el-aside{
+.Histogram{
+  display: flex;
+  justify-content:space-evenly;
+  margin: 90px auto auto auto;
+}
+.Piechart{
+  display: flex;
+  justify-content:space-evenly;
+  margin: 90px auto auto auto;
+}
+/*.el-aside{
   margin: 120px auto auto 10px;
 }
 .el-main{
   margin: 120px auto auto auto;
-}
+}*/
 </style>

@@ -331,6 +331,7 @@ export default {
   font-size: 0;
 }
 .el-table{
+  /*margin:10px,auto,auto,70px ;*/
   margin-left: 70px;
   margin-top: 10px;
 }

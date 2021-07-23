@@ -26,6 +26,7 @@
           <el-date-picker
               v-model="monthvalue"
               type="monthrange"
+              value-format="yyyy-mm"
               unlink-panels
               range-separator="至"
               start-placeholder="开始月份"
@@ -84,18 +85,18 @@ export default {
     drawLinechart(){
       this.$echarts.init(document.getElementById('Linechart')).setOption({
         title: {
-          text: '某站点用户访问来源',
+          text: '总销售额',
           left: 'center'
         },
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月']
         },
         yAxis: {
           type: 'value'
         },
         series: [{
-          data: [150, 230, 224, 218, 135, 147, 260],
+          data: [18000, 23000, 22400, 21800, 23500, 19700, 25000],
           type: 'line'
         }]
       })
