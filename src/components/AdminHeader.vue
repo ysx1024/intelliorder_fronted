@@ -1,4 +1,4 @@
-npm<template>
+<template>
   <div class="AdminHeader">
     <el-menu
         style="width: 100% "
@@ -18,7 +18,7 @@ npm<template>
         <i class="el-icon-setting"></i>
         <span>员工管理</span>
       </el-menu-item>
-      <el-menu-item class="businessdata" index="/admin/businessdata">
+      <el-menu-item index="/admin/businessdata">
         <i class="el-icon-bank-card"></i>
         <template slot="title">经营数据</template>
       </el-menu-item>
