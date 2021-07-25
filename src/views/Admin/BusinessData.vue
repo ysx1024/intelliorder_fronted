@@ -98,12 +98,12 @@ export default {
     drawHistogram(){
       this.$echarts.init(document.getElementById('Histogram')).setOption({
         title: {
-          text: '菜品销量图',
+          /*text: '菜品销量图',
           textStyle:{
             fontsize:20
-          },
-          subtext: '',
-          left: 'center'
+          },*/
+          /*subtext: '',
+          left: 'center'*/
         },
         tooltip: {
           trigger: 'axis',//触发类型；轴触发，axis则鼠标hover到一条柱状图显示全部数据
@@ -111,13 +111,13 @@ export default {
             type: 'shadow'
           }
         },
-        /*legend: {
-          data:['销量']
-        },*/
+        legend: {
+          data:['菜品销量']
+        },
         xAxis: {
           type: 'category',
           data: ["米饭","油泼面","酱烧肘子","油焖大虾","红烧鲫鱼","蒜蓉茄子","花香金鱼","夏日冰饮","毛毛菇炒蛋","宫保鸡丁"],
-          axisLabel:{interval:0}//当数量多时也全部显现
+          axisLabel:{interval:0,rotate: 20}//当数量多时也全部显现
           },
         yAxis: {},
         series: [{
@@ -129,6 +129,7 @@ export default {
       })
     },
     drawPiechart(){
+
       this.$echarts.init(document.getElementById('Piechart')).setOption({
         title: {
           text: '菜品销售利润',

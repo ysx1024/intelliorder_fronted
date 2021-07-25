@@ -244,6 +244,8 @@ export default {
       this.deskOrder.totalPrice = totalPrice
       this.dishesNumber = dishesNumber
 
+      console.log(this.deskOrder.dishOrders)
+
 
     },
     submitDeskOrder(deskOrder){
