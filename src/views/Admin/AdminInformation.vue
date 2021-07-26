@@ -1,7 +1,7 @@
 <template>
   <div>
     <AdminHeader></AdminHeader>
-    <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
+    <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg" alt="">
     <el-form class="el-form-1" label-width="180px" :model="adminData">
       <el-form-item label="编号">
         {{adminData.staffId}}&nbsp;&nbsp;
@@ -49,7 +49,6 @@ export default {
   },
   data(){
     return{
-      staffid :'',
       adminData: {
         account: '',
         password: '',
@@ -61,9 +60,7 @@ export default {
     }
   },
   mounted() {
-    var path = api.path+"/user/staff/showStaffInfo"
-    this.staffid= localStorage.getItem("staffId")
-    console.log(this.staffid)
+    let path = api.path + "/user/staff/showStaffInfo";
     this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response)=>{
       this.adminData=response.data.data
       console.log(response)
