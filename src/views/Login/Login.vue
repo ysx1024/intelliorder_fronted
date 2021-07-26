@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import qs from "qs";
+
 export default {
   name: "Login",
   data(){
@@ -34,11 +36,12 @@ export default {
   },
   methods: {
     search(){
-      this.axios.post('/user/staff/login',{accout:this.logForm.account,password:this.logForm.password}).then(
+      this.axios.post('http://10.128.135.182:8088/user/staff/login',qs.stringify({"account":this.logForm.account,"password":this.logForm.password})).then(
           (response)=>{
-            if (response.data.data[0].staffType==='管理员'){
+            console.log(response)
+            if (response.data.data.staffType==='管理员'){
               this.$router.push({path:'/admin/admininformation'})
-              localStorage.setItem("staffId",response.data.data[0].staffId)
+              localStorage.setItem("staffId",response.data.data.staffId)
             }
           })
     }
