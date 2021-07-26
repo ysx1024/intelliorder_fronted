@@ -19,6 +19,7 @@
 
 <script>
 import qs from "qs";
+import api from "../../util/api.js"
 
 export default {
   name: "Login",
@@ -36,7 +37,8 @@ export default {
   },
   methods: {
     search(){
-      this.axios.post('http://10.128.135.182:8088/user/staff/login',qs.stringify({"account":this.logForm.account,"password":this.logForm.password})).then(
+      var path = api.path+"/user/staff/login"
+      this.axios.post(path,qs.stringify({"account":this.logForm.account,"password":this.logForm.password})).then(
           (response)=>{
             console.log(response)
             if (response.data.data.staffType==='管理员'){

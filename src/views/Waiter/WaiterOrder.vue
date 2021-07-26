@@ -14,7 +14,7 @@
                    <div>
                      <div>
                        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                       class="img-2">
+                       class="img-2" alt="">
                      </div>
                      <div>{{dish.dishName}}</div>
                      <div>{{dish.dishPrice}}</div>
