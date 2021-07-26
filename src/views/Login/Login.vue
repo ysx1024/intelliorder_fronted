@@ -31,6 +31,17 @@ export default {
         password:[{required:true,message:'请输入密码', trigger: 'blur'}]
       }
     }
+  },
+  methods: {
+    search(){
+      this.axios.post('/user/staff/login',{accout:this.logForm.account,password:this.logForm.password}).then(
+          (response)=>{
+            if (response.data.data[0].staffType==='管理员'){
+              this.$router.push({path:'/admin/admininformation'})
+              localStorage.setItem("staffId",response.data.data[0].staffId)
+            }
+          })
+    }
   }
 }
 </script>

@@ -1,6 +1,7 @@
 <template>
   <div>
     <AdminHeader></AdminHeader>
+    {{staffId}}
     <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="adminData">
       <el-form-item label="编号">
@@ -47,6 +48,7 @@ export default {
   },
   data(){
     return{
+      staffId:'',
       adminData: {
         account: "15936748960",
         password: "12345",
@@ -56,6 +58,9 @@ export default {
         staffType: "经理"
       }
     }
+  },
+  mounted() {
+    this.staffId = localStorage.getItem("staffId")
   }
 }
 </script>
