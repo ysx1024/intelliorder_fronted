@@ -1,7 +1,6 @@
 <template>
   <div>
     <AdminHeader></AdminHeader>
-    {{staffId}}
     <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="adminData">
       <el-form-item label="编号">
@@ -48,19 +47,18 @@ export default {
   },
   data(){
     return{
-      staffId:'',
       adminData: {
-        account: "15936748960",
-        password: "12345",
-        id: "000",
-        phone: "15936748960",
-        name: "蒋少荣",
-        staffType: "经理"
+        account: '',
+        password: '',
+        id: '',
+        phone: '',
+        name:'',
+        staffType: ''
       }
     }
   },
   mounted() {
-    this.staffId = localStorage.getItem("staffId")
+    this.axios.get('http://10.128.135.182:8088')
   }
 }
 </script>
