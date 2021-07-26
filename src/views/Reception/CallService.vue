@@ -45,15 +45,16 @@
 
        <el-main>
          <el-form class="el-form-1"
-                  :model="queueList">
+                  :model="queuelist">
            <el-form-item label="当前 就 餐 序号">
-             <div style="font-size: 20px">{{queueList.queueNow}}</div>
+             <div style="font-size: 20px">{{queuelist.queueNow}}</div>
            </el-form-item>
-           <el-form-item label="最后一位等待序号">
-             <div style="font-size: 20px">{{queueList.queueCustomer}}</div>
+           <el-form-item label="顾客信息">
+             <div style="font-size: 20px">{{queuelist.queueList}}</div>
            </el-form-item>
            <el-form-item>
-             <el-button type="primary" round @click="queueUpdate(queueList)">就餐</el-button>
+             <el-button type="primary" round @click="queueUpdate()">下一位</el-button>
+             <el-button type="primary" round @click="deleteQueue()">清空</el-button>
            </el-form-item>
          </el-form>
        </el-main>
@@ -63,41 +64,65 @@
 
 <script>
 import ReceptionHeader from "../../components/ReceptionHeader";
+import qs from "qs";
+import api from "../../util/api.js"
+
 export default {
   name: "CallService",
   components: {ReceptionHeader},
 
   data() {
     return {
-      queueList:{
-        openId:'178937',
-        queueCustomer:'7',
-        queueNow:'2',
-        queueTime:'2021-07-17'
+      queuelist: {
+        queueNow:'',
+        queueList:[{
+          openId: '',
+          queueCustomer: '',
+          queueStatus: '',
+          queueTime: ''
+        }]
       },
-      callQuset:[{
-        callId:'',
-        deskId:'',
-        callMsg:'',
-        callTime:'',
-        id:'',
-        callStatus:''
+      callQuset: [{
+        callId: '',
+        deskId: '',
+        callMsg: '',
+        callTime: '',
+        staffId: '',
+        callStatus: ''
       }],
     }
   },
   mounted() {
-    var path = "/Data/serviceList.json"
-    this.axios.get(path).then((response)=>{
+    var path = api.path + "/call/callquest/showCallquestList"
+    this.axios.get(path).then((response) => {
       console.log(response)
-      this.callQuset=response.data.data1
+      this.callQuset = response.data.data
     })
-
+    var path1 = api.path + "/queue/queuelist/showQueue"
+    this.axios.get(path1).then((response) => {
+      console.log(response)
+      this.queueList = response.data.data
+      this.queuelist.queueNow = response.data.queueNow
+    })
     //页面自动刷新，10s
-    //setTimeout(function(){location.reload()},10000);
+    // setTimeout(function(){location.reload()},10000);
   },
   methods: {
-    queueUpdate(queueList){
-      queueList.queueNow=parseInt(queueList.queueNow) + parseInt(1);
+    queueUpdate() {
+      var path2 = api.path + "/queue/queuelist/changeQueue"
+      this.axios.post(path2).then((response) => {
+        console.log(response)
+        this.queueList = response.data.data
+        this.queuelist.queueNow = response.data.queueNow
+      })
+    },
+    deleteQueue() {
+      var path3 = api.path + "/queue/queuelist/deleteQueue"
+      this.axios.post(path3).then((response) => {
+        console.log(response)
+        this.queueList = response.data.data
+        this.queuelist.queueNow = response.data.queueNow
+      })
     }
   }
 }
