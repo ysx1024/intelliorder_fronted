@@ -1,3 +1,3 @@
 module.exports = {
-    path:"https://10.128.130.60:8080/"
+    path:"http://10.128.130.60:8088"
 }
