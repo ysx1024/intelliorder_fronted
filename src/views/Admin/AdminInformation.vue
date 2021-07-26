@@ -1,11 +1,10 @@
 <template>
   <div>
     <AdminHeader></AdminHeader>
-    {{staffId}}
     <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="adminData">
       <el-form-item label="编号">
-        {{adminData.id}}&nbsp;&nbsp;
+        {{adminData.staffId}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item label="账号">
         {{adminData.account}}
@@ -40,6 +39,8 @@
 
 <script>
 import AdminHeader from "../../components/AdminHeader";
+import qs from "qs";
+import api from "../../util/api.js"
 
 export default {
   name: "AdminInformation",
@@ -48,19 +49,25 @@ export default {
   },
   data(){
     return{
-      staffId:'',
+      staffid :'',
       adminData: {
-        account: "15936748960",
-        password: "12345",
-        id: "000",
-        phone: "15936748960",
-        name: "蒋少荣",
-        staffType: "经理"
+        account: '',
+        password: '',
+        staffId: '',
+        phone: '',
+        name:'',
+        staffType: ''
       }
     }
   },
   mounted() {
-    this.staffId = localStorage.getItem("staffId")
+    var path = api.path+"/user/staff/showStaffInfo"
+    this.staffid= localStorage.getItem("staffId")
+    console.log(this.staffid)
+    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response)=>{
+      this.adminData=response.data.data
+      console.log(response)
+    })
   }
 }
 </script>

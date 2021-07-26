@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import qs from "qs";
+import api from "../../util/api.js"
+
 export default {
   name: "Login",
   data(){
@@ -34,11 +37,13 @@ export default {
   },
   methods: {
     search(){
-      this.axios.post('/user/staff/login',{accout:this.logForm.account,password:this.logForm.password}).then(
+      var path = api.path+"/user/staff/login"
+      this.axios.post(path,qs.stringify({"account":this.logForm.account,"password":this.logForm.password})).then(
           (response)=>{
-            if (response.data.data[0].staffType==='管理员'){
+            console.log(response)
+            if (response.data.data.staffType==='管理员'){
               this.$router.push({path:'/admin/admininformation'})
-              localStorage.setItem("staffId",response.data.data[0].staffId)
+              localStorage.setItem("staffId",response.data.data.staffId)
             }
           })
     }
