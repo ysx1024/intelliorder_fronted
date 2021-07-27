@@ -4,7 +4,7 @@
     <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="receptionData">
       <el-form-item label="编号">
-        {{receptionData.StaffId}}&nbsp;&nbsp;
+        {{receptionData.staffId}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item label="员工账号">
         {{receptionData.account}}
@@ -139,7 +139,7 @@ export default {
       receptionData: {
         account: '',
         password: '',
-        StaffId: '',
+        staffId: '',
         phone: '',
         name: '',
         staffType: ''
@@ -165,13 +165,17 @@ export default {
 
     submitForm(formName) {
       let  path = api.path + "/user/staff/changePassword"
-      this.axios.post(path, qs.stringify({
+
+        this.axios.post(path, qs.stringify({
         "staffId": localStorage.getItem("staffId"),
         "oldPassword": this.ruleForm2.oldPass, "newPassword": this.ruleForm2.checkPass
       })).then((response) => {
         console.log(response)
-        this.receptionData.password = response.data.password
+          if(response.data.status==="200"){
+            this.receptionData.password = response.data.password
+          }
       });
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.dialogVisiblePassword = false;
@@ -186,7 +190,7 @@ export default {
       this.$refs[formName].resetFields();
     },
 
-    oneSubmit(formName) {
+    oneSubmit() {
       let path = api.path + "/user/staff/changeAccount"
       this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
         "account":this.receptionData.account,})).then((response) => {
@@ -194,7 +198,7 @@ export default {
         });
       this.dialogVisibleAccount = false;
       },
-    twoSubmit(formName) {
+    twoSubmit() {
       let path = api.path + "/user/staff/changePhone"
       this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
         "phone":this.receptionData.phone,})).then((response) => {
