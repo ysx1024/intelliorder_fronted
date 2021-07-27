@@ -45,6 +45,18 @@ export default {
               this.$router.push({path:'/admin/admininformation'})
               localStorage.setItem("staffId",response.data.data.staffId)
             }
+            if (response.data.data.staffType==='服务员'){
+              this.$router.push({path:'/Waiter/WaiterInformation'})
+              localStorage.setItem("staffId",response.data.data.staffId)
+            }
+            if (response.data.data.staffType==='后厨'){
+              this.$router.push({path:'/Cook/CookerInformation'})
+              localStorage.setItem("staffId",response.data.data.staffId)
+            }
+            if (response.data.data.staffType==='前台'){
+              this.$router.push({path:'/Reception/ReceptionInformation'})
+              localStorage.setItem("staffId",response.data.data.staffId)
+            }
           })
     }
   }
