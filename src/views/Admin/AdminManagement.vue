@@ -124,7 +124,7 @@
       </el-table-column>
       <el-table-column prop="password" label="密码">
       </el-table-column>
-      <el-table-column prop="staffTpye" label="员工类型">
+      <el-table-column prop="staffType" label="员工类型">
       </el-table-column>
       <el-table-column label="  ">
         <template slot-scope="scope">
@@ -353,7 +353,7 @@ export default {
   },
   mounted() {
     /*页面渲染时显示所有员工信息*/
-    var path = "/Data/staffmanage.json"
+    let path = api.path + "/user/staff/showStaffList";
     this.axios.get(path).then((response)=>{
       console.log(response)
       //返回的数据赋值
