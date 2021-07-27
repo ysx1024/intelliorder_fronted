@@ -4,14 +4,14 @@
     <img class="img-reception" src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="receptionData">
       <el-form-item label="编号">
-        {{receptionData.id}}&nbsp;&nbsp;
+        {{receptionData.StaffId}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item label="员工账号">
         {{receptionData.account}}
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
-                   @click="dialogVisibleAccout = true" >修改</el-button>
+                   @click="dialogVisibleAccount = true" >修改</el-button>
       </el-form-item>
       <el-form-item label="员工姓名">
         {{receptionData.name}}&nbsp;&nbsp;
@@ -31,13 +31,13 @@
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
-                   @click="dialogVisiblePassward = true" >修改</el-button>
+                   @click="dialogVisiblePassword = true" >修改</el-button>
       </el-form-item>
     </el-form>
 
     <el-dialog
         title="修改账号"
-        :visible.sync="dialogVisibleAccout"
+        :visible.sync="dialogVisibleAccount"
         width="400px"
         :before-close="handleClose">
       <el-form  label-width="100px" >
@@ -45,7 +45,7 @@
           <el-input type="text" v-model="receptionData.account"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit(); dialogVisibleAccout = false" >提交</el-button>
+          <el-button type="primary" @click="oneSubmit(); dialogVisibleAccount = false" >提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -60,14 +60,14 @@
           <el-input type="text" v-model="receptionData.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit();dialogVisiblePhone = false">提交</el-button>
+          <el-button type="primary" @click="twoSubmit();dialogVisiblePhone = false">提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
 
     <el-dialog
         title="修改密码"
-        :visible.sync="dialogVisiblePassward"
+        :visible.sync="dialogVisiblePassword"
         width="400px"
         :before-close="handleClose">
       <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
@@ -93,6 +93,8 @@
 <script>
 
 import ReceptionHeader from "../../components/ReceptionHeader";
+import qs from "qs";
+import api from "../../util/api.js"
 
 export default {
   components: {ReceptionHeader},
@@ -131,19 +133,27 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
-      dialogVisiblePassward: false,
+      dialogVisiblePassword: false,
       dialogVisiblePhone: false,
-      dialogVisibleAccout: false,
+      dialogVisibleAccount: false,
       receptionData: {
-        account: "16836546837",
-        password: "12345",
-        id: "043",
-        phone: "16836546837",
-        name: "李红",
-        staffType: "前台"
+        account: '',
+        password: '',
+        StaffId: '',
+        phone: '',
+        name: '',
+        staffType: ''
       }
     }
   },
+  mounted() {
+    let path = api.path + "/user/staff/showStaffInfo"
+    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response) => {
+      console.log(response)
+      this.receptionData = response.data.data
+    })
+  },
+
   methods: {
     handleClose(done) {
       this.$confirm('确认关闭？')
@@ -152,11 +162,19 @@ export default {
           })
           .catch(_ => {});
     },
+
     submitForm(formName) {
+      let  path = api.path + "/user/staff/changePassword"
+      this.axios.post(path, qs.stringify({
+        "staffId": localStorage.getItem("staffId"),
+        "oldPassword": this.ruleForm2.oldPass, "newPassword": this.ruleForm2.checkPass
+      })).then((response) => {
+        console.log(response)
+        this.receptionData.password = response.data.password
+      });
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.receptionData.password=this.ruleForm2.checkPass;
-          this.dialogVisiblePassward = false;
+          this.dialogVisiblePassword = false;
           this.$refs[formName].resetFields();
         } else {
           console.log('error submit!!');
@@ -167,8 +185,22 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    onSubmit() {
-      console.log('submit!');
+
+    oneSubmit(formName) {
+      let path = api.path + "/user/staff/changeAccount"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+        "account":this.receptionData.account,})).then((response) => {
+        console.log(response)
+        });
+      this.dialogVisibleAccount = false;
+      },
+    twoSubmit(formName) {
+      let path = api.path + "/user/staff/changePhone"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+        "phone":this.receptionData.phone,})).then((response) => {
+        console.log(response)
+      });
+      this.dialogVisiblePhone = false;
     }
   }
 }
