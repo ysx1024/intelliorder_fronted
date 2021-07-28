@@ -54,6 +54,8 @@
 
 <script>
 import AdminHeader from "../../components/AdminHeader";
+import api from "../../util/api";
+import qs from "qs";
 
 export default {
   name: "BusinessData",
@@ -113,7 +115,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ["米饭","油泼面","酱烧肘子","油焖大虾","红烧鲫鱼","蒜蓉茄子","花香金鱼","夏日冰饮","毛毛菇炒蛋","宫保鸡丁"],
+          data: [],
           axisLabel:{interval:0,rotate: 20}//当数量多时也全部显现
         },
         yAxis: {},
@@ -121,7 +123,7 @@ export default {
           name: '销量',
           type: 'bar',
           barWidth:35,
-          data: [30, 46, 36, 53, 42, 39,50,83,66,40]
+          data: []
         }]
       },
       pieoption:{
@@ -146,18 +148,7 @@ export default {
             name: '访问来源',
             type: 'pie',
             radius: '80%',
-            data: [
-              {value: 1048, name: '米饭'},
-              {value: 735, name: '油泼面'},
-              {value: 580, name: '酱烧肘子'},
-              {value: 484, name: '红烧鲫鱼'},
-              {value: 500, name: '蒜蓉茄子'},
-              {value: 340, name: '花香金鱼'},
-              {value: 230, name: '夏日冰饮'},
-              {value: 672, name: '毛毛菇炒蛋'},
-              {value: 620, name: '宫保鸡丁'},
-              {value: 535, name: '油焖大虾'}
-            ],
+            data: [],
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -179,6 +170,10 @@ export default {
       console.log(key, keyPath);
     },
     draw(){
+      let xAxisData = []
+      let seriesData = []
+      let pSeriesData = []
+
       if(this.timeSection!==null){
         console.log(this.timeSection)
         var startdate = this.timeSection[0]
@@ -219,8 +214,29 @@ export default {
         /*this.hisoption.xAxis.data=
         this.hisoption.series[0].data=
         this.pieoption.series[0].data=*/
-        this.$echarts.init(document.getElementById('Histogram')).setOption(this.hisoption)
-        this.$echarts.init(document.getElementById('Piechart')).setOption(this.pieoption)
+        let  path = api.path + "/bussiness/bussinessdata/updateDishProfit"
+        this.axios.post(path, qs.stringify({
+          "startDay":startdate,
+          "endDay":enddate,
+        })).then((response) => {
+          console.log(response.data.data)
+          if(response.data.status==='200'){
+            for (let i=0;i<response.data.data.length;i++){
+              pSeriesData = pSeriesData.concat({value:response.data.data[i].dishProfit,name:response.data.data[i].dishName})
+              xAxisData = xAxisData.concat(response.data.data[i].dishName)
+              seriesData = seriesData.concat(response.data.data[i].dishNum)
+            }
+
+            this.pieoption.series[0].data=pSeriesData
+
+            this.hisoption.series[0].data=seriesData
+
+            this.hisoption.xAxis.data=xAxisData
+
+            this.$echarts.init(document.getElementById('Histogram')).setOption(this.hisoption)
+            this.$echarts.init(document.getElementById('Piechart')).setOption(this.pieoption)
+          }
+        })
       }
 
     }

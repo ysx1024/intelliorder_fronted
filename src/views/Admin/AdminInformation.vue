@@ -27,7 +27,7 @@
         {{adminData.staffType}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item size="large" label="密码">
-        {{adminData.password}}
+        ******
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"

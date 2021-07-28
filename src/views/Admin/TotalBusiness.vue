@@ -56,7 +56,6 @@ export default {
   data(){
     return{
       timeSection:[],
-      seriesData: [],
       pickerOptions: {
         disabledDate:(time)=>{
           return this.dealDisabledDate(time);
@@ -90,13 +89,13 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['一月','二月','三月','四月','五月','六月']
+          data: []
         },
         yAxis: {
           type: 'value'
         },
         series: [{
-          data: [1,2,3,4,5,6],
+          data: [],
           name:'营业额',
           type: 'line'
         }]
@@ -115,7 +114,7 @@ export default {
       if(this.timeSection!==null){
         //临时图表数据数组
         let xAxisData = []
-
+        let seriesData = []
 
 
 
@@ -165,11 +164,17 @@ export default {
           console.log(response.data.data)
           if(response.data.status==='200'){
             for (let i=0;i<response.data.data.length;i++){
-              this.seriesData = this.seriesData.concat(parseInt(response.data.data[i].dishProfit))
+              seriesData = seriesData.concat(parseInt(response.data.data[i].dishProfit))
+              let time = response.data.data[i].startDay
+              let timearr = time.replace(" ",":").replace(/\:/g,"-").split("-")
+              let timestr = timearr[0]+'/'+Number(timearr[1])
+              xAxisData = xAxisData.concat(timestr)
             }
-            console.log(this.seriesData)
-            this.option.series[0].data=this.seriesData
+            console.log(seriesData)
+            this.option.series[0].data=seriesData
             console.log(this.option.series[0].data)
+            this.option.xAxis.data=xAxisData
+
             this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
           }
         })
