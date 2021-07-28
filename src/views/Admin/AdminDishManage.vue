@@ -332,7 +332,7 @@ export default {
 }
 .el-table{
   /*margin:10px,auto,auto,70px ;*/
-  margin-left: 70px;
+  margin-left: 5.5%;
   margin-top: 10px;
 }
 .form-inline{

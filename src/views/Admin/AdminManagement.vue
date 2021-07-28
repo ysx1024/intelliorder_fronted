@@ -364,7 +364,7 @@ export default {
 </script>
 <style scoped>
 .el-table{
-  margin-left: 70px;
+  margin-left: 5.5%;
   margin-top: 10px;
 }
 .form-inline{

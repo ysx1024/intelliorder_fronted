@@ -24,13 +24,14 @@
       <el-header>
         <div class="block">
           <el-date-picker
-              v-model="monthvalue"
+              v-model="timeSection"
               type="monthrange"
-              value-format="yyyy-mm"
+              value-format="timestamp"
               unlink-panels
               range-separator="至"
               start-placeholder="开始月份"
               end-placeholder="结束月份"
+              @change="drawLinechart"
               :picker-options="pickerOptions">
           </el-date-picker>
         </div>
@@ -52,8 +53,11 @@ export default {
   },
   data(){
     return{
-      monthvalue:'',
+      timeSection:[],
       pickerOptions: {
+        disabledDate:(time)=>{
+          return this.dealDisabledDate(time);
+        },
         shortcuts: [{
           text: '本月',
           onClick(picker) {
@@ -75,31 +79,48 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }]
-      }
-    }
-  },
-  methods:{
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    drawLinechart(){
-      this.$echarts.init(document.getElementById('Linechart')).setOption({
+      },
+      option:{
         title: {
           text: '总销售额',
           left: 'center'
         },
         xAxis: {
           type: 'category',
-          data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月']
+          data: ['一月','二月','三月','四月','五月','六月']
         },
         yAxis: {
           type: 'value'
         },
         series: [{
-          data: [18000, 23000, 22400, 21800, 23500, 19700, 25000],
+          data: [18000,22500,30000,27800,26080,24300],
           type: 'line'
         }]
-      })
+      }
+    }
+  },
+  methods:{
+    dealDisabledDate(time){
+      var times=Date.now();
+      return time.getTime()>times;
+    },
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    drawLinechart(){
+      console.log(this.timeSection)
+      var startmonth = this.timeSection[0]
+      var endmonth = this.timeSection[1]
+      let newDate0 = new Date(this.timeSection[0])
+      let newDate1 = new Date(this.timeSection[1])
+      startmonth =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
+      endmonth = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
+      console.log(startmonth)
+      console.log(endmonth)
+      //调用函数
+      /*this.option.series[0].data=
+      this.option.xAxis.data=*/
+      this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
     }
   },
   mounted() {

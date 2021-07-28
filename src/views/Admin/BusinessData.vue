@@ -25,13 +25,14 @@
       <el-header>
         <div class="block">
           <el-date-picker
-              v-model="datevalue"
+              v-model="timeSection"
               type="daterange"
-              value-format="yyyy-mm-dd"
+              value-format="timestamp"
               unlink-panels
               range-separator="至"
               start-placeholder="开始日期"
               end-placeholder="结束日期"
+              @change="draw"
               :picker-options="pickerOptions">
           </el-date-picker>
         </div>
@@ -44,7 +45,7 @@
           <div id="Piechart" style="width:538px;height:500px;font-size: 20px"></div>
         </el-main>
       </el-container>-->
-      <div id="Histogram" class="Histogram" style="width:1000px;height:500px;font-size: 20px"></div>
+      <div id="Histogram" class="Histogram" style="width:900px;height:500px;font-size: 20px"></div>
       <div id="Piechart" class="Piechart" style="width:820px;height:500px;font-size: 20px"></div>
 
     </el-container>
@@ -61,7 +62,7 @@ export default {
   },
   data(){
     return{
-      datevalue:'',
+      timeSection:[],
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -88,15 +89,8 @@ export default {
             picker.$emit('pick', [start, end]);
           }
         }]
-      }
-    }
-  },
-  methods:{
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    drawHistogram(){
-      this.$echarts.init(document.getElementById('Histogram')).setOption({
+      },
+      hisoption:{
         title: {
           /*text: '菜品销量图',
           textStyle:{
@@ -118,7 +112,7 @@ export default {
           type: 'category',
           data: ["米饭","油泼面","酱烧肘子","油焖大虾","红烧鲫鱼","蒜蓉茄子","花香金鱼","夏日冰饮","毛毛菇炒蛋","宫保鸡丁"],
           axisLabel:{interval:0,rotate: 20}//当数量多时也全部显现
-          },
+        },
         yAxis: {},
         series: [{
           name: '销量',
@@ -126,11 +120,8 @@ export default {
           barWidth:35,
           data: [30, 46, 36, 53, 42, 39,50,83,66,40]
         }]
-      })
-    },
-    drawPiechart(){
-
-      this.$echarts.init(document.getElementById('Piechart')).setOption({
+      },
+      pieoption:{
         title: {
           text: '菜品销售利润',
           textStyle:{
@@ -173,13 +164,33 @@ export default {
             }
           }
         ]
-      })
-
+      }
+    }
+  },
+  methods:{
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    draw(){
+      console.log(this.timeSection)
+      var startdate = this.timeSection[0]
+      var enddate = this.timeSection[1]
+      let newDate0 = new Date(this.timeSection[0])
+      let newDate1 = new Date(this.timeSection[1])
+      startdate =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
+      enddate = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
+      console.log(startdate)
+      console.log(enddate)
+      //调用函数
+      /*this.hisoption.xAxis.data=
+      this.hisoption.series[0].data=
+      this.pieoption.series[0].data=*/
+      this.$echarts.init(document.getElementById('Histogram')).setOption(this.hisoption)
+      this.$echarts.init(document.getElementById('Piechart')).setOption(this.pieoption)
     }
   },
   mounted() {
-    this.drawHistogram();
-    this.drawPiechart()
+    this.draw()
   }
 }
 </script>
