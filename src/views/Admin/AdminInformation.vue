@@ -61,7 +61,8 @@ export default {
   },
   mounted() {
     let path = api.path + "/user/staff/showStaffInfo";
-    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response)=>{
+    this.axios.post(path,qs.stringify({
+      "staffId":localStorage.getItem("staffId")})).then((response)=>{
       this.adminData=response.data.data
     })
   }

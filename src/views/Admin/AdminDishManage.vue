@@ -21,7 +21,7 @@
                   placeholder="菜品名称"></el-input>
       </el-form-item>
       <el-form-item label="菜品类别:">
-        <el-select v-model="formInline.dishType"
+        <el-select v-model="formInline.type"
                    style="width: 130px"
                    clearable
                    placeholder="菜品类别">
@@ -43,7 +43,7 @@
         style="width: 88%"
         :cell-style="{'text-align':'center'}"
         :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}"
-        :data="tableData"
+        :data="tableDataList"
         stripe
         :default-sort = "{prop: 'dishId', order: 'ascending'}">
       <el-table-column type="expand">
@@ -106,11 +106,11 @@
     <el-dialog
         class="dialog-addDish"
         title="添加菜品"
-        :visible.sync="dialogaddVisible"
+        :visible.sync="dialogAddVisible"
         @close="closeAdd"
         width=420px>
       <span>
-        <el-form ref="addform" :rules="addrules" :model="addForm" label-width="100px" class="form-inline-addForm">
+        <el-form ref="addform" :rules="addRules" :model="addForm" label-width="100px" class="form-inline-addForm">
           <el-form-item label="菜品名称" prop="dishName">
             <el-input clearable v-model="addForm.dishName"></el-input>
           </el-form-item>
@@ -151,11 +151,11 @@
     <el-dialog
         class="dialog-modifyDish"
         title="修改菜品"
-        :visible.sync="dialogmodifyVisible"
+        :visible.sync="dialogModifyVisible"
         @close="closeModify"
         width=420px>
       <span>
-        <el-form ref="modifyform" :rules="modifyrules" :model="modifyForm" label-width="100px" class="form-inline-modifyForm">
+        <el-form ref="modifyform" :rules="modifyRules" :model="modifyForm" label-width="100px" class="form-inline-modifyForm">
           <el-form-item label="编号" prop="dishId">
             <el-input :disabled="true" v-model="modifyForm.dishId"></el-input>
           </el-form-item>
@@ -201,6 +201,8 @@
 <script>
 // @ is an alias to /src
 import AdminHeader from '../../components/AdminHeader.vue'
+import api from "@/util/api";
+import qs from "qs";
 export default {
   name: 'AdminDishManage',
   components: {
@@ -208,14 +210,14 @@ export default {
   },
   data() {
     return {
-      dialogmodifyVisible:false,
-      dialogaddVisible:false,
+      dialogModifyVisible:false,
+      dialogAddVisible:false,
       formInline: {
         id: '',
         name: '',
-        staffType:''
+        type:''
       },
-      tableData: [{
+      tableDataList:[{
         dishId: '',
         dishName: '',
         dishType:'',
@@ -225,6 +227,16 @@ export default {
         costPrice:'',
         dishState:''
       }],
+      tableData: {
+        dishId: '',
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:'',
+        dishState:''
+      },
       addForm:{
         dishName: '',
         dishType:'',
@@ -242,7 +254,7 @@ export default {
         dishDesc:'',
         costPrice:''
       },
-      addrules:{
+      addRules:{
         dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
         dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
         dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
@@ -250,7 +262,7 @@ export default {
         dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
         dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
       },
-      modifyrules:{
+      modifyRules:{
         dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
         dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
         dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
@@ -261,36 +273,45 @@ export default {
     }
   },
   mounted() {
-    var path = "/Data/dishmanage.json"
+    let path = api.path + "/dish/dish/showDish";
     this.axios.get(path).then((response)=>{
       console.log(response)
       //返回的数据赋值
-      this.tableData = response.data.data
+      this.tableDataList = response.data.data
     })
   },
   methods:{
     changeSwitch(data,b,index){
-
     },
     search(){
+      let path;
       if(this.formInline.id ===''){
         if(this.formInline.name===''){
-          //调用方法searchBydishType
-        }else{
-          //调用方法searchByName
+          //调用方法getDishType
+          path = api.path + "/dish/dish/getDishType";
+          this.axios.post(path,qs.stringify({"dishType":this.formInline.type})).then((response) => {
+            console.log(response)
+            this.tableDataList = response.data.data
+          })
+        }else {
+          //调用方法getDishName
+          path = api.path + "/dish/dish/getDishName";
+          this.axios.post(path, qs.stringify({"dishName": this.formInline.name})).then((response) => {
+            console.log(response)
+            this.tableDataList = response.data.data
+          })
         }
       }else {
-        //调用方法searchById
-        /*var path = "/Data/staffmanage.json"
-        this.axios.get(path).then((response)=>{
+        //调用方法getDishId
+        path = api.path + "/dish/dish/getDishId";
+        this.axios.post(path,qs.stringify({"dishId":this.formInline.id})).then((response) => {
           console.log(response)
-          //返回的数据赋值
           this.tableData = response.data.data
-        })*/
+        })
       }
     },
     editDish(row){
-      this.dialogmodifyVisible= true
+      this.dialogModifyVisible= true
       //调用方法查询详细信息
       console.log(row.staffId)
       //调用后端方法显示修改之前的信息
@@ -302,17 +323,17 @@ export default {
     }, modifyConfirm(formName) {
 
     },modifyCancel(){
-      this.dialogmodifyVisible = false
+      this.dialogModifyVisible = false
       this.$refs.modifyform.resetFields()
     }, closeModify(){
       this.$message('取消修改！')
       this.$refs.modifyform.resetFields()
     },addDish(){
-      this.dialogaddVisible= true
+      this.dialogAddVisible= true
     },addConfirm(formName){
 
     },addCancel(){
-      this.dialogaddVisible = false
+      this.dialogAddVisible = false
       this.$refs.addform.resetFields()
     },
     closeAdd(){
@@ -330,11 +351,7 @@ export default {
 .table-expand {
   font-size: 0;
 }
-.el-table{
-  /*margin:10px,auto,auto,70px ;*/
-  margin-left: 5.5%;
-  margin-top: 10px;
-}
+
 .form-inline{
   margin-top: 50px;
   display: flex;

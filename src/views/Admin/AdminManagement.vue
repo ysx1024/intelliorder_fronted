@@ -50,8 +50,8 @@
             <el-form-item label="手机号" prop="phone">
           <el-input clearable v-model.number="addForm.phone"></el-input>
             </el-form-item>
-          <el-form-item label="职位" prop="staffTpye">
-            <el-radio-group v-model="addForm.staffTpye">
+          <el-form-item label="职位" prop="staffType">
+            <el-radio-group v-model="addForm.staffType">
               <el-radio label="前台"></el-radio>
               <el-radio label="服务员"></el-radio>
               <el-radio label="厨师"></el-radio>
@@ -91,8 +91,8 @@
           <el-form-item label="确认密码" prop="confirmpwd">
             <el-input show-password autocomplete="off" v-model="modifyForm.confirmpwd"></el-input>
           </el-form-item>
-          <el-form-item label="选择职位" prop="staffTpye">
-            <el-radio-group v-model="modifyForm.staffTpye">
+          <el-form-item label="选择职位" prop="staffType">
+            <el-radio-group v-model="modifyForm.staffType">
               <el-radio label="前台"></el-radio>
               <el-radio label="服务员"></el-radio>
               <el-radio label="厨师"></el-radio>
@@ -171,7 +171,7 @@ export default {
       addForm:{
         name: '',
         phone:'',
-        staffTpye:''
+        staffType:''
       },
       modifyForm:{
         staffId:'',
@@ -180,7 +180,7 @@ export default {
         account:'',
         password:'',
         confirmpwd:'',
-        staffTpye:''
+        staffType:''
       },
       tableData:[{
         staffId:'',
@@ -188,7 +188,7 @@ export default {
         phone:'',
         account:'',
         password:'',
-        staffTpye:''
+        staffType:''
       }],
       addrules:{
         name:[{required:true,message:'请输入员工姓名', trigger: 'blur'}],
@@ -196,7 +196,7 @@ export default {
           {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
           {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
             message: '请输入正确的手机号码', trigger: 'blur'}],
-        staffTpye:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
+        staffType:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
       },
       modifyrules:{
         account:[{required:true,message:'请输入员工账号', trigger: 'blur'}],
@@ -207,7 +207,7 @@ export default {
         password:[{ required: true, message: '请输入新密码', trigger: 'blur' }],
         confirmpwd:[{ required: true, message: '请再次输入密码确认', trigger: 'blur' },
           { validator: confirmpwdrule, trigger: 'blur' }],
-        staffTpye:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
+        staffType:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
       }
     }
   },
@@ -229,7 +229,7 @@ export default {
         if (valid) {
           this.dialogmodifyVisible = false
           //获取输入信息并调用函数操作数据库
-          /*this.modifyForm.account,this.modifyForm.phone,this.modifyForm.password,this.modifyForm.staffTpye*/
+          /*this.modifyForm.account,this.modifyForm.phone,this.modifyForm.password,this.modifyForm.staffType*/
           //调用方法数据库修改员工信息
           /*if(response.data.status==='200'){
             this.$message({
@@ -303,7 +303,7 @@ export default {
         if (valid) {
           this.dialogaddVisible = false
           //获取输入信息并调用函数操作数据库
-          /*     this.addForm.name,this.addForm.phone,this.addForm.staffTpye    */
+          /*     this.addForm.name,this.addForm.phone,this.addForm.staffType    */
           //调用方法数据库添加员工
           /*if(response.data.status==='200'){
             this.$message({
