@@ -112,10 +112,37 @@ export default {
         console.log(this.timeSection)
         var startmonth = this.timeSection[0]
         var endmonth = this.timeSection[1]
+        //时间戳转换日期格式
         let newDate0 = new Date(this.timeSection[0])
         let newDate1 = new Date(this.timeSection[1])
-        startmonth =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
-        endmonth = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
+
+        let year0 = newDate0.getFullYear()
+        let month0 = newDate0.getMonth()+1
+        let day0 = newDate0.getDate()
+        let hour0 = newDate0.getHours()
+        let minute0 = newDate0.getMinutes()
+        let second0 = newDate0.getSeconds()
+        month0 = month0 < 10 ? "0"+month0:month0
+        day0 = day0 < 10 ? "0"+day0:day0
+        hour0 = hour0 <10 ? "0"+hour0:hour0
+        minute0 = minute0 <10?"0"+minute0:minute0
+        second0 = second0 <10?"0"+second0:second0
+
+        let year1 = newDate1.getFullYear()
+        let month1 = newDate1.getMonth()+1
+        let day1 = newDate1.getDate()
+        let hour1 = newDate1.getHours()
+        let minute1 = newDate1.getMinutes()
+        let second1 = newDate1.getSeconds()
+        month1 = month1 < 10 ? "0"+month1:month1
+        day1 = day1 < 10 ? "0"+day1:day1
+        hour1 = hour1 <10 ? "0"+hour1:hour1
+        minute1 = minute1 <10?"0"+minute1:minute1
+        second1 = second1 <10?"0"+second1:second1
+
+        startmonth = year0+ '-' +month0+ '-' +day0+ ' ' +hour0+ ':' +minute0+ ':' +second0
+        endmonth = year1+ '-' +month1+ '-' +day1+ ' ' +hour1+ ':' +minute1+ ':' +second1
+
         console.log(startmonth)
         console.log(endmonth)
         //调用函数
