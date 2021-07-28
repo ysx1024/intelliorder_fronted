@@ -108,19 +108,21 @@ export default {
       console.log(key, keyPath);
     },
     drawLinechart(){
-      console.log(this.timeSection)
-      var startmonth = this.timeSection[0]
-      var endmonth = this.timeSection[1]
-      let newDate0 = new Date(this.timeSection[0])
-      let newDate1 = new Date(this.timeSection[1])
-      startmonth =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
-      endmonth = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
-      console.log(startmonth)
-      console.log(endmonth)
-      //调用函数
-      /*this.option.series[0].data=
-      this.option.xAxis.data=*/
-      this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
+      if(this.timeSection!==null){
+        console.log(this.timeSection)
+        var startmonth = this.timeSection[0]
+        var endmonth = this.timeSection[1]
+        let newDate0 = new Date(this.timeSection[0])
+        let newDate1 = new Date(this.timeSection[1])
+        startmonth =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
+        endmonth = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
+        console.log(startmonth)
+        console.log(endmonth)
+        //调用函数
+        /*this.option.series[0].data=
+        this.option.xAxis.data=*/
+        this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
+      }
     }
   },
   mounted() {

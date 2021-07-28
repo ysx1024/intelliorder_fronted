@@ -64,6 +64,9 @@ export default {
     return{
       timeSection:[],
       pickerOptions: {
+        disabledDate:(time)=>{
+          return this.dealDisabledDate(time);
+        },
         shortcuts: [{
           text: '最近一周',
           onClick(picker) {
@@ -168,25 +171,32 @@ export default {
     }
   },
   methods:{
+    dealDisabledDate(time){
+      var times=Date.now();
+      return time.getTime()>times;
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
     draw(){
-      console.log(this.timeSection)
-      var startdate = this.timeSection[0]
-      var enddate = this.timeSection[1]
-      let newDate0 = new Date(this.timeSection[0])
-      let newDate1 = new Date(this.timeSection[1])
-      startdate =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
-      enddate = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
-      console.log(startdate)
-      console.log(enddate)
-      //调用函数
-      /*this.hisoption.xAxis.data=
-      this.hisoption.series[0].data=
-      this.pieoption.series[0].data=*/
-      this.$echarts.init(document.getElementById('Histogram')).setOption(this.hisoption)
-      this.$echarts.init(document.getElementById('Piechart')).setOption(this.pieoption)
+      if(this.timeSection!==null){
+        console.log(this.timeSection)
+        var startdate = this.timeSection[0]
+        var enddate = this.timeSection[1]
+        let newDate0 = new Date(this.timeSection[0])
+        let newDate1 = new Date(this.timeSection[1])
+        startdate =newDate0.toLocaleDateString().replace(/\//g, "-") + " " + newDate0.toTimeString().substr(0, 8)
+        enddate = newDate1.toLocaleDateString().replace(/\//g, "-") + " " + newDate1.toTimeString().substr(0, 8)
+        console.log(startdate)
+        console.log(enddate)
+        //调用函数
+        /*this.hisoption.xAxis.data=
+        this.hisoption.series[0].data=
+        this.pieoption.series[0].data=*/
+        this.$echarts.init(document.getElementById('Histogram')).setOption(this.hisoption)
+        this.$echarts.init(document.getElementById('Piechart')).setOption(this.pieoption)
+      }
+
     }
   },
   mounted() {
