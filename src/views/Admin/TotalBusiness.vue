@@ -45,6 +45,8 @@
 
 <script>
 import AdminHeader from "../../components/AdminHeader";
+import api from "../../util/api.js"
+import qs from "qs";
 
 export default {
   name: "BusinessData",
@@ -54,6 +56,7 @@ export default {
   data(){
     return{
       timeSection:[],
+      seriesData: [],
       pickerOptions: {
         disabledDate:(time)=>{
           return this.dealDisabledDate(time);
@@ -93,7 +96,8 @@ export default {
           type: 'value'
         },
         series: [{
-          data: [18000,22500,30000,27800,26080,24300],
+          data: [1,2,3,4,5,6],
+          name:'营业额',
           type: 'line'
         }]
       }
@@ -109,7 +113,12 @@ export default {
     },
     drawLinechart(){
       if(this.timeSection!==null){
-        console.log(this.timeSection)
+        //临时图表数据数组
+        let xAxisData = []
+
+
+
+
         var startmonth = this.timeSection[0]
         var endmonth = this.timeSection[1]
         //时间戳转换日期格式
@@ -148,7 +157,22 @@ export default {
         //调用函数
         /*this.option.series[0].data=
         this.option.xAxis.data=*/
-        this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
+        let  path = api.path + "/bussiness/bussinessdata/queryTotal"
+        this.axios.post(path, qs.stringify({
+          "startMonth":startmonth,
+          "endMonth":endmonth,
+        })).then((response) => {
+          console.log(response.data.data)
+          if(response.data.status==='200'){
+            for (let i=0;i<response.data.data.length;i++){
+              this.seriesData = this.seriesData.concat(parseInt(response.data.data[i].dishProfit))
+            }
+            console.log(this.seriesData)
+            this.option.series[0].data=this.seriesData
+            console.log(this.option.series[0].data)
+            this.$echarts.init(document.getElementById('Linechart')).setOption(this.option)
+          }
+        })
       }
     }
   },

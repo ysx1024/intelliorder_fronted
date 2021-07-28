@@ -5,7 +5,7 @@
         src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7">
     <el-form class="el-form-1" label-width="180px" :model="cookData">
       <el-form-item label="编号">
-        {{cookData.id}}&nbsp;&nbsp;
+        {{cookData.staffId}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item label="员工账号">
       {{cookData.account}}
@@ -46,7 +46,7 @@
           <el-input type="text" v-model="cookData.account"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit(); dialogVisibleAccout = false" >提交</el-button>
+          <el-button type="primary" @click="oneSubmit(); dialogVisibleAccout = false" >提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -61,7 +61,7 @@
           <el-input type="text" v-model="cookData.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit();dialogVisiblePhone = false">提交</el-button>
+          <el-button type="primary" @click="twoSubmit();dialogVisiblePhone = false">提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -98,6 +98,7 @@ cookData是结构体数据，而res.data.data是只包含一个元素的结构�
 <script>
 import CookerHeader from "../../components/CookerHeader";
 import api from "../../util/api";
+import qs from "qs";
 
 export default {
   components: {CookerHeader},
@@ -141,17 +142,21 @@ export default {
        dialogVisiblePhone: false,
        dialogVisibleAccout: false,
        cookData: {
-         account: "16893576837",
-         password: "123456",
-         id: "043",
-         phone: "16893576837",
-         name: "王虎",
-         staffType: "厨师"
+         account: "",
+         password: "",
+         staffId: "",
+         phone: "",
+         name: "",
+         staffType: ""
     }
     }
   },
    mounted() {
-    console.log(api.path)
+     let path = api.path + "/user/staff/showStaffInfo";
+     this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response)=>{
+       this.cookData=response.data.data
+       console.log(response)
+     })
   },
    methods: {
     handleClose(done) {
@@ -174,12 +179,26 @@ export default {
       });
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+    this.$refs[formName].resetFields();
     },
-     onSubmit() {
-       console.log('submit!');
-     }
+
+  oneSubmit() {
+    let path = api.path + "/user/staff/changeAccount"
+    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+      "account":this.receptionData.account,})).then((response) => {
+      console.log(response)
+    });
+    this.dialogVisibleAccount = false;
+  },
+  twoSubmit() {
+    let path = api.path + "/user/staff/changePhone"
+    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+      "phone":this.receptionData.phone,})).then((response) => {
+      console.log(response)
+    });
+    this.dialogVisiblePhone = false;
   }
+}
 }
 </script>
 
