@@ -8,15 +8,15 @@
       <el-table-column
           prop="listId"
           label="序号"
-          width="180">
+          width="80">
       </el-table-column>
       <el-table-column
           prop="deskId"
           label="桌号"
-          width="180">
+          width="80">
       </el-table-column>
       <el-table-column
-          prop="dishId"
+          prop="dishName"
           label="菜品名称">
       </el-table-column>
       <el-table-column
@@ -66,18 +66,7 @@ export default {
   name: "CookDishlist",
   data() {
     return {
-      dishList: [{
-        orderId: '',
-        orderTime: '',
-        openId: '',
-        deskId: '',
-        id: '',
-        listId:'',
-        dishId: '',
-        dishNum: '',
-        dishPrice: '',
-        listStatus: ''
-      }]
+      dishList: []
     }
   },
   mounted() {
