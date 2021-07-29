@@ -169,18 +169,21 @@
          {{dishOrder.dishName}}
          {{dishOrder.dishNum}}
        </el-card>
-       <el-button type="warning" @click="dialogOrderList=false;submitDeskOrder(deskOrder);successIf=true">确认提交</el-button>
+       <el-button type="warning" @click="dialogOrderList=false;submitDeskOrder(deskOrder)">确认提交</el-button>
      </el-dialog>
      <el-dialog
          :visible.sync="successIf"
          width="500px">
-       {{message}}
+       请设置桌号
      </el-dialog>
    </div>
 </template>
 
 <script>
 import WaiterHeader from "@/components/WaiterHeader";
+import api from "@/util/api";
+import qs from "qs";
+
 export default {
   name: "WaiterOrder",
   components: {WaiterHeader},
@@ -196,25 +199,16 @@ export default {
       deskOrder:{
         deskId:'',
         dishOrders:[],
-        totalPrice:0
+        totalPrice:0.0
       },
-      dishes:[{
-        dishId:'',
-        dishName:'',
-        dishType:'',
-        saleTime:'',
-        dishPrice:'',
-        dishImage:'',
-        dishDesc:'',
-        costPrice:'',
-        dishState:''
-      }]
+      dishes:[]
     }
   },
   mounted() {
-    var path = "/Data/dishes.json"
-    this.axios.get(path).then((response)=>{
-      this.dishes=response.data.data
+    let path = api.path + "/dish/dish/showDish"
+    this.axios.get(path).then((response) => {
+      console.log(response)
+      this.dishes = response.data.data
     })
   },
   methods: {
@@ -245,11 +239,17 @@ export default {
       this.dishesNumber = dishesNumber
 
       console.log(this.deskOrder.dishOrders)
-
-
     },
     submitDeskOrder(deskOrder){
-
+      if(deskOrder.deskId===''){
+        this.successIf = true
+      }else{
+        console.log(deskOrder)
+        let path = api.path + "/order/orderlist/customerOrder"
+        this.axios.post(path,{"waiterOrderReqVo":JSON.stringify(deskOrder)}).then((response) => {
+          console.log(response.data.status)
+        })
+      }
     }
   }
 }
