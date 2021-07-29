@@ -192,7 +192,7 @@ export default {
     oneSubmit() {
       let path = api.path + "/user/staff/changeAccount"
       this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
-        "account":this.receptionData.account,})).then((response) => {
+        "account":this.receptionData.account})).then((response) => {
         console.log(response)
         });
       this.dialogVisibleAccount = false;
@@ -200,7 +200,7 @@ export default {
     twoSubmit() {
       let path = api.path + "/user/staff/changePhone"
       this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
-        "phone":this.receptionData.phone,})).then((response) => {
+        "phone":this.receptionData.phone})).then((response) => {
         console.log(response)
       });
       this.dialogVisiblePhone = false;
