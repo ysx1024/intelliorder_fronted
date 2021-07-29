@@ -191,23 +191,23 @@ export default {
         staffType:''
       }],
       addrules:{
-        name:[{required:true,message:'请输入员工姓名', trigger: 'blur'}],
-        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'},
+        name:[{required:true,message:'　　　请输入员工姓名', trigger: 'blur'}],
+        phone:[{required:true,message:'　　　请输入员工手机号', trigger: 'blur'},
           {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
           {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
             message: '请输入正确的手机号码', trigger: 'blur'}],
-        staffType:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
+        staffType:[{ required: true, message: '　　　请选择员工类型', trigger: 'change' }]
       },
       modifyrules:{
-        account:[{required:true,message:'请输入员工账号', trigger: 'blur'}],
-        phone:[{required:true,message:'请输入员工手机号', trigger: 'blur'},
+        account:[{required:true,message:'　　　请输入员工账号', trigger: 'blur'}],
+        phone:[{required:true,message:'　　　请输入员工手机号', trigger: 'blur'},
           {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
           {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
             message: '请输入正确的手机号码', trigger: 'blur'}],
-        password:[{ required: true, message: '请输入新密码', trigger: 'blur' }],
-        confirmpwd:[{ required: true, message: '请再次输入密码确认', trigger: 'blur' },
+        password:[{ required: true, message: '　　　请输入新密码', trigger: 'blur' }],
+        confirmpwd:[{ required: true, message: '　　　请再次输入密码确认', trigger: 'blur' },
           { validator: confirmpwdrule, trigger: 'blur' }],
-        staffType:[{ required: true, message: '请选择员工类型', trigger: 'change' }]
+        staffType:[{ required: true, message: '　　　请选择员工类型', trigger: 'change' }]
       }
     }
   },
@@ -244,7 +244,7 @@ export default {
               type: 'warning'
             })
           }else{
-            this.$message.error('发生错误！')
+            this.$message.error('发生错误！').
           }*/
           //每次提交之后刷新表单
           this.$refs.modifyform.resetFields()

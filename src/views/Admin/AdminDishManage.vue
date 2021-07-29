@@ -89,7 +89,7 @@
       <el-table-column label="下架/上架" prop="dishState">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.dishState" active-text=" " inactive-text=" "
-                     active-value=true inactive-value=false
+
                      @change="changeSwitch($event,scope.row,scope.$index)">
           </el-switch>
         </template>
@@ -160,10 +160,10 @@
             <el-input :disabled="true" v-model="modifyForm.dishId"></el-input>
           </el-form-item>
           <el-form-item label="菜品名称" prop="dishName">
-            <el-input clearable v-model="addForm.dishName"></el-input>
+            <el-input clearable v-model="modifyForm.dishName"></el-input>
           </el-form-item>
           <el-form-item label="菜品类别" prop="dishType">
-            <el-select v-model="addForm.dishType"
+            <el-select v-model="modifyForm.dishType"
                        style="width: 280px"
                        placeholder="菜品类别">
               <el-option label="今日特价" value="今日特价"></el-option>
@@ -175,17 +175,17 @@
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
-          <el-input clearable v-model="addForm.dishImage"></el-input>
+          <el-input clearable v-model="modifyForm.dishImage"></el-input>
           </el-form-item>
           <el-form-item label="菜品成本" prop="costPrice">
-          <el-input clearable v-model="addForm.costPrice"></el-input>
+          <el-input clearable v-model="modifyForm.costPrice"></el-input>
           </el-form-item>
           <el-form-item label="菜品价格" prop="dishPrice">
-          <el-input clearable v-model="addForm.dishPrice"></el-input>
+          <el-input clearable v-model="modifyForm.dishPrice"></el-input>
           </el-form-item>
           <el-form-item label="菜品描述" prop="dishDesc">
           <el-input type="textarea" placeholder="请输入内容"
-                    autosize clearable v-model="addForm.dishDesc"></el-input>
+                    autosize clearable v-model="modifyForm.dishDesc"></el-input>
           </el-form-item>
         </el-form>
       </span>
@@ -204,10 +204,13 @@ import AdminHeader from '../../components/AdminHeader.vue'
 import api from "@/util/api";
 import qs from "qs";
 export default {
+
   name: 'AdminDishManage',
+
   components: {
     AdminHeader
   },
+
   data() {
     return {
       dialogModifyVisible:false,
@@ -225,7 +228,7 @@ export default {
         dishImage: '',
         dishDesc:'',
         costPrice:'',
-        dishState:''
+        dishState:true
       }],
       tableData: {
         dishId: '',
@@ -235,7 +238,7 @@ export default {
         dishImage: '',
         dishDesc:'',
         costPrice:'',
-        dishState:''
+        dishState:true
       },
       addForm:{
         dishName: '',
@@ -257,34 +260,58 @@ export default {
       addRules:{
         dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
         dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
-        dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
+        dishImage:[{message:'请添加菜品图片', trigger: 'blur'}],
         costPrice:[{required:true,message:'请输入菜品成本', trigger: 'blur'}],
         dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
-        dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
+        dishDesc:[{message:'请输入菜品描述', trigger: 'blur'}]
       },
       modifyRules:{
         dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
-        dishType:[{ required: true, message: '请选择菜品类型', trigger: 'change' }],
-        dishImage:[{required:true,message:'请添加菜品图片', trigger: 'blur'}],
-        costPrice:[{required:true,message:'请输入菜品成本', trigger: 'blur'}],
-        dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
-        dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
+        dishType:[{  message: '请选择菜品类型', trigger: 'change' }],
+        dishImage:[{message:'请添加菜品图片', trigger: 'blur'}],
+        costPrice:[{message:'请输入菜品成本', trigger: 'blur'}],
+        dishPrice:[{message:'请输入菜品价格', trigger: 'blur'}],
+        dishDesc:[{message:'请输入菜品描述', trigger: 'blur'}]
       }
     }
   },
+
+
   mounted() {
-    let path = api.path + "/dish/dish/showDish";
-    this.axios.get(path).then((response)=>{
-      console.log(response)
-      //返回的数据赋值
-      this.tableDataList = response.data.data
-    })
+    this.update()
   },
+
   methods:{
-    changeSwitch(data,b,index){
+    changeSwitch(event,row,index){
+      let path = api.path + "/dish/dish/updateDishState";
+      this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
+        console.log(response)
+
+        if(response.data.status==='200'){
+          this.$message({
+            message: '更新成功!',
+            type: 'success'
+          })
+        }else if(response.data.status==='404'){
+          this.$message.error('请求失败！')
+        }else{
+          this.$message.error('发生错误！')
+        }
+        this.update()
+      })
+
+    },
+
+    update(){
+      let path = api.path + "/dish/dish/showDishList";
+      this.axios.get(path).then((response)=>{
+        console.log(response)
+        //返回的数据赋值
+        this.tableDataList = response.data.data
+      })
     },
     search(){
-      let path;
+      let path
       if(this.formInline.id ===''){
         if(this.formInline.name===''){
           //调用方法getDishType
@@ -307,38 +334,93 @@ export default {
         this.axios.post(path,qs.stringify({"dishId":this.formInline.id})).then((response) => {
           console.log(response)
           this.tableData = response.data.data
+          this.tableDataList.push(this.tableData)
         })
       }
     },
+
     editDish(row){
       this.dialogModifyVisible= true
       //调用方法查询详细信息
-      console.log(row.staffId)
+      let path = api.path + "/dish/dish/getDishId";
+      this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
+        console.log(response)
+        this.modifyForm = response.data.data
+      })
       //调用后端方法显示修改之前的信息
-      /*var path = "/Data/dishmanage.json"
-      this.axios.get(path).then((response)=>{
-            console.log(response)
-            //返回的数据赋值
-            this.modifyForm= response.data.data})*/
-    }, modifyConfirm(formName) {
+    },
 
-    },modifyCancel(){
+    modifyConfirm() {
+      let path = api.path + "/dish/dish/updateDish";
+      this.axios.post(path,qs.stringify({
+        "dishId":this.modifyForm.dishId,
+        "dishName":this.modifyForm.dishName,
+        "dishType":this.modifyForm.dishType,
+        "dishPrice":this.modifyForm.dishPrice,
+        "dishImage":this.modifyForm.dishImage,
+        "dishDesc":this.modifyForm.dishDesc,
+        "costPrice":this.modifyForm.costPrice
+      })).then((response) => {
+        console.log(response)
+        this.dialogModifyVisible = false
+        if(response.data.status==='200'){
+          this.$message({
+            message: '更新成功!',
+            type: 'success'
+          })
+        }else if(response.data.status==='404'){
+          this.$message.error('请求失败！')
+        }else if(response.data.status==='304'){
+          this.$message({
+            message: '信息无变动！',
+            type: 'warning'
+          })
+        }else{
+          this.$message.error('发生错误！')
+        }
+      })
+
+    },
+
+    modifyCancel(){
       this.dialogModifyVisible = false
       this.$refs.modifyform.resetFields()
-    }, closeModify(){
-      this.$message('取消修改！')
-      this.$refs.modifyform.resetFields()
-    },addDish(){
-      this.dialogAddVisible= true
-    },addConfirm(formName){
+      this.$message.info('取消修改！')
+    },
 
-    },addCancel(){
+    closeModify(){
+      this.$refs.modifyform.resetFields()
+      this.update()
+    },
+
+    addDish(){
+      this.dialogAddVisible= true
+    },
+
+    addConfirm(){
+      let path = api.path + "/dish/dish/addDish";
+      this.axios.post(path,qs.stringify({
+        "dishName":this.addForm.dishName,
+        "dishType":this.addForm.dishType,
+        "dishPrice":this.addForm.dishPrice,
+        "dishImage":this.addForm.dishImage,
+        "dishDesc":this.addForm.dishDesc,
+        "costPrice":this.addForm.costPrice
+      })).then((response) => {
+        console.log(response)
+      })
+      this.dialogAddVisible = false
+    },
+
+    addCancel(){
       this.dialogAddVisible = false
       this.$refs.addform.resetFields()
-    },
-    closeAdd(){
       this.$message('取消添加！')
+    },
+
+    closeAdd(){
       this.$refs.addform.resetFields()
+      this.update()
     }
   }
 }
