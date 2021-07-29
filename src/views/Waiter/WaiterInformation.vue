@@ -47,7 +47,7 @@
           <el-input type="text" v-model="waiterData.account"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit(); dialogVisibleAccout = false" >提交</el-button>
+          <el-button type="primary" @click="oneSubmit(); dialogVisibleAccout = false" >提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -62,7 +62,7 @@
           <el-input type="text" v-model="waiterData.phone"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit();dialogVisiblePhone = false">提交</el-button>
+          <el-button type="primary" @click="twoSubmit();dialogVisiblePhone = false">提交</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -160,7 +160,19 @@ export default {
           })
           .catch(_ => {});
     },
+
     submitForm(formName) {
+        let  path = api.path + "/user/staff/changePassword"
+
+        this.axios.post(path, qs.stringify({
+          "staffId": localStorage.getItem("staffId"),
+          "oldPassword": this.ruleForm2.oldPass, "newPassword": this.ruleForm2.checkPass})).then((response) => {
+          console.log(response)
+          if(response.data.status==="200"){
+            this.waiterData.password = response.data.password
+          }
+        });
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.waiterData.password=this.ruleForm2.checkPass;
@@ -175,8 +187,21 @@ export default {
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
-    onSubmit() {
-      console.log('submit!');
+    oneSubmit() {
+      let path = api.path + "/user/staff/changeAccount"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+        "account":this.waiterData.account,})).then((response) => {
+        console.log(response)
+      });
+      this.dialogVisibleAccount = false;
+    },
+    twoSubmit() {
+      let path = api.path + "/user/staff/changePhone"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
+        "phone":this.waiterData.phone,})).then((response) => {
+        console.log(response)
+      });
+      this.dialogVisiblePhone = false;
     }
   }
 }

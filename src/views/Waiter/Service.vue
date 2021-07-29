@@ -11,24 +11,25 @@
         <el-table-column
           prop="deskId"
           label="桌号"
-          width="80"
+          width="60"
           align="center">
         </el-table-column>
         <el-table-column
-          prop="dishId"
+          prop="dishName"
           label="菜品名称"
+          width="120"
           align="center">
         </el-table-column>
         <el-table-column
           prop="dishNum"
           label="菜品数目"
-          width="80"
+          width="60"
           align="center">
         </el-table-column>
         <el-table-column
           prop="orderTime"
           label="下单时间"
-          width="180"
+          width="140"
           align="center">
         </el-table-column>
         <el-table-column
@@ -65,7 +66,7 @@
       <el-table-column
           prop="deskId"
           label="桌号"
-          width="80"
+          width="60"
           align="center">
       </el-table-column>
       <el-table-column
@@ -111,24 +112,15 @@
 <script>
 
 import WaiterHeader from "../../components/WaiterHeader";
+import api from "../../util/api";
+import qs from "qs";
 
 export default {
   name: "Service",
   components: {WaiterHeader},
   data() {
     return {
-        serviceList: [{
-          orderId: '',
-          orderTime: '',
-          openId: '',
-          deskId: '',
-          id: '',
-          listId:'',
-          dishId: '',
-          dishNum: '',
-          dishPrice: '',
-          listStatus: ''
-        }],
+        serviceList: [],
       callQuset:[{
         callId:'',
         deskId:'',
@@ -140,31 +132,49 @@ export default {
     }
   },
   mounted() {
-    var path = "/Data/serviceList.json"
-    this.axios.get(path).then((response)=>{
-      console.log(response)
+    let path1 = api.path + "/order/orderlist/serveList";
+    this.axios.get(path1).then((response)=>{
       this.serviceList=response.data.data
-      this.callQuset=response.data.data1
+      console.log(response)
+    })
+    let path2 = api.path + "/call/callquest/showCallquestList";
+    this.axios.get(path2).then((response)=>{
+      console.log(response)
+      this.callQuset=response.data.data
     })
   },
   methods:{
     acceptService(row){
-      //向后端传参数：订单明细序号，厨师Id，状态值=1
-      console.log(row.listId)
-      row.listStatus="3"
+      let path = api.path + "/order/orderlist/receiveServe"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"listId":row.listId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
     },
     serviceCompleted(row){
-      //向后端传参数：订单明细序号，厨师Id，状态值=2
-      console.log(row.listId)
+      let path = api.path + "/order/orderlist/completeServe"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"listId":row.listId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
     },
     acceptCall(row){
-      //向后端传参数：订单明细序号，厨师Id，状态值=1
-      console.log(row.deskId)
-      row.callStatus="1"
+      let path = api.path + "/call/callquest/receiveCallquest"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"callId":row.callId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
     },
     callCompleted(row){
-      //向后端传参数：订单明细序号，厨师Id，状态值=2
-      console.log(row.deskId)
+      let path = api.path + "/call/callquest/completeCallquest"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"callId":row.callId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
     }
   }
 }
