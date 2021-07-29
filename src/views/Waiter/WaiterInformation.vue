@@ -28,7 +28,8 @@
         {{waiterData.staffType}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item size="large" label="密码">
-        {{waiterData.password}}
+        &nbsp;&nbsp;
+        ******
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
@@ -92,6 +93,8 @@
 
 <script>
 import WaiterHeader from "../../components/WaiterHeader";
+import api from "../../util/api";
+import qs from "qs";
 
 export default {
   components: {WaiterHeader},
@@ -134,14 +137,20 @@ export default {
       dialogVisiblePhone: false,
       dialogVisibleAccout: false,
       waiterData: {
-        account: "16835546837",
-        password: "1234",
-        id: "043",
-        phone: "16835546837",
-        name: "张梅",
-        staffType: "服务员"
+        account: '',
+        password: '',
+        staffId: '',
+        phone: '',
+        name: '',
+        staffType: ''
       }
     }
+  },
+  mounted() {
+    let path = api.path + "/user/staff/showStaffInfo"
+    this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response) => {
+      this.waiterData = response.data.data
+    })
   },
   methods: {
     handleClose(done) {

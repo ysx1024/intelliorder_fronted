@@ -27,7 +27,7 @@
       <el-table-column
           label="详情">
         <template slot-scope="scope">
-              <el-button type="text" @click="getorderList(scope.row.deskId);dialogorderList= true">详情</el-button>
+              <el-button type="text" @click="getorderList(scope.row.orderId);dialogorderList= true">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -91,7 +91,7 @@ export default {
     }
   },
   methods:{
-    getorderList(deskId){
+    getorderList(orderId){
       var path = "/Data/orderList.json"
       this.axios.get(path).then((response)=>{
         console.log(response)

@@ -38,7 +38,6 @@
                      style="width:100px" type="warning" round>
             接单</el-button>
           <el-button v-if="scope.row.listStatus=='1'"
-                     @click.native.prevent="acceptOrder(scope.row)"
                      style="width:100px" type="success" round>
             已接单</el-button>
         </template>
@@ -59,6 +58,7 @@
 <script>
 import CookerHeader from "../../components/CookerHeader";
 import api from "@/util/api";
+import qs from "qs";
 
 export default {
   components: {CookerHeader},
@@ -81,20 +81,29 @@ export default {
     }
   },
   mounted() {
-    var path = "/Data/orderList.json"
-    this.axios.get(path).then((response)=>{
-      this.dishList=response.data.data
+    let path = api.path + "/order/orderlist/showOrderlist"
+    this.axios.get(path).then((response) => {
+      this.dishList = response.data.data
     })
   },
   methods:{
     acceptOrder(row){
+      let path = api.path + "/order/orderlist/receiveOrderlist"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"listId":row.listId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
       //向后端传参数：订单明细序号，厨师Id，状态值=1
-      console.log(row.listId)
-      row.listStatus="1"
     },
     orderCompleted(row){
       //向后端传参数：订单明细序号，厨师Id，状态值=2
-      console.log(row.listId)
+      let path = api.path + "/order/orderlist/completeOrderlist"
+      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),"listId":row.listId})).then((response) => {
+        if(response.data.status==='200') {
+          location.reload()
+        }
+      })
     }
   }
 }

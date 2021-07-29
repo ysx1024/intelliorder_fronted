@@ -27,7 +27,7 @@
         {{receptionData.staffType}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item size="large" label="密码">
-        {{receptionData.password}}
+        ******
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
@@ -149,7 +149,6 @@ export default {
   mounted() {
     let path = api.path + "/user/staff/showStaffInfo"
     this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response) => {
-      console.log(response)
       this.receptionData = response.data.data
     })
   },
