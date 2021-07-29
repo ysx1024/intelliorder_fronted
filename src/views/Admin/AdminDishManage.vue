@@ -282,8 +282,24 @@ export default {
   },
 
   methods:{
-    changeSwitch(data,b,index){
-     this.update()
+    changeSwitch(event,row,index){
+      let path = api.path + "/dish/dish/updateDishState";
+      this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
+        console.log(response)
+
+        if(response.data.status==='200'){
+          this.$message({
+            message: '更新成功!',
+            type: 'success'
+          })
+        }else if(response.data.status==='404'){
+          this.$message.error('请求失败！')
+        }else{
+          this.$message.error('发生错误！')
+        }
+        this.update()
+      })
+
     },
 
     update(){
@@ -399,11 +415,12 @@ export default {
     addCancel(){
       this.dialogAddVisible = false
       this.$refs.addform.resetFields()
+      this.$message('取消添加！')
     },
 
     closeAdd(){
-      this.$message('取消添加！')
       this.$refs.addform.resetFields()
+      this.update()
     }
   }
 }
