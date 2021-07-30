@@ -319,9 +319,11 @@ export default {
   },
 
   methods:{
+
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
+
     beforeAvatarUpload(file) {
       const isImage = file.type.includes("image");
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -333,12 +335,15 @@ export default {
       }
       return isImage && isLt2M;
     },
+
     handleError(){
       this.$message.error("上传失败,请重新上传图片!");
     },
+
     handleAvatarSuccess1(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
+
     beforeAvatarUpload1(file) {
       const isImage = file.type.includes("image");
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -350,12 +355,31 @@ export default {
       }
       return isImage && isLt2M;
     },
+
     handleError1(){
       this.$message.error("上传失败,请重新上传图片!");
     },
-    changeSwitch(data,b,index){
-      this.update()
+
+    changeSwitch(event,row,index){
+      let path = api.path + "/dish/dish/updateDishState";
+      this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
+        console.log(response)
+
+        if(response.data.status==='200'){
+          this.$message({
+            message: '更新成功!',
+            type: 'success'
+          })
+        }else if(response.data.status==='404'){
+          this.$message.error('请求失败！')
+        }else{
+          this.$message.error('发生错误！')
+        }
+        this.update()
+      })
+
     },
+
     update(){
       let path = api.path + "/dish/dish/showDishList";
       this.axios.get(path).then((response)=>{
@@ -364,6 +388,7 @@ export default {
         this.tableDataList = response.data.data
       })
     },
+
     search(){
       let path
       if(this.formInline.id ===''){
@@ -471,10 +496,10 @@ export default {
       console.log(this.imageUrl)
       this.dialogAddVisible = false
       this.$refs.addform.resetFields()
+      this.$message('取消添加！')
     },
 
     closeAdd(){
-      this.$message('取消添加！')
       this.$refs.addform.resetFields()
       this.update()
     }
