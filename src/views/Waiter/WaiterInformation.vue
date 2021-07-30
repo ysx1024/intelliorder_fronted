@@ -5,7 +5,7 @@
          src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
     <el-form class="el-form-1" label-width="180px" :model="waiterData">
       <el-form-item label="编号">
-        {{waiterData.id}}&nbsp;&nbsp;
+        {{waiterData.staffId}}&nbsp;&nbsp;
       </el-form-item>
       <el-form-item label="员工账号">
         {{waiterData.account}}

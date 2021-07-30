@@ -197,7 +197,7 @@ export default {
       message:"",
       dishesNumber:'',
       deskOrder:{
-        deskId:'',
+        deskId:13,
         dishOrders:[],
         totalPrice:0.0
       },
@@ -241,11 +241,14 @@ export default {
       if(deskOrder.deskId===''){
         this.successIf = true
       }else{
+        console.log(deskOrder)
         let path = api.path + "/order/orderlist/waiterOrder"
         this.axios.post(path,deskOrder).then((response) => {
           console.log(response)
         })
+        location.reload()
       }
+
     }
   }
 }
