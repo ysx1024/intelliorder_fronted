@@ -5,10 +5,10 @@
     "dishType": "地方名吃",
     "dishPrice": "48.0",
     "saleTime": "",
-    "dishImage": "../../src/assets/logo.png",
+    "dishImage": "https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg",
     "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
     "costPrice":"28",
-    "dishState":"true"
+    "dishState":false
   },
     {
       "dishId": "02",
@@ -19,7 +19,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "03",
@@ -30,7 +30,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "04",
@@ -41,7 +41,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "05",
@@ -52,7 +52,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "06",
@@ -63,7 +63,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "07",
@@ -74,7 +74,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "08",
@@ -85,7 +85,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "09",
@@ -96,7 +96,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "10",
@@ -107,7 +107,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "11",
@@ -118,7 +118,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "12",
@@ -129,7 +129,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "13",
@@ -140,7 +140,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     },
     {
       "dishId": "14",
@@ -151,7 +151,7 @@
       "dishImage": "",
       "dishDesc":"一只有梦想的肘子，它的目标是身价涨到68.0",
       "costPrice":"28",
-      "dishState":"true"
+      "dishState":true
     }
   ]
 }

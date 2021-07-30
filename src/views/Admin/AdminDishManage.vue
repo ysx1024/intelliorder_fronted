@@ -25,12 +25,13 @@
                    style="width: 130px"
                    clearable
                    placeholder="菜品类别">
-          <el-option label="今日特价" value="今日特价"></el-option>
-          <el-option label="人气爆款" value="人气爆款"></el-option>
-          <el-option label="夏日果茶" value="夏日果茶"></el-option>
-          <el-option label="特色菜肴" value="特色菜肴"></el-option>
-          <el-option label="必点小吃" value="必点小吃"></el-option>
+          <el-option label="农家小炒" value="农家小炒"></el-option>
+          <el-option label="地方名吃" value="地方名吃"></el-option>
+          <el-option label="特色海鲜" value="特色海鲜"></el-option>
+          <el-option label="精品甜点" value="精品甜点"></el-option>
+          <el-option label="原味炖汤" value="原味炖汤"></el-option>
           <el-option label="主食" value="主食"></el-option>
+          <el-option label="酒水饮料" value="酒水饮料"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -80,7 +81,16 @@
       </el-table-column>
       <el-table-column sortable label="菜品编号" prop="dishId">
       </el-table-column>
-      <el-table-column label="菜品图片" prop="dishImage">
+      <el-table-column
+          prop="dishImage"
+          label="菜品图片">
+        <template slot-scope="scope">
+          <el-image :src="scope.row.dishImage" lazy>
+            <div slot="error" class="image-slot">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </el-image>
+        </template>
       </el-table-column>
       <el-table-column label="菜品名称" prop="dishName">
       </el-table-column>
@@ -89,7 +99,6 @@
       <el-table-column label="下架/上架" prop="dishState">
         <template slot-scope="scope">
           <el-switch v-model="scope.row.dishState" active-text=" " inactive-text=" "
-
                      @change="changeSwitch($event,scope.row,scope.$index)">
           </el-switch>
         </template>
@@ -117,17 +126,27 @@
           <el-form-item label="菜品类别" prop="dishType">
             <el-select v-model="addForm.dishType"
                        style="width: 280px"
-                   placeholder="菜品类别">
-              <el-option label="今日特价" value="今日特价"></el-option>
-              <el-option label="人气爆款" value="人气爆款"></el-option>
-              <el-option label="夏日果茶" value="夏日果茶"></el-option>
-              <el-option label="特色菜肴" value="特色菜肴"></el-option>
-              <el-option label="必点小吃" value="必点小吃"></el-option>
+                       placeholder="菜品类别">
+              <el-option label="农家小炒" value="农家小炒"></el-option>
+              <el-option label="地方名吃" value="地方名吃"></el-option>
+              <el-option label="特色海鲜" value="特色海鲜"></el-option>
+              <el-option label="精品甜点" value="精品甜点"></el-option>
+              <el-option label="原味炖汤" value="原味炖汤"></el-option>
               <el-option label="主食" value="主食"></el-option>
+              <el-option label="酒水饮料" value="酒水饮料"></el-option>
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
-          <el-input clearable v-model="addForm.dishImage"></el-input>
+            <el-upload
+                class="avatar-uploader"
+                action="https://jsonplaceholder.typicode.com/posts/"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :on-error="handleError"
+                :before-upload="beforeAvatarUpload">
+                <el-image v-if="imageUrl" :src="imageUrl" class="avatar"/>
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </el-form-item>
           <el-form-item label="菜品成本" prop="costPrice">
           <el-input clearable v-model="addForm.costPrice"></el-input>
@@ -166,16 +185,26 @@
             <el-select v-model="modifyForm.dishType"
                        style="width: 280px"
                        placeholder="菜品类别">
-              <el-option label="今日特价" value="今日特价"></el-option>
-              <el-option label="人气爆款" value="人气爆款"></el-option>
-              <el-option label="夏日果茶" value="夏日果茶"></el-option>
-              <el-option label="特色菜肴" value="特色菜肴"></el-option>
-              <el-option label="必点小吃" value="必点小吃"></el-option>
+              <el-option label="农家小炒" value="农家小炒"></el-option>
+              <el-option label="地方名吃" value="地方名吃"></el-option>
+              <el-option label="特色海鲜" value="特色海鲜"></el-option>
+              <el-option label="精品甜点" value="精品甜点"></el-option>
+              <el-option label="原味炖汤" value="原味炖汤"></el-option>
               <el-option label="主食" value="主食"></el-option>
+              <el-option label="酒水饮料" value="酒水饮料"></el-option>
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
-          <el-input clearable v-model="modifyForm.dishImage"></el-input>
+          <el-upload
+              class="avatar1-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess1"
+              :on-error="handleError1"
+              :before-upload="beforeAvatarUpload1">
+                <el-image v-if="imageUrl1" :src="imageUrl1" class="avatar1"/>
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
           </el-form-item>
           <el-form-item label="菜品成本" prop="costPrice">
           <el-input clearable v-model="modifyForm.costPrice"></el-input>
@@ -213,6 +242,8 @@ export default {
 
   data() {
     return {
+      imageUrl: '',
+      imageUrl1: '',
       dialogModifyVisible:false,
       dialogAddVisible:false,
       formInline: {
@@ -279,29 +310,52 @@ export default {
 
   mounted() {
     this.update()
+    /*let path ="/Data/dishes.json";
+    this.axios.get(path).then((response)=>{
+      console.log(response)
+      //返回的数据赋值
+      this.tableDataList = response.data.data
+    })*/
   },
 
   methods:{
-    changeSwitch(event,row,index){
-      let path = api.path + "/dish/dish/updateDishState";
-      this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
-        console.log(response)
-
-        if(response.data.status==='200'){
-          this.$message({
-            message: '更新成功!',
-            type: 'success'
-          })
-        }else if(response.data.status==='404'){
-          this.$message.error('请求失败！')
-        }else{
-          this.$message.error('发生错误！')
-        }
-        this.update()
-      })
-
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
     },
-
+    beforeAvatarUpload(file) {
+      const isImage = file.type.includes("image");
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isImage) {
+        this.$message.error('上传的格式必须是图片!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isImage && isLt2M;
+    },
+    handleError(){
+      this.$message.error("上传失败,请重新上传图片!");
+    },
+    handleAvatarSuccess1(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw);
+    },
+    beforeAvatarUpload1(file) {
+      const isImage = file.type.includes("image");
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isImage) {
+        this.$message.error('上传的格式必须是图片!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isImage && isLt2M;
+    },
+    handleError1(){
+      this.$message.error("上传失败,请重新上传图片!");
+    },
+    changeSwitch(data,b,index){
+      this.update()
+    },
     update(){
       let path = api.path + "/dish/dish/showDishList";
       this.axios.get(path).then((response)=>{
@@ -413,27 +467,27 @@ export default {
     },
 
     addCancel(){
+      console.log(this.imageUrl)
       this.dialogAddVisible = false
       this.$refs.addform.resetFields()
-      this.$message('取消添加！')
     },
 
     closeAdd(){
+      this.$message('取消添加！')
       this.$refs.addform.resetFields()
-      this.update()
     }
   }
 }
 </script>
 <style scoped>
+.el-table{
+  margin-left: 5.5%;
+  margin-top: 10px;
+}
 .table-expand label {
   width: 90px;
   color: #99a9bf;
 }
-.table-expand {
-  font-size: 0;
-}
-
 .form-inline{
   margin-top: 50px;
   display: flex;
@@ -443,5 +497,51 @@ export default {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
+}
+.avatar-uploader {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader:hover {
+  border-color: #409EFF;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+.avatar1-uploader {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar1-uploader:hover {
+  border-color: #409EFF;
+}
+.avatar1-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar1 {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>
