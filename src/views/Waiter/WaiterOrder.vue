@@ -207,7 +207,6 @@ export default {
   mounted() {
     let path = api.path + "/dish/dish/showDish"
     this.axios.get(path).then((response) => {
-      console.log(response)
       this.dishes = response.data.data
     })
   },
@@ -237,17 +236,14 @@ export default {
       //将临时变量的数据传给全局变量
       this.deskOrder.totalPrice = totalPrice
       this.dishesNumber = dishesNumber
-
-      console.log(this.deskOrder.dishOrders)
     },
     submitDeskOrder(deskOrder){
       if(deskOrder.deskId===''){
         this.successIf = true
       }else{
-        console.log(deskOrder)
-        let path = api.path + "/order/orderlist/customerOrder"
-        this.axios.post(path,{"waiterOrderReqVo":JSON.stringify(deskOrder)}).then((response) => {
-          console.log(response.data.status)
+        let path = api.path + "/order/orderlist/waiterOrder"
+        this.axios.post(path,deskOrder).then((response) => {
+          console.log(response)
         })
       }
     }
