@@ -475,6 +475,7 @@ export default {
     closeAdd(){
       this.$message('取消添加！')
       this.$refs.addform.resetFields()
+      this.update()
     }
   }
 }

@@ -222,7 +222,13 @@ export default {
       this.axios.get(path).then((response)=>{
             console.log(response)
             //返回的数据赋值
-            this.modifyForm= response.data.data})*/
+            this.modifyForm.staffId=response.data.data.staffId
+            this.modifyForm.name=response.data.data.name
+            this.modifyForm.phone=response.data.data.phone
+            this.modifyForm.account=response.data.data.account
+            this.modifyForm.password=response.data.data.password
+            this.modifyForm.staffType=response.data.data.staffType})
+            */
     },
     modifyConfirm(formName){
       this.$refs.modifyform.validate((valid) => {
@@ -248,6 +254,7 @@ export default {
           }*/
           //每次提交之后刷新表单
           this.$refs.modifyform.resetFields()
+          //更新
         } else {
           console.log('error submit!!');
           return false;
@@ -257,6 +264,7 @@ export default {
     modifyCancel(){
       this.dialogmodifyVisible = false
       this.$refs.modifyform.resetFields()
+      this.$message.info('取消修改！')
     },
     closeModify(){
       this.$message('取消修改！')
@@ -272,7 +280,8 @@ export default {
       })
           .then(() => {
             console.log(row.staffId)
-            //调用方法数据库删除员工
+            //调用方法数据库删除员工，参数为row.staffId
+
             /*if(response.data.status==='200'){
               this.$message({
                 message: '删除成功!',
@@ -327,9 +336,9 @@ export default {
     addCancel(){
       this.dialogaddVisible = false
       this.$refs.addform.resetFields()
+      this.$message('取消添加！')
     },
     closeAdd(){
-      this.$message('取消添加！')
       this.$refs.addform.resetFields()
     },
     /*搜索按钮点击对应事件*/
@@ -337,8 +346,10 @@ export default {
       if(this.formInline.staffId ===''){
         if(this.formInline.name===''){
           //调用方法searchByStaffType
+          //this.tableData = response.data.data
         }else{
           //调用方法searchByName
+          //this.tableData = response.data.data
         }
       }else {
         //调用方法searchBystaffId
@@ -373,7 +384,6 @@ export default {
   justify-content:space-evenly;
 }
 .form-inline-addForm{
-
 }
 .el-input{
   width:250px
