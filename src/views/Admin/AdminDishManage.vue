@@ -490,6 +490,7 @@ export default {
         console.log(response)
       })
       this.dialogAddVisible = false
+      this.update()
     },
 
     addCancel(){
@@ -497,6 +498,7 @@ export default {
       this.dialogAddVisible = false
       this.$refs.addform.resetFields()
       this.$message('取消添加！')
+      this.update()
     },
 
     closeAdd(){

@@ -225,7 +225,7 @@ export default {
   },
   methods:{
     //更新数据请求
-    upData(){
+    upData (){
       let path = api.path + "/user/staff/showStaffList";
       this.axios.get(path).then((response)=>{
         console.log(response)
