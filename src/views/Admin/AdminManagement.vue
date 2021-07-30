@@ -275,7 +275,7 @@ export default {
       }).then(() => {
             console.log(row.staffId)
             let path = api.path + "/user/staff/deleteById";
-            this.axios.delete(path,{data:qs.stringify({"staffId":row.staffId})}).
+            this.axios.post(path,qs.stringify({"staffId":row.staffId})).
             then((response)=>{
               console.log(response)
               //成功后刷新表格数据
@@ -293,6 +293,13 @@ export default {
       this.$refs.addform.validate((valid) => {
         if (valid) {
           this.dialogaddVisible = false
+
+          let path = api.path + "/user/staff/addStaff";
+          this.axios.post(path,qs.stringify({"name":this.addForm.name,"phone":this.addForm.phone, "staffType":this.addForm.staffType})).
+          then((response)=>{
+            //成功后刷新表格数据
+            this.upData()
+          })
           //获取输入信息并调用函数操作数据库
           /*     this.addForm.name,this.addForm.phone,this.addForm.staffType    */
           //调用方法数据库添加员工
