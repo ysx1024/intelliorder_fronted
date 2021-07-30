@@ -388,6 +388,7 @@ export default {
         this.axios.post(path,qs.stringify({"dishId":this.formInline.id})).then((response) => {
           console.log(response)
           this.tableData = response.data.data
+          this.tableDataList=[]
           this.tableDataList.push(this.tableData)
         })
       }
