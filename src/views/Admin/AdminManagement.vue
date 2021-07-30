@@ -69,7 +69,6 @@
         class="dialog-modifyStaff"
         title="修改信息"
         :visible.sync="dialogmodifyVisible"
-        @close="closeModify"
         width=450px>
       <span>
         <el-form ref="modifyform" :model="modifyForm" :rules="modifyrules" label-width="100px" class="form-inline-modifyForm">
@@ -147,6 +146,7 @@
 // @ is an alias to /src
 import AdminHeader from '../../components/AdminHeader.vue'
 import api from "../../util/api";
+import qs from "qs";
 export default {
   name: 'AdminManagement',
   components: {
@@ -193,17 +193,17 @@ export default {
       addrules:{
         name:[{required:true,message:'　　　请输入员工姓名', trigger: 'blur'}],
         phone:[{required:true,message:'　　　请输入员工手机号', trigger: 'blur'},
-          {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
+          {type: 'number', message: '　　　手机号必须为数字值', trigger: 'blur'},
           {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
-            message: '请输入正确的手机号码', trigger: 'blur'}],
+            message: '　　　请输入正确的手机号码', trigger: 'blur'}],
         staffType:[{ required: true, message: '　　　请选择员工类型', trigger: 'change' }]
       },
       modifyrules:{
         account:[{required:true,message:'　　　请输入员工账号', trigger: 'blur'}],
         phone:[{required:true,message:'　　　请输入员工手机号', trigger: 'blur'},
-          {type: 'number', message: '手机号必须为数字值', trigger: 'blur'},
+          {type: 'number', message: '　　　手机号必须为数字值', trigger: 'blur'},
           {pattern: /^1[3|4|5|7|8][0-9]\d{8}$/,
-            message: '请输入正确的手机号码', trigger: 'blur'}],
+            message: '　　　请输入正确的手机号码', trigger: 'blur'}],
         password:[{ required: true, message: '　　　请输入新密码', trigger: 'blur' }],
         confirmpwd:[{ required: true, message: '　　　请再次输入密码确认', trigger: 'blur' },
           { validator: confirmpwdrule, trigger: 'blur' }],
@@ -212,15 +212,24 @@ export default {
     }
   },
   methods:{
+    //更新数据请求
+    upData(){
+      let path = api.path + "/user/staff/showStaffList";
+      this.axios.get(path).then((response)=>{
+        console.log(response)
+        //返回的数据赋值
+        this.tableData = response.data.data
+      })
+    },
     /*编辑员工信息按钮点击对应事件*/
     editStaff(row){
       this.dialogmodifyVisible= true
       //调用方法查询详细信息
       console.log(row.staffId)
       //调用后端方法显示修改之前的信息
-      /*var path = "/Data/staffmanage.json"
-      this.axios.get(path).then((response)=>{
-            console.log(response)
+      let path = api.path + "/user/staff/showStaffInfo";
+      this.axios.post(path,qs.stringify({
+        "staffId":row.staffId})).then((response)=>{
             //返回的数据赋值
             this.modifyForm.staffId=response.data.data.staffId
             this.modifyForm.name=response.data.data.name
@@ -228,31 +237,21 @@ export default {
             this.modifyForm.account=response.data.data.account
             this.modifyForm.password=response.data.data.password
             this.modifyForm.staffType=response.data.data.staffType})
-            */
+
     },
     modifyConfirm(formName){
       this.$refs.modifyform.validate((valid) => {
         if (valid) {
           this.dialogmodifyVisible = false
-          //获取输入信息并调用函数操作数据库
-          /*this.modifyForm.account,this.modifyForm.phone,this.modifyForm.password,this.modifyForm.staffType*/
-          //调用方法数据库修改员工信息
-          /*if(response.data.status==='200'){
-            this.$message({
-              message: '更新成功!',
-              type: 'success'
-            })
-          }else if(response.data.status==='404'){
-            this.$message.error('请求失败！')
-          }else if(response.data.status==='304'){
-            this.$message({
-              message: '信息无变动！',
-              type: 'warning'
-            })
-          }else{
-            this.$message.error('发生错误！').
-          }*/
-          //每次提交之后刷新表单
+
+          let path = api.path + "/user/staff/updateStaff";
+          this.axios.post(path,qs.stringify({"staffId":this.modifyForm.staffId,"phone":this.modifyForm.phone,
+          "account":this.modifyForm.account,"password":this.modifyForm.password,"staffType":this.modifyForm.staffType})).
+          then((response)=>{
+            //成功后刷新表格数据
+            this.upData()
+          })
+          //刷新表单
           this.$refs.modifyform.resetFields()
           //更新
         } else {
@@ -266,10 +265,6 @@ export default {
       this.$refs.modifyform.resetFields()
       this.$message.info('取消修改！')
     },
-    closeModify(){
-      this.$message('取消修改！')
-      this.$refs.modifyform.resetFields()
-    },
     /*删除员工按钮点击对应事件*/
     deleteStaff(row){
       this.$confirm('此操作将永久删除该员工，是否继续？', '确认信息', {
@@ -277,29 +272,16 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type:'warning'
-      })
-          .then(() => {
+      }).then(() => {
             console.log(row.staffId)
-            //调用方法数据库删除员工，参数为row.staffId
-
-            /*if(response.data.status==='200'){
-              this.$message({
-                message: '删除成功!',
-                type: 'success'
-              })
-            }else if(response.data.status==='404'){
-              this.$message.error('找不到员工信息！')
-            }else{
-              this.$message.error('发生错误！')
-            }*/
-          })
-          .catch(action => {
-            this.$message({
-              type: 'info',
-              message: action === 'cancel'
-                  ? '取消删除！'
-                  : '取消删除！'
+            let path = api.path + "/user/staff/deleteById";
+            this.axios.delete(path,{data:qs.stringify({"staffId":row.staffId})}).
+            then((response)=>{
+              console.log(response)
+              //成功后刷新表格数据
+              this.upData()
             })
+            //调用方法数据库删除员工，参数为row.staffId
           });
     },
     /*添加员工按钮显示form表输入员工信息*/
@@ -366,7 +348,6 @@ export default {
     /*页面渲染时显示所有员工信息*/
     let path = api.path + "/user/staff/showStaffList";
     this.axios.get(path).then((response)=>{
-      console.log(response)
       //返回的数据赋值
       this.tableData = response.data.data
     })
