@@ -49,7 +49,7 @@
            <el-form-item label="当前 就 餐 序号">
              <div style="font-size: 20px">{{queuelist.queueNow}}</div>
            </el-form-item>
-           <el-form-item label="顾客信息">
+           <el-form-item label="等待顾客序号">
              <div style="font-size: 20px">{{queuelist.queueList}}</div>
            </el-form-item>
            <el-form-item>
@@ -75,12 +75,9 @@ export default {
     return {
       queuelist: {
         queueNow:'',
-        queueList:[{
-          openId: '',
-          queueCustomer: '',
-          queueStatus: '',
-          queueTime: ''
-        }]
+        queueList:{
+          queueCustomer: ''
+        }
       },
       callQuset: [{
         callId: '',
@@ -92,16 +89,20 @@ export default {
       }],
     }
   },
+  created () {
+    this.getData()
+  },
+
   mounted() {
     var path = api.path + "/call/callquest/showCallquestList"
     this.axios.get(path).then((response) => {
       console.log(response)
       this.callQuset = response.data.data
     })
-    var path1 = api.path + "/queue/queuelist/showQueue"
+    let path1 = api.path + "/queue/queuelist/showQueue"
     this.axios.get(path1).then((response) => {
       console.log(response)
-      this.queueList = response.data.data
+      this.queuelist.queueList = response.data.data
       this.queuelist.queueNow = response.data.queueNow
     })
     //页面自动刷新，10s
@@ -109,21 +110,47 @@ export default {
   },
   methods: {
     queueUpdate() {
-      var path2 = api.path + "/queue/queuelist/changeQueue"
-      this.axios.post(path2).then((response) => {
+      let path = api.path + "/queue/queuelist/changeQueue"
+      this.axios.post(path).then((response) => {
         console.log(response)
-        this.queueList = response.data.data
+        this.queuelist.queueList = response.data.data
         this.queuelist.queueNow = response.data.queueNow
       })
     },
     deleteQueue() {
-      var path3 = api.path + "/queue/queuelist/deleteQueue"
-      this.axios.post(path3).then((response) => {
+      let path = api.path + "/queue/queuelist/deleteQueue"
+      this.axios.post(path).then((response) => {
         console.log(response)
-        this.queueList = response.data.data
+        this.queuelist.queueList = response.data.data
         this.queuelist.queueNow = response.data.queueNow
       })
+    },
+
+    async getData () {
+      let  path = api.path + "/call/callquest/showCallquestList"
+      this.axios.get(path).then((response) => {
+        console.log(response)
+        this.callQuset = response.data.data
+      })
+    },
+    // 定时器
+    timer () {
+      return setTimeout(() => {
+        this.getData()
+      }, 10000)
     }
+  },
+
+  watch: {
+    // watch就是用来监控数据变化，只有变化了才会调用定时器的变化
+    callQuset () {
+      // 调用定时器
+      this.timer()
+    }
+  },
+  // 页面销毁后 停止计时器
+  destroyed () {
+    clearTimeout(this.timer)
   }
 }
 </script>
