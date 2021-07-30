@@ -27,7 +27,7 @@
                    placeholder="员工职位">
           <el-option label="前台" value="前台"></el-option>
           <el-option label="服务员" value="服务员"></el-option>
-          <el-option label="厨师" value="厨师"></el-option>
+          <el-option label="后厨" value="后厨"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -109,7 +109,7 @@
         style="width: 88%"
         :cell-style="{'text-align':'center'}"
         :header-cell-style="{'text-align':'center',background:'#eef1f6',color:'#606266'}"
-        :data="tableData"
+        :data="tableDataList"
         stripe
         :default-sort = "{prop: 'staffId', order: 'ascending'}">
       <el-table-column
@@ -182,14 +182,26 @@ export default {
         confirmpwd:'',
         staffType:''
       },
-      tableData:[{
-        staffId:'',
-        name:'',
-        phone:'',
-        account:'',
-        password:'',
-        staffType:''
+      tableDataList:[{
+        dishId: '',
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:'',
+        dishState:true
       }],
+      tableData: {
+        dishId: '',
+        dishName: '',
+        dishType:'',
+        dishPrice:'',
+        dishImage: '',
+        dishDesc:'',
+        costPrice:'',
+        dishState:true
+      },
       addrules:{
         name:[{required:true,message:'　　　请输入员工姓名', trigger: 'blur'}],
         phone:[{required:true,message:'　　　请输入员工手机号', trigger: 'blur'},
@@ -218,7 +230,7 @@ export default {
       this.axios.get(path).then((response)=>{
         console.log(response)
         //返回的数据赋值
-        this.tableData = response.data.data
+        this.tableDataList = response.data.data
       })
     },
     /*编辑员工信息按钮点击对应事件*/
@@ -275,7 +287,7 @@ export default {
       }).then(() => {
             console.log(row.staffId)
             let path = api.path + "/user/staff/deleteById";
-            this.axios.delete(path,{data:qs.stringify({"staffId":row.staffId})}).
+            this.axios.post(path,qs.stringify({"staffId":row.staffId})).
             then((response)=>{
               console.log(response)
               //成功后刷新表格数据
@@ -293,19 +305,13 @@ export default {
       this.$refs.addform.validate((valid) => {
         if (valid) {
           this.dialogaddVisible = false
-          //获取输入信息并调用函数操作数据库
-          /*     this.addForm.name,this.addForm.phone,this.addForm.staffType    */
-          //调用方法数据库添加员工
-          /*if(response.data.status==='200'){
-            this.$message({
-              message: '添加成功!',
-              type: 'success'
-            })
-          }else if(response.data.status==='404'){
-            this.$message.error('请求失败！')
-          }else{
-            this.$message.error('发生错误！')
-          }*/
+
+          let path = api.path + "/user/staff/addStaff";
+          this.axios.post(path,qs.stringify({"name":this.addForm.name,"phone":this.addForm.phone, "staffType":this.addForm.staffType})).
+          then((response)=>{
+            //成功后刷新表格数据
+            this.upData()
+          })
           //每次提交之后刷新表单
           this.$refs.addform.resetFields()
         } else {
@@ -325,21 +331,31 @@ export default {
     },
     /*搜索按钮点击对应事件*/
     search(){
+      let path
       if(this.formInline.staffId ===''){
         if(this.formInline.name===''){
-          //调用方法searchByStaffType
-          //this.tableData = response.data.data
-        }else{
-          //调用方法searchByName
-          //this.tableData = response.data.data
+          //调用方法getStaffByType
+          path = api.path + "/user/staff/getStaffByType";
+          this.axios.post(path,qs.stringify({"staffType":this.formInline.staffType})).then((response) => {
+            console.log(response)
+            this.tableDataList = response.data.data
+          })
+        }else {
+          //调用方法getStaffByName
+          path = api.path + "/user/staff/getStaffByName";
+          this.axios.post(path, qs.stringify({"name": this.formInline.name})).then((response) => {
+            console.log(response)
+            this.tableDataList = response.data.data
+          })
         }
       }else {
-        //调用方法searchBystaffId
-        var path = "/Data/staffmanage.json"
-        this.axios.get(path).then((response)=>{
+        //调用方法getStaffById
+        path = api.path + "/user/staff/getStaffById";
+        this.axios.post(path,qs.stringify({"staffId":this.formInline.staffId})).then((response) => {
           console.log(response)
-          //返回的数据赋值
           this.tableData = response.data.data
+          this.tableDataList=[]
+          this.tableDataList.push(this.tableData)
         })
       }
     }
@@ -349,7 +365,7 @@ export default {
     let path = api.path + "/user/staff/showStaffList";
     this.axios.get(path).then((response)=>{
       //返回的数据赋值
-      this.tableData = response.data.data
+      this.tableDataList = response.data.data
     })
   }
 }
