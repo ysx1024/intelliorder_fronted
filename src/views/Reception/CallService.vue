@@ -50,7 +50,7 @@
              <div style="font-size: 20px">{{queuelist.queueNow}}</div>
            </el-form-item>
            <el-form-item label="等待顾客序号">
-             <div style="font-size: 20px">{{queuelist.queueList}}</div>
+             <div v-if="queuelist.queueList.length!==0" style="font-size: 20px">{{queuelist.queueList.toString()}}</div>
            </el-form-item>
            <el-form-item>
              <el-button type="primary" round @click="queueUpdate()">下一位</el-button>
@@ -75,9 +75,9 @@ export default {
     return {
       queuelist: {
         queueNow:'',
-        queueList:{
-          queueCustomer: ''
-        }
+        queueList:[{
+          queueCustomer: '',
+        }]
       },
       callQuset: [{
         callId: '',
@@ -96,14 +96,13 @@ export default {
   mounted() {
     var path = api.path + "/call/callquest/showCallquestList"
     this.axios.get(path).then((response) => {
-      console.log(response)
       this.callQuset = response.data.data
     })
     let path1 = api.path + "/queue/queuelist/showQueue"
-    this.axios.get(path1).then((response) => {
-      console.log(response)
-      this.queuelist.queueList = response.data.data
-      this.queuelist.queueNow = response.data.queueNow
+    this.axios.get(path1).then((response1) => {
+      console.log(response1)
+      this.queuelist.queueList = response1.data.data
+      this.queuelist.queueNow = response1.data.queueNow
     })
     //页面自动刷新，10s
     // setTimeout(function(){location.reload()},10000);
@@ -112,24 +111,29 @@ export default {
     queueUpdate() {
       let path = api.path + "/queue/queuelist/changeQueue"
       this.axios.post(path).then((response) => {
-        console.log(response)
-        this.queuelist.queueList = response.data.data
-        this.queuelist.queueNow = response.data.queueNow
+        let path1 = api.path + "/queue/queuelist/showQueue"
+        this.axios.get(path1).then((response1) => {
+          console.log(response1)
+          this.queuelist.queueList = response1.data.data
+          this.queuelist.queueNow = response1.data.queueNow
+        })
       })
     },
     deleteQueue() {
       let path = api.path + "/queue/queuelist/deleteQueue"
       this.axios.post(path).then((response) => {
-        console.log(response)
-        this.queuelist.queueList = response.data.data
-        this.queuelist.queueNow = response.data.queueNow
+        let path1 = api.path + "/queue/queuelist/showQueue"
+        this.axios.get(path1).then((response1) => {
+          console.log(response1)
+          this.queuelist.queueList = response1.data.data
+          this.queuelist.queueNow = response1.data.queueNow
+        })
       })
     },
 
     async getData () {
       let  path = api.path + "/call/callquest/showCallquestList"
       this.axios.get(path).then((response) => {
-        console.log(response)
         this.callQuset = response.data.data
       })
     },

@@ -6,17 +6,17 @@
         <div slot="header" class="clearfix">
           <span class="el-col-1">顾客名称：{{feed.openId}} </span>
           <span class="el-col-3">满意度：{{feed.feedLevel}} </span>
-          <span class="el-col-2">评价时间：{{feed.feedTime}}</span>
+          <span class="el-col-2">评价时间：{{feed.feedTime.toLocaleString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')}}</span>
         </div>
         <div class="text item">
           <el-card class="el-card-feedText">{{feed.feedText}}</el-card>
-          <el-card v-if="feed.reply !==''" class="el-card-reply">{{feed.reply}}</el-card>
-          <div v-if="replying === true">
+          <el-card v-if="feed.reply !==null" class="el-card-reply">{{feed.reply}}</el-card>
+          <div v-if="replyIf === feed.feedId">
             <el-input class="el-input-1" v-model="feed.replyTemporary" placeholder="请输入回复！"></el-input>
-            <el-button class="el-button-2" type="success" @click="replyIf=true;replying=false;
+            <el-button class="el-button-2" type="success" @click="replyIf=1;
              replytemporary(feed.feedId,feed.replyTemporary)">提交</el-button>
           </div>
-          <el-button v-if="replyIf === true" class="el-button-1" type="text" @click="replyIf=false;replying=true">回复</el-button>
+          <el-button v-if="replyIf === 1 " class="el-button-1" type="text" @click="replyIf=feed.feedId">回复</el-button>
         </div>
       </el-card>
     </div>
@@ -34,8 +34,7 @@ export default {
   data() {
     return {
       replyTemporary :'',
-      replying:false,
-      replyIf:true,
+      replyIf:1,
       feedList:[{
         feedId:'',
         openId:'',
