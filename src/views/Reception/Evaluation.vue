@@ -10,10 +10,10 @@
         </div>
         <div class="text item">
           <el-card class="el-card-feedText">{{feed.feedText}}</el-card>
-          <el-card v-if="feed.reply !==null" class="el-card-reply">{{feed.reply}}</el-card>
+          <el-card v-if="feed.reply !==0" class="el-card-reply">{{feed.reply}}</el-card>
           <div v-if="replyIf === feed.feedId">
             <el-input class="el-input-1" v-model="feed.replyTemporary" placeholder="请输入回复！"></el-input>
-            <el-button class="el-button-2" type="success" @click="replyIf=1;
+            <el-button  class="el-button-2" type="success" @click="replyIf=1;
              replytemporary(feed.feedId,feed.replyTemporary)">提交</el-button>
           </div>
           <el-button v-if="replyIf === 1 " class="el-button-1" type="text" @click="replyIf=feed.feedId">回复</el-button>
@@ -33,7 +33,7 @@ export default {
   components: {ReceptionHeader},
   data() {
     return {
-      replyTemporary :'',
+      replyTemporary: '',
       replyIf:1,
       feedList:[{
         feedId:'',
@@ -42,6 +42,7 @@ export default {
         feedText:'',
         feedLevel:'',
         reply:''
+
       }]
     }
   },
@@ -54,11 +55,12 @@ export default {
   },
   methods:{
     replytemporary(feedId,replyTemporary) {
+      if (replyTemporary.length!==0){
       let path = api.path + "/bussiness/feedlist/replyFeed"
       this.axios.post(path,qs.stringify({"feedId":feedId,"reply":replyTemporary})).then((response) => {
         console.log(response)
         this.feedList=response.data.data
-      })
+      })}
     }
   }
 }
