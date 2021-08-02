@@ -16,15 +16,23 @@
               style="height: 420px"
               class="menu-tabs"
               type="border-card">
-           <el-tab-pane label="地方名吃">
+
+           <el-tab-pane label="招牌必点">
              <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='地方名吃'">
+               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='招牌必点'">
                  <el-card style="height: 90%; width: 90%;" >
                    <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                       class="img-2" alt="">
-                     </div>
+
+<!--                     <div class="demo-image">-->
+<!--                       <div class="block" v-for="fit in fits" :key="fit">-->
+<!--                         <span class="demonstration">{{ fit }}</span>-->
+                         <el-image
+                             style="width: 100px; height: 100px"
+                             :src="dish.dishImage">
+                     </el-image>
+<!--                             :fit="fit"></el-image>-->
+<!--                       </div>-->
+
                      <div style="font-size: 10px;">{{dish.dishName}}</div>
                      <div style="font-size: 10px;">{{dish.dishPrice}}</div>
                      <el-input-number v-model="dish.num"
@@ -38,19 +46,21 @@
                </el-col>
              </el-row>
            </el-tab-pane>
-       <el-tab-pane label="特色海鲜">
+
+       <el-tab-pane label="开胃凉菜">
          <el-row>
-           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='特色海鲜'">
-             <el-card style="height: 100%;width: 100%">
+           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='开胃凉菜'">
+             <el-card style="height: 90%; width: 90%;" >
                <div>
-                 <div>
-                   <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                        class="img-2" alt="">
-                 </div>
-                 <div>{{dish.dishName}}</div>
-                 <div>{{dish.dishPrice}}</div>
+                 <el-image
+                     style="width: 100px; height: 100px"
+                     :src="dish.dishImage">
+                 </el-image>
+                 <div style="font-size: 10px;">{{dish.dishName}}</div>
+                 <div style="font-size: 10px;">{{dish.dishPrice}}</div>
                  <el-input-number v-model="dish.num"
                                   @change="handleChange(dish.num,dish)"
+                                  class="number-2"
                                   size="mini"
                                   :min="0" :max="10" label="描述文字">
                  </el-input-number>
@@ -59,111 +69,97 @@
            </el-col>
          </el-row>
        </el-tab-pane>
-           <el-tab-pane label="农家小炒">
-             <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='农家小炒'">
-                 <el-card style="height: 100%;width: 100%">
-                   <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                            class="img-2" alt="">
-                     </div>
-                     <div>{{dish.dishName}}</div>
-                     <div>{{dish.dishPrice}}</div>
-                     <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish)"
-                                      size="mini"
-                                      :min="0" :max="10" label="描述文字">
-                     </el-input-number>
-                   </div>
-                 </el-card>
-               </el-col>
-             </el-row>
-           </el-tab-pane>
-           <el-tab-pane label="精品甜点">
-             <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='精品甜点'">
-                 <el-card style="height: 100%;width: 100%">
-                   <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                            class="img-2" alt="">
-                     </div>
-                     <div>{{dish.dishName}}</div>
-                     <div>{{dish.dishPrice}}</div>
-                     <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish)"
-                                      size="mini"
-                                      :min="0" :max="10" label="描述文字">
-                     </el-input-number>
-                   </div>
-                 </el-card>
-               </el-col>
-             </el-row>
-           </el-tab-pane>
-           <el-tab-pane label="原味炖汤">
-             <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='原味炖汤'">
-                 <el-card style="height: 100%;width: 100%">
-                   <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                            class="img-2" alt="">
-                     </div>
-                     <div>{{dish.dishName}}</div>
-                     <div>{{dish.dishPrice}}</div>
-                     <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish)"
-                                      size="mini"
-                                      :min="0" :max="10" label="描述文字">
-                     </el-input-number>
-                   </div>
-                 </el-card>
-               </el-col>
-             </el-row>
-           </el-tab-pane>
-           <el-tab-pane label="主食">
-             <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='主食'">
-                 <el-card style="height: 100%;width: 100%">
-                   <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                            class="img-2" alt="">
-                     </div>
-                     <div>{{dish.dishName}}</div>
-                     <div>{{dish.dishPrice}}</div>
-                     <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish)"
-                                      size="mini"
-                                      :min="0" :max="10" label="描述文字">
-                     </el-input-number>
-                   </div>
-                 </el-card>
-               </el-col>
-             </el-row>
-           </el-tab-pane>
-           <el-tab-pane label="酒水饮料">
-             <el-row>
-               <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='酒水饮料'">
-                 <el-card style="height: 100%;width: 100%">
-                   <div>
-                     <div>
-                       <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7"
-                            class="img-2" alt="">
-                     </div>
-                     <div>{{dish.dishName}}</div>
-                     <div>{{dish.dishPrice}}</div>
-                     <el-input-number v-model="dish.num"
-                                      @change="handleChange(dish.num,dish)"
-                                      size="mini"
-                                      :min="0" :max="10" label="描述文字">
-                     </el-input-number>
-                   </div>
-                 </el-card>
-               </el-col>
-             </el-row>
-           </el-tab-pane>
+
+       <el-tab-pane label="特色主食">
+         <el-row>
+           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='特色主食'">
+             <el-card style="height: 90%; width: 90%;" >
+               <div>
+                 <el-image
+                     style="width: 100px; height: 100px"
+                     :src="dish.dishImage">
+                 </el-image>
+                 <div style="font-size: 10px;">{{dish.dishName}}</div>
+                 <div style="font-size: 10px;">{{dish.dishPrice}}</div>
+                 <el-input-number v-model="dish.num"
+                                  @change="handleChange(dish.num,dish)"
+                                  class="number-2"
+                                  size="mini"
+                                  :min="0" :max="10" label="描述文字">
+                 </el-input-number>
+               </div>
+             </el-card>
+           </el-col>
+         </el-row>
+       </el-tab-pane>
+       <el-tab-pane label="精致甜点">
+         <el-row>
+           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='精致甜点'">
+             <el-card style="height: 90%; width: 90%;" >
+               <div>
+                 <el-image
+                     style="width: 100px; height: 100px"
+                     :src="dish.dishImage">
+                 </el-image>
+                 <div style="font-size: 10px;">{{dish.dishName}}</div>
+                 <div style="font-size: 10px;">{{dish.dishPrice}}</div>
+                 <el-input-number v-model="dish.num"
+                                  @change="handleChange(dish.num,dish)"
+                                  class="number-2"
+                                  size="mini"
+                                  :min="0" :max="10" label="描述文字">
+                 </el-input-number>
+               </div>
+             </el-card>
+           </el-col>
+         </el-row>
+       </el-tab-pane>
+       <el-tab-pane label="新鲜水果">
+         <el-row>
+           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='新鲜水果'">
+             <el-card style="height: 90%; width: 90%;" >
+               <div>
+                 <el-image
+                     style="width: 100px; height: 100px"
+                     :src="dish.dishImage">
+                 </el-image>
+                 <div style="font-size: 10px;">{{dish.dishName}}</div>
+                 <div style="font-size: 10px;">{{dish.dishPrice}}</div>
+                 <el-input-number v-model="dish.num"
+                                  @change="handleChange(dish.num,dish)"
+                                  class="number-2"
+                                  size="mini"
+                                  :min="0" :max="10" label="描述文字">
+                 </el-input-number>
+               </div>
+             </el-card>
+           </el-col>
+         </el-row>
+       </el-tab-pane>
+       <el-tab-pane label="夏日饮品">
+         <el-row>
+           <el-col :span="4" v-for="dish in dishes" v-if="dish.dishType==='夏日饮品'">
+             <el-card style="height: 90%; width: 90%;" >
+               <div>
+                 <el-image
+                     style="width: 100px; height: 100px"
+                     :src="dish.dishImage">
+                 </el-image>
+                 <div style="font-size: 10px;">{{dish.dishName}}</div>
+                 <div style="font-size: 10px;">{{dish.dishPrice}}</div>
+                 <el-input-number v-model="dish.num"
+                                  @change="handleChange(dish.num,dish)"
+                                  class="number-2"
+                                  size="mini"
+                                  :min="0" :max="10" label="描述文字">
+                 </el-input-number>
+               </div>
+             </el-card>
+           </el-col>
+         </el-row>
+       </el-tab-pane>
+
+
          </el-tabs>
      <div>
        <el-badge :value="dishesNumber" class="item-button">
@@ -240,6 +236,7 @@
            data() {
              return {
 
+               // fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
                //订单详细弹窗
                dialogOrderList:false,
                //提交订单反馈弹窗
@@ -260,6 +257,7 @@
              let path = api.path + "/dish/dish/showDish"
              this.axios.get(path).then((response) => {
                this.dishes = response.data.data
+
              })
            },
            methods: {
