@@ -1,35 +1,54 @@
-<template xmlns:el-main="http://www.w3.org/1999/html">
+<template>
   <div class="CookerInformation">
     <CookerHeader></CookerHeader>
     <img class="img-cook"
-        src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7">
-    <el-form class="el-form-1" label-width="180px" :model="cookData">
-      <el-form-item label="编号">
-        {{cookData.staffId}}&nbsp;&nbsp;
+        src="https://tse4-mm.cn.bing.net/th/id/OIP-C.7014yYigzMDRzK1RjH0iZwHaH1?w=203&h=215&c=7&o=5&dpr=1.25&pid=1.7" alt="">
+    <el-form class="el-form-1" label-width="200px" :model="cookData">
+      <el-form-item class="el-form-item1" label="编号">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{cookData.staffId}}
       </el-form-item>
-      <el-form-item label="员工账号">
-      {{cookData.account}}
-        &nbsp;&nbsp;
+      <el-form-item class="el-form-item2" label="员工账号">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{cookData.account}}
+
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisibleAccout = true" >修改</el-button>
       </el-form-item>
-      <el-form-item label="员工姓名">
-        {{cookData.name}}&nbsp;&nbsp;
+      <el-form-item class="el-form-item3" label="员工姓名">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{cookData.name}}
       </el-form-item>
-      <el-form-item label="员工电话">
+      <el-form-item class="el-form-item5" label="员工电话">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{cookData.phone}}
-        &nbsp;&nbsp;
+
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisiblePhone = true" >修改</el-button>
       </el-form-item>
-      <el-form-item label="职位">
-        {{cookData.staffType}}&nbsp;&nbsp;
+      <el-form-item class="el-form-item4" label="职位">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        {{cookData.staffType}}
       </el-form-item>
-      <el-form-item size="large" label="密码">
-       {{cookData.password}}
-        &nbsp;&nbsp;
+      <el-form-item class="el-form-item6" size="large" label="密码">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ******
+<!--       {{cookData.password}}-->
+
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisiblePassward = true" >修改</el-button>
@@ -138,19 +157,19 @@ export default {
           { validator: validatePass2, trigger: 'blur' }
         ]
       },
-       dialogVisiblePassward: false,
-       dialogVisiblePhone: false,
-       dialogVisibleAccout: false,
-       cookData: {
-         account: "",
-         password: "",
-         staffId: "",
-         phone: "",
-         name: "",
-         staffType: ""
-    }
-    }
-  },
+      dialogVisiblePassward: false,
+      dialogVisiblePhone: false,
+      dialogVisibleAccout: false,
+      cookData: {
+        account: "",
+        password: "",
+        staffId: "",
+        phone: "",
+        name: "",
+        staffType: ""
+      }
+   }
+},
    mounted() {
      let path = api.path + "/user/staff/showStaffInfo";
      this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId")})).then((response)=>{
@@ -167,6 +186,18 @@ export default {
           .catch(_ => {});
     },
     submitForm(formName) {
+      let  path = api.path + "/user/staff/changePassword"
+
+      this.axios.post(path, qs.stringify({
+        "staffId": localStorage.getItem("staffId"),
+        "oldPassword": this.ruleForm2.oldPass, "newPassword": this.ruleForm2.checkPass
+      })).then((response) => {
+        console.log(response)
+        if(response.data.status==="200"){
+          this.cookData.password = response.data.password
+        }
+      });
+
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.cookData.password=this.ruleForm2.checkPass;
@@ -185,7 +216,7 @@ export default {
   oneSubmit() {
     let path = api.path + "/user/staff/changeAccount"
     this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
-      "account":this.receptionData.account,})).then((response) => {
+      "account":this.cookData.account,})).then((response) => {
       console.log(response)
     });
     this.dialogVisibleAccount = false;
@@ -193,7 +224,7 @@ export default {
   twoSubmit() {
     let path = api.path + "/user/staff/changePhone"
     this.axios.post(path,qs.stringify({"staffId":localStorage.getItem("staffId"),
-      "phone":this.receptionData.phone,})).then((response) => {
+      "phone":this.cookData.phone,})).then((response) => {
       console.log(response)
     });
     this.dialogVisiblePhone = false;
@@ -210,12 +241,35 @@ export default {
     width: 150px;
     height: 150px;
   }
-
+  .el-form-item1{
+    width: 580px;
+    text-align: justify;
+  }
+  .el-form-item2{
+    width: 638px;
+    text-align: justify;
+  }
+  .el-form-item3{
+    width: 650px;
+    text-align: justify;
+  }
+  .el-form-item4{
+    width: 610px;
+    text-align: justify;
+  }
+  .el-form-item5{
+    width: 745px;
+    text-align: justify;
+  }
+  .el-form-item6{
+    width: 710px;
+    text-align: justify;
+  }
   .el-form-1{
     margin: 0 auto;
     width: 640px;
     color: #556B2F;
-    background-color: azure;
+    background-color: aliceblue;
     
   }
 

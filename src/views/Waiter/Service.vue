@@ -3,6 +3,12 @@
     <WaiterHeader></WaiterHeader>
     <el-container>
       <el-aside width="50%">
+        <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div  style="position:absolute;width:50%;">
+          <i class="el-icon-dish-1"></i>&nbsp&nbsp
+          <span>上菜列表</span>
+        </div>
+        <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <el-table
         class="el-table-dish" width="100%"
         :data="serviceList" border
@@ -39,11 +45,11 @@
           <template slot-scope="scope">
           <el-button v-if="scope.row.listStatus=='2'"
                      @click.native.prevent="acceptService(scope.row)"
-                     style="width:100px" type="warning" round>
+                     style="width:100px" size="small" type="warning" round >
             准备上菜</el-button>
             <el-button v-if="scope.row.listStatus=='3'"
                      @click.native.prevent="acceptService(scope.row)"
-                     style="width:100px" type="success" round>
+                     style="width:100px" size="small" type="success" round >
               正在上菜</el-button>
           </template>
         </el-table-column>
@@ -52,12 +58,20 @@
           width="100"
             align="center">
         <template slot-scope="scope">
-          <el-button  @click.native.prevent="serviceCompleted(scope.row)" type="warning" round>完成</el-button>
+          <el-button  @click.native.prevent="serviceCompleted(scope.row)" type="warning" size="small" round>完成</el-button>
           </template>
        </el-table-column>
     </el-table>
       </el-aside>
-      <el-main >
+
+      <el-main>
+        <div>
+          <i class="el-icon-water-cup"></i>&nbsp&nbsp
+          <span>呼叫服务列表</span>
+        </div>
+        <div>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
         <el-table
         class="el-table-call" width="100%"
         :data="callQuset" border
@@ -86,11 +100,11 @@
         <template slot-scope="scope">
           <el-button v-if="scope.row.callStatus=='0'"
                      @click.native.prevent="acceptCall(scope.row)"
-                     style="width:100px" type="warning" round>
+                     style="width:100px" type="warning" size="small" round>
             等待服务</el-button>
           <el-button v-if="scope.row.callStatus=='1'"
                      @click.native.prevent="acceptCall(scope.row)"
-                     style="width:100px" type="success" round>
+                     style="width:100px" type="success" size="small" round>
             正在服务</el-button>
         </template>
       </el-table-column>
@@ -99,7 +113,7 @@
           width="100"
           align="center">
         <template slot-scope="scope">
-          <el-button  @click.native.prevent="callCompleted(scope.row)" type="warning" round>完成</el-button>
+          <el-button  @click.native.prevent="callCompleted(scope.row)" type="warning" size="small" round>完成</el-button>
         </template>
       </el-table-column>
     </el-table>

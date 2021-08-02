@@ -2,35 +2,51 @@
   <div>
     <WaiterHeader></WaiterHeader>
     <img class="img-waiter"
-         src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg">
-    <el-form class="el-form-1" label-width="180px" :model="waiterData">
-      <el-form-item label="编号">
+         src="https://pic34.photophoto.cn/20150110/0010023268300231_b.jpg" alt="">
+    <el-form class="el-form-1" label-width="200px" :model="waiterData">
+      <el-form-item class="el-form-item1" label="编号">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{waiterData.staffId}}&nbsp;&nbsp;
       </el-form-item>
-      <el-form-item label="员工账号">
+      <el-form-item class="el-form-item1" label="员工账号">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{waiterData.account}}
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisibleAccout = true" >修改</el-button>
       </el-form-item>
-      <el-form-item label="员工姓名">
+      <el-form-item class="el-form-item1" label="员工姓名">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{waiterData.name}}&nbsp;&nbsp;
       </el-form-item>
-      <el-form-item label="员工电话">
+      <el-form-item class="el-form-item1" label="员工电话">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{waiterData.phone}}
         &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisiblePhone = true" >修改</el-button>
       </el-form-item>
-      <el-form-item label="职位">
+      <el-form-item class="el-form-item1" label="职位">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         {{waiterData.staffType}}&nbsp;&nbsp;
       </el-form-item>
-      <el-form-item size="large" label="密码">
-        &nbsp;&nbsp;
+      <el-form-item class="el-form-item1" size="large" label="密码">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         ******
-        &nbsp;&nbsp;
         <el-button class="el-button-1"
                    type="text" icon="el-icon-edit"
                    @click="dialogVisiblePassward = true" >修改</el-button>
@@ -212,12 +228,17 @@ export default {
   margin: 0 auto;
   width: 640px;
   color: #556B2F;
-  background-color: azure;
+  background-color: aliceblue;
 }
 
 .img-waiter{
   width: 150px;
   height: 150px;
+}
+
+.el-form-item1{
+  width: 710px;
+  text-align: justify;
 }
 
 .el-button-1{

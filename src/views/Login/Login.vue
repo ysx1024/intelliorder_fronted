@@ -19,23 +19,23 @@
 
 <template>
   <div>
-    <div class="login_context">-->
+    <div class="login_context">
     <!--flex弹性盒子模型，justify-content：主抽 -->
     <div style="display: flex;justify-content:center;margin-top: 150px">
       <!--element ui组件card,设置透明度0.8-->
-      <el-card style="width: 400px ; opacity:0.8">
+      <el-card style="width: 400px ; opacity:0.9">
         <div slot="header" class="clearfix" style="font-size: larger">
           <span>喋喋不休点餐系统登录</span>
         </div>
         <table>
           <tr>
-            <td>账号</td>
+            <td>账号 ：</td>
             <td>
               <el-input v-model="logForm.account" placeholder="请输入用户名"></el-input>
             </td>
           </tr>
           <tr>
-            <td>密码</td>
+            <td>密码 ：</td>
             <td>
               <el-input
                   type="password" v-model.number="logForm.password" placeholder="请输入密码" @keydown.enter.native="search">
