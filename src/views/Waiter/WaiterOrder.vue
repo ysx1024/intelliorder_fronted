@@ -223,6 +223,12 @@
          width="500px">
        请设置桌号
      </el-dialog>
+
+     <el-dialog
+         :visible.sync="successif"
+         width="500px">
+       下单成功
+     </el-dialog>
    </div>
 </template>
 
@@ -241,6 +247,8 @@
                dialogOrderList:false,
                //提交订单反馈弹窗
                successIf:false,
+               //提交订单成功提示
+               successif:false,
                //存储提交订单情况-是否成功
                message:"",
                dishesNumber:'',
@@ -305,9 +313,12 @@
                  console.log(deskOrder)
                  let path = api.path + "/order/orderlist/waiterOrder"
                  this.axios.post(path,deskOrder).then((response) => {
-                   console.log(response)
+                   if(response.data.status==='200'){
+                     console.log(response.data)
+                     this.successif=true
+                   }
                  })
-                 location.reload()
+                 //location.reload()
                }
 
              },
