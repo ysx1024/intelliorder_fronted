@@ -2,7 +2,12 @@
    <div>
      <ReceptionHeader></ReceptionHeader>
      <el-container>
-       <el-aside width="80%">
+       <el-aside width="60%">
+         <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+         <div>
+           <span>呼叫服务列表</span>
+         </div>
+         <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
        <el-table
            class="el-table-call" width="100%"
            :data="callQuset" border
@@ -31,10 +36,12 @@
            <template slot-scope="scope">
              <el-button v-if="scope.row.callStatus=='0'"
                         @click.native.prevent="acceptCall(scope.row)"
+                        size="small"
                         style="width:100px" type="warning" round>
                等待服务</el-button>
              <el-button v-if="scope.row.callStatus=='1'"
                         @click.native.prevent="acceptCall(scope.row)"
+                        size="small"
                         style="width:100px" type="success" round>
                正在服务</el-button>
            </template>
@@ -44,17 +51,26 @@
 
 
        <el-main>
+         <div>
+           <span>排队叫号列表</span>
+         </div>
+         <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
          <el-form class="el-form-1"
                   :model="queuelist">
-           <el-form-item label="当前 就 餐 序号">
-             <div style="font-size: 20px">{{queuelist.queueNow}}</div>
+           <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+           <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+           <el-form-item class="el-form-item" label="当前就餐序号">
+             <span style="font-size: 40px">{{queuelist.queueNow}}</span>
            </el-form-item>
+           <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
            <el-form-item label="等待顾客序号">
-             <div v-if="queuelist.queueList.length!==0" style="font-size: 20px">{{queuelist.queueList.toString()}}</div>
+             <div v-if="queuelist.queueList.length!==0" style="font-size: 40px">{{queuelist.queueList.toString()}}</div>
            </el-form-item>
-           <el-form-item>
-             <el-button type="primary" round @click="queueUpdate()">下一位</el-button>
-             <el-button type="primary" round @click="deleteQueue()">清空</el-button>
+           <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+           <el-form-item class="el-form-item2">
+             <el-button type="success" round size="small" @click="queueUpdate()">下一位</el-button>
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <el-button type="danger" icon="el-icon-delete" round size="small" @click="deleteQueue()">清空</el-button>
            </el-form-item>
          </el-form>
        </el-main>
@@ -76,7 +92,7 @@ export default {
       queuelist: {
         queueNow:'',
         queueList:[{
-          queueCustomer: '',
+          queueCustomer:'',
         }]
       },
       callQuset: [{
@@ -162,6 +178,14 @@ export default {
 <style scoped>
  .el-form-1{
    color: #556B2F;
-   background-color: azure;
+   background-color: aliceblue;
+   height: 260px;
+ }
+ .el-form-item{
+   margin-left: 60px;
+ }
+ .el-form-item2{
+   margin-left: 60px;
+   text-align: justify;
  }
 </style>
