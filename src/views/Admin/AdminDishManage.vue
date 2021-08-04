@@ -27,6 +27,7 @@
                    placeholder="菜品类别">
           <el-option label="招牌必点" value="招牌必点"></el-option>
           <el-option label="开胃凉菜" value="开胃凉菜"></el-option>
+          <el-option label="地方名吃" value="地方名吃"></el-option>
           <el-option label="特色主食" value="特色主食"></el-option>
           <el-option label="精致甜点" value="精致甜点"></el-option>
           <el-option label="新鲜水果" value="新鲜水果"></el-option>
@@ -128,6 +129,7 @@
                        placeholder="菜品类别">
               <el-option label="招牌必点" value="招牌必点"></el-option>
               <el-option label="开胃凉菜" value="开胃凉菜"></el-option>
+              <el-option label="地方名吃" value="地方名吃"></el-option>
               <el-option label="特色主食" value="特色主食"></el-option>
               <el-option label="精致甜点" value="精致甜点"></el-option>
               <el-option label="新鲜水果" value="新鲜水果"></el-option>
@@ -191,6 +193,7 @@
               <el-option label="精致甜点" value="精致甜点"></el-option>
               <el-option label="新鲜水果" value="新鲜水果"></el-option>
               <el-option label="夏日饮品" value="夏日饮品"></el-option>
+              <el-option label="地方名吃" value="地方名吃"></el-option>
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
