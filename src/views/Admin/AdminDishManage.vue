@@ -25,13 +25,12 @@
                    style="width: 130px"
                    clearable
                    placeholder="菜品类别">
-          <el-option label="农家小炒" value="农家小炒"></el-option>
-          <el-option label="地方名吃" value="地方名吃"></el-option>
-          <el-option label="特色海鲜" value="特色海鲜"></el-option>
-          <el-option label="精品甜点" value="精品甜点"></el-option>
-          <el-option label="原味炖汤" value="原味炖汤"></el-option>
-          <el-option label="主食" value="主食"></el-option>
-          <el-option label="酒水饮料" value="酒水饮料"></el-option>
+          <el-option label="招牌必点" value="招牌必点"></el-option>
+          <el-option label="开胃凉菜" value="开胃凉菜"></el-option>
+          <el-option label="特色主食" value="特色主食"></el-option>
+          <el-option label="精致甜点" value="精致甜点"></el-option>
+          <el-option label="新鲜水果" value="新鲜水果"></el-option>
+          <el-option label="夏日饮品" value="夏日饮品"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -127,19 +126,19 @@
             <el-select v-model="addForm.dishType"
                        style="width: 280px"
                        placeholder="菜品类别">
-              <el-option label="农家小炒" value="农家小炒"></el-option>
-              <el-option label="地方名吃" value="地方名吃"></el-option>
-              <el-option label="特色海鲜" value="特色海鲜"></el-option>
-              <el-option label="精品甜点" value="精品甜点"></el-option>
-              <el-option label="原味炖汤" value="原味炖汤"></el-option>
-              <el-option label="主食" value="主食"></el-option>
-              <el-option label="酒水饮料" value="酒水饮料"></el-option>
+              <el-option label="招牌必点" value="招牌必点"></el-option>
+              <el-option label="开胃凉菜" value="开胃凉菜"></el-option>
+              <el-option label="特色主食" value="特色主食"></el-option>
+              <el-option label="精致甜点" value="精致甜点"></el-option>
+              <el-option label="新鲜水果" value="新鲜水果"></el-option>
+              <el-option label="夏日饮品" value="夏日饮品"></el-option>
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
             <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                action="http://upload-z2.qiniup.com"
+                :data="postData"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess"
                 :on-error="handleError"
@@ -147,6 +146,7 @@
                 <el-image v-if="imageUrl" :src="imageUrl" class="avatar"/>
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
+
           </el-form-item>
           <el-form-item label="菜品成本" prop="costPrice">
           <el-input clearable v-model="addForm.costPrice"></el-input>
@@ -185,24 +185,24 @@
             <el-select v-model="modifyForm.dishType"
                        style="width: 280px"
                        placeholder="菜品类别">
-              <el-option label="农家小炒" value="农家小炒"></el-option>
-              <el-option label="地方名吃" value="地方名吃"></el-option>
-              <el-option label="特色海鲜" value="特色海鲜"></el-option>
-              <el-option label="精品甜点" value="精品甜点"></el-option>
-              <el-option label="原味炖汤" value="原味炖汤"></el-option>
-              <el-option label="主食" value="主食"></el-option>
-              <el-option label="酒水饮料" value="酒水饮料"></el-option>
+              <el-option label="招牌必点" value="招牌必点"></el-option>
+              <el-option label="开胃凉菜" value="开胃凉菜"></el-option>
+              <el-option label="特色主食" value="特色主食"></el-option>
+              <el-option label="精致甜点" value="精致甜点"></el-option>
+              <el-option label="新鲜水果" value="新鲜水果"></el-option>
+              <el-option label="夏日饮品" value="夏日饮品"></el-option>
            </el-select>
           </el-form-item>
           <el-form-item label="菜品图片" prop="dishImage">
-          <el-upload
-              class="avatar1-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess1"
-              :on-error="handleError1"
-              :before-upload="beforeAvatarUpload1">
-                <el-image v-if="imageUrl1" :src="imageUrl1" class="avatar1"/>
+            <el-upload
+                class="avatar-uploader"
+                action="http://upload-z2.qiniup.com"
+                :data="postData"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :on-error="handleError"
+                :before-upload="beforeAvatarUpload">
+                <el-image v-if="imageUrl" :src="imageUrl" class="avatar"/>
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -232,6 +232,7 @@
 import AdminHeader from '../../components/AdminHeader.vue'
 import api from "@/util/api";
 import qs from "qs";
+
 export default {
 
   name: 'AdminDishManage',
@@ -242,10 +243,16 @@ export default {
 
   data() {
     return {
-      imageUrl: '',
-      imageUrl1: '',
+
       dialogModifyVisible:false,
       dialogAddVisible:false,
+
+      imageUrl: '',
+      domainName: 'http://qx39axhir.hn-bkt.clouddn.com/',
+      postData: {
+        // 填写你的Token
+        token: 'KKzyOI0xy6nFemdh4dyeomGOIOCx_GEgUcgvGOdC:rKmMc8qle1aMjkQhkIds385pkxU=:eyJzY29wZSI6ImludGVsbGlvcmRlciIsImRlYWRsaW5lIjoxNjI3ODg4NTM4fQ==',
+      },
       formInline: {
         id: '',
         name: '',
@@ -310,18 +317,21 @@ export default {
 
   mounted() {
     this.update()
-    /*let path ="/Data/dishes.json";
-    this.axios.get(path).then((response)=>{
-      console.log(response)
-      //返回的数据赋值
-      this.tableDataList = response.data.data
-    })*/
   },
 
   methods:{
 
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      console.log('上传成功');
+      this.$message({
+        message: '上传成功!',
+        type: 'success'
+      })
+      console.log(res);
+      this.imageUrl=this.domainName+res.key;
+      console.log(this.imageUrl);
+      this.modifyForm.dishImage=this.imageUrl
+      this.addForm.dishImage=this.imageUrl
     },
 
     beforeAvatarUpload(file) {
@@ -340,25 +350,7 @@ export default {
       this.$message.error("上传失败,请重新上传图片!");
     },
 
-    handleAvatarSuccess1(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
 
-    beforeAvatarUpload1(file) {
-      const isImage = file.type.includes("image");
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isImage) {
-        this.$message.error('上传的格式必须是图片!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传图片大小不能超过 2MB!');
-      }
-      return isImage && isLt2M;
-    },
-
-    handleError1(){
-      this.$message.error("上传失败,请重新上传图片!");
-    },
 
     changeSwitch(event,row,index){
       let path = api.path + "/dish/dish/updateDishState";
@@ -426,6 +418,7 @@ export default {
       this.axios.post(path,qs.stringify({"dishId":row.dishId})).then((response) => {
         console.log(response)
         this.modifyForm = response.data.data
+        this.imageUrl=response.data.data.dishImage
       })
       //调用后端方法显示修改之前的信息
     },
@@ -470,6 +463,7 @@ export default {
 
     closeModify(){
       this.$refs.modifyform.resetFields()
+      this.imageUrl=''
       this.update()
     },
 
@@ -503,6 +497,7 @@ export default {
 
     closeAdd(){
       this.$refs.addform.resetFields()
+      this.imageUrl=''
       this.update()
     }
   }
