@@ -80,19 +80,19 @@ export default {
           (response)=>{
             console.log(response)
             if (response.data.data.staffType==='管理员'){
-              this.$router.push({path:'/Admin/AdminInformation'})
+              this.$router.push({path:'/admin/admindishmanage'})
               localStorage.setItem("staffId",response.data.data.staffId)
             }
             if (response.data.data.staffType==='服务员'){
-              this.$router.push({path:'/Waiter/WaiterInformation'})
+              this.$router.push({path:'/waiter/service'})
               localStorage.setItem("staffId",response.data.data.staffId)
             }
             if (response.data.data.staffType==='后厨'){
-              this.$router.push({path:'/Cook/CookerInformation'})
+              this.$router.push({path:'/cook/cookDishlist'})
               localStorage.setItem("staffId",response.data.data.staffId)
             }
             if (response.data.data.staffType==='前台'){
-              this.$router.push({path:'/Reception/ReceptionInformation'})
+              this.$router.push({path:'/reception/orderList'})
               localStorage.setItem("staffId",response.data.data.staffId)
             }
           })
