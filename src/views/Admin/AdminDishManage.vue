@@ -85,7 +85,7 @@
           prop="dishImage"
           label="菜品图片">
         <template slot-scope="scope">
-          <el-image :src="scope.row.dishImage" lazy>
+          <el-image :src="scope.row.dishImage">
             <div slot="error" class="image-slot">
               <i class="el-icon-picture-outline"></i>
             </div>
@@ -304,7 +304,7 @@ export default {
         dishImage:[{message:'请添加菜品图片', trigger: 'blur'}],
         costPrice:[{required:true,message:'请输入菜品成本', trigger: 'blur'}],
         dishPrice:[{required:true,message:'请输入菜品价格', trigger: 'blur'}],
-        dishDesc:[{message:'请输入菜品描述', trigger: 'blur'}]
+        dishDesc:[{required:true,message:'请输入菜品描述', trigger: 'blur'}]
       },
       modifyRules:{
         dishName:[{required:true,message:'请输入菜品名称', trigger: 'blur'}],
@@ -352,8 +352,6 @@ export default {
     handleError(){
       this.$message.error("上传失败,请重新上传图片!");
     },
-
-
 
     changeSwitch(event,row,index){
       let path = api.path + "/dish/dish/updateDishState";
@@ -445,7 +443,7 @@ export default {
             type: 'success'
           })
         }else if(response.data.status==='404'){
-          this.$message.error('请求失败！')
+          this.$message.error('更新失败！')
         }else if(response.data.status==='304'){
           this.$message({
             message: '信息无变动！',
@@ -485,8 +483,18 @@ export default {
         "costPrice":this.addForm.costPrice
       })).then((response) => {
         console.log(response)
+        if(response.data.status==='200'){
+          this.$message({
+            message: '添加成功!',
+            type: 'success'
+          })
+          this.dialogAddVisible = false
+        }else if(response.data.status==='404'){
+          this.$message.error('添加失败！')
+        }else{
+          this.$message.error('发生错误！')
+        }
       })
-      this.dialogAddVisible = false
       this.update()
     },
 
