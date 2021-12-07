@@ -23,19 +23,17 @@
         <el-table-column
           prop="dishName"
           label="菜品名称"
-          width="120"
           align="center">
         </el-table-column>
         <el-table-column
           prop="dishNum"
           label="菜品数目"
-          width="60"
+          width="160"
           align="center">
         </el-table-column>
         <el-table-column
           prop="orderTime"
           label="下单时间"
-          width="140"
           align="center">
         </el-table-column>
         <el-table-column

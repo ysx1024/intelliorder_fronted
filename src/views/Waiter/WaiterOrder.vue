@@ -316,9 +316,9 @@
                    if(response.data.status==='200'){
                      console.log(response.data)
                      this.successif=true
+                     location.reload()
                    }
                  })
-                 //location.reload()
                }
 
              },
